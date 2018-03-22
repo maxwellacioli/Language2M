@@ -1,5 +1,4 @@
-major () empty [
-
-	printout ("Hello World")#	
- 
-]#				 				
+principal () vazio {
+    decimal x;
+    caracter a, b;
+};

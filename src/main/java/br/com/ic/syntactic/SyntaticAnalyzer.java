@@ -18,7 +18,7 @@ public class SyntaticAnalyzer {
 				lexicalAnalyzer);
 
 		// TEST
-		// printTokens(lexicalAnalyzer);
+//		 printTokens(lexicalAnalyzer);
 
 	}
 

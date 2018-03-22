@@ -25,7 +25,7 @@ public class PredictiveAnalyzer {
 	private Stack<Symbol> stack;
 	private Derivation derivation;
 
-	// TODO
+
 	public PredictiveAnalyzer(Grammar grammar, PredictiveTable predictiveTable,
 			LexicalAnalyzer lexicalAnalyzer) {
 

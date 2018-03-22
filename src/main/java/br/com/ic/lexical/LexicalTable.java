@@ -33,44 +33,44 @@ public class LexicalTable {
 
 		lexemMap.put("(", TokenCategory.PARAMBEGIN);
 		lexemMap.put(")", TokenCategory.PARAMEND);
-		lexemMap.put("[", TokenCategory.ESCBEGIN);
-		lexemMap.put("]", TokenCategory.ESCEND);
-		lexemMap.put("{", TokenCategory.ARRAYBEGIN);
-		lexemMap.put("}", TokenCategory.ARRAYEND);
+		lexemMap.put("{", TokenCategory.ESCBEGIN);
+		lexemMap.put("}", TokenCategory.ESCEND);
+		lexemMap.put("[", TokenCategory.ARRAYBEGIN);
+		lexemMap.put("]", TokenCategory.ARRAYEND);
 		lexemMap.put("/$", TokenCategory.COMMENT);
 
 		// Terminador
 
-		lexemMap.put("#", TokenCategory.TERM);
+		lexemMap.put(";", TokenCategory.TERM);
 
 		// Separador
 
 		lexemMap.put(",", TokenCategory.SEP1);
-		lexemMap.put(";", TokenCategory.SEP2);
+		lexemMap.put("|", TokenCategory.SEP2);
 
 		// Palavras-reservadas (comandos e operadores)
 
-		lexemMap.put("char", TokenCategory.TCHAR);
-		lexemMap.put("cchar", TokenCategory.TCCHAR);
-		lexemMap.put("dec", TokenCategory.TDEC);
-		lexemMap.put("int", TokenCategory.TINT);
-		lexemMap.put("logic", TokenCategory.TLOGIC);
-		lexemMap.put("major", TokenCategory.MAJOR);
-		lexemMap.put("if", TokenCategory.PRIF);
-		lexemMap.put("else", TokenCategory.PRELSE);
-		lexemMap.put("elseif", TokenCategory.PRELSEIF);
-		lexemMap.put("iterator", TokenCategory.PRITERATOR);
-		lexemMap.put("while", TokenCategory.PRWHILE);
-		lexemMap.put("do", TokenCategory.PRDO);
-		lexemMap.put("truth", TokenCategory.CONSTLOGIC);
-		lexemMap.put("false", TokenCategory.CONSTLOGIC);
-		lexemMap.put("not", TokenCategory.OPNEGLOGIC);
-		lexemMap.put("and", TokenCategory.OPLOGICAND);
-		lexemMap.put("or", TokenCategory.OPLOGICOR);
-		lexemMap.put("empty", TokenCategory.TEMPTY);
-		lexemMap.put("printout", TokenCategory.PRPRINTOUT);
-		lexemMap.put("readin", TokenCategory.PRREADIN);
-		lexemMap.put("return", TokenCategory.PRRETURN);
+		lexemMap.put("caracter", TokenCategory.TCHAR);
+		lexemMap.put("cadeia", TokenCategory.TCCHAR);
+		lexemMap.put("decimal", TokenCategory.TDEC);
+		lexemMap.put("inteiro", TokenCategory.TINT);
+		lexemMap.put("logico", TokenCategory.TLOGIC);
+		lexemMap.put("principal", TokenCategory.MAJOR);
+		lexemMap.put("se", TokenCategory.PRIF);
+		lexemMap.put("entao", TokenCategory.PRELSE);
+		lexemMap.put("senao", TokenCategory.PRELSEIF);
+		lexemMap.put("iterador", TokenCategory.PRITERATOR);
+		lexemMap.put("enquanto", TokenCategory.PRWHILE);
+		lexemMap.put("execute", TokenCategory.PRDO);
+		lexemMap.put("verdade", TokenCategory.CONSTLOGIC);
+		lexemMap.put("falso", TokenCategory.CONSTLOGIC);
+		lexemMap.put("no", TokenCategory.OPNEGLOGIC);
+		lexemMap.put("e", TokenCategory.OPLOGICAND);
+		lexemMap.put("ou", TokenCategory.OPLOGICOR);
+		lexemMap.put("vazio", TokenCategory.TEMPTY);
+		lexemMap.put("imprima", TokenCategory.PRPRINTOUT);
+		lexemMap.put("leia", TokenCategory.PRREADIN);
+		lexemMap.put("retorne", TokenCategory.PRRETURN);
 		
 		// Simbolos que podem indicador proximo token
 		symbolList.add(' ');

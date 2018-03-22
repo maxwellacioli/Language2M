@@ -1,14 +1,16 @@
 package br.com.ic.analyzer;
 
 import br.com.ic.lexical.LexicalAnalyzer;
+import br.com.ic.semantic.SemanticAnalyzer;
 import br.com.ic.syntactic.SyntaticAnalyzer;
 
 
 public class Analyzer2M {
 	private static LexicalAnalyzer lexicalAnalyzer;
 	private static SyntaticAnalyzer syntaticAnalyzer;
+	private static SemanticAnalyzer semanticAnalyzer;
 
-	private static String filePath = "files/input/test.2m";
+	private static String filePath = "files/input/hello.2m";
 
 	public Analyzer2M() {
 
@@ -21,5 +23,8 @@ public class Analyzer2M {
 		
 		syntaticAnalyzer = new SyntaticAnalyzer(lexicalAnalyzer);
 		syntaticAnalyzer.analyze();
+
+//		semanticAnalyzer = new SemanticAnalyzer();
+//		semanticAnalyzer.print();
 	}
 }

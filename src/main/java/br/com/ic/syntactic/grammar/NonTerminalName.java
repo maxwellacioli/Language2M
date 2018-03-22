@@ -43,7 +43,8 @@ public enum NonTerminalName {
 	ITERATOR(39),
 	RETURN(40),
 	RETURNFAT(41),
-	EXPRESSION(42);
+	EXPRESSION(42),
+	VARIABLE(43);
 	
 	private int nonTerminalValue;
 	

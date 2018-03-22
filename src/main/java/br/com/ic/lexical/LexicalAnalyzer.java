@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale.Category;
 
 import br.com.ic.lexical.LexicalTable;
 import br.com.ic.lexical.Token;
@@ -95,7 +94,7 @@ public class LexicalAnalyzer {
 
 		currentChar = line.charAt(currentColumn);
 
-		// Ignora sequ�ncia de espa�os vazios
+		// Ignora sequencia de espacos vazios
 		while (currentChar == ' ' || currentChar == '\t') {
 			currentChar = nextChar();
 			tkBeginColumn++;
