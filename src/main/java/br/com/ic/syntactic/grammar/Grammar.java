@@ -10,8 +10,9 @@ public class Grammar {
 	private static Grammar grammarSingleton;
 	private ArrayList<Derivation> grammarMap;
 	private Derivation derivationAux;
-	
-	public static final int EXPRESSION = 75;
+
+	//TODO remover número mágico
+	public static int EXPRESSION;
 	
 	private Grammar() { 
 		
@@ -470,8 +471,9 @@ public class Grammar {
 		
 		// (79)EXPRESSION
 		derivationAux.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
-		// derivationAux.addSymbol(new NonTerminal(NonTerminalName.NAMEFAT));
 		grammarAddDerivation(derivationAux);
+
+		EXPRESSION = grammarMap.size() - 1;
 	}
 
 	private void grammarAddDerivation(Derivation derivation) {		
@@ -479,6 +481,5 @@ public class Grammar {
 		if(derivation != null) {			
 			derivationAux = new Derivation();
 		}
-	}	
-	
+	}
 }

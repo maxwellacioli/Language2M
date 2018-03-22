@@ -1,4 +1,3 @@
 principal () vazio {
-    decimal x;
-    caracter a, b;
+    inteiro a = 5;
 };
