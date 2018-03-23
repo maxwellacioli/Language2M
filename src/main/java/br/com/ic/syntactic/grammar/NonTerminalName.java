@@ -44,7 +44,8 @@ public enum NonTerminalName {
 	RETURN(40),
 	RETURNFAT(41),
 	EXPRESSION(42),
-	VARIABLE(43);
+	VARIABLE(43),
+	CASTING(44);
 	
 	private int nonTerminalValue;
 	

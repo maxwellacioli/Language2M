@@ -209,129 +209,133 @@ public class Grammar {
 		// (35)RETURN
 		derivationAux.addSymbol(new NonTerminal(NonTerminalName.RETURN));
 		grammarAddDerivation(derivationAux);
+
+		// (36)CASTING
+		derivationAux.addSymbol(new NonTerminal(NonTerminalName.CASTING));
+		grammarAddDerivation(derivationAux);
 		
-		// (36)TYPE NAME
+		// (37)TYPE NAME
 		derivationAux.addDerivationSymbols(
 				new NonTerminal(NonTerminalName.TYPE),
 				new Terminal(TokenCategory.ID),
 				new NonTerminal(NonTerminalName.VARIABLE));
 		grammarAddDerivation(derivationAux);
 
-		// (37)'sep1' 'id' VARIABLE
+		// (38)'sep1' 'id' VARIABLE
 		derivationAux.addDerivationSymbols(
 				new Terminal(TokenCategory.SEP1),
 				new Terminal(TokenCategory.ID),
 				new NonTerminal(NonTerminalName.VARIABLE));
 		grammarAddDerivation(derivationAux);
 
-		// (38)ATTRIBUTION
+		// (39)ATTRIBUTION
 		derivationAux.addSymbol(new NonTerminal(NonTerminalName.ATTRIBUTION));
 		grammarAddDerivation(derivationAux);
 
-		// (39) Epsilon
+		// (40) Epsilon
 		grammarAddDerivation(null);
 
-		// (40)ATTRIBUTION
+		// (41)ATTRIBUTION
 		derivationAux.addSymbol(new NonTerminal(NonTerminalName.ATTRIBUTION));
 		grammarAddDerivation(derivationAux);
 		
-		// (41)FUNCCALL
+		// (42)FUNCCALL
 		derivationAux.addSymbol(new NonTerminal(NonTerminalName.FUNCCALL));
 		grammarAddDerivation(derivationAux);
 		
-		// (42)NAMEFAT �opAtrib� VALUE
+		// (43)NAMEFAT �opAtrib� VALUE
 		derivationAux.addDerivationSymbols(
 				new NonTerminal(NonTerminalName.NAMEFAT),
 				new Terminal(TokenCategory.OPATRIB),
 				new NonTerminal(NonTerminalName.VALUE));
 		grammarAddDerivation(derivationAux);
 		
-		// (43)ATTRIBUTION
+		// (44)ATTRIBUTION
 		derivationAux.addSymbol(new NonTerminal(NonTerminalName.ARRAY));
 		grammarAddDerivation(derivationAux);
 		
-		// (44)�arrayBegin� ARRAYFAT
+		// (45)�arrayBegin� ARRAYFAT
 		derivationAux.addDerivationSymbols(
 				new Terminal(TokenCategory.ARRAYBEGIN),
 				new NonTerminal(NonTerminalName.ARRAYFAT));
 		grammarAddDerivation(derivationAux);
 		
-		// (45)ELEMENTS �arrayEnd�
+		// (46)ELEMENTS �arrayEnd�
 		derivationAux.addDerivationSymbols(
 				new NonTerminal(NonTerminalName.ELEMENTS),
 				new Terminal(TokenCategory.ARRAYEND));
 		grammarAddDerivation(derivationAux);		
 		
-		// (46)�arrayEnd�
+		// (47)�arrayEnd�
 		derivationAux.addSymbol(new Terminal(TokenCategory.ARRAYEND));		
 		grammarAddDerivation(derivationAux);
 		
-		// (47)CONSTANT ELEMENTSFAT
+		// (48)CONSTANT ELEMENTSFAT
 		derivationAux.addDerivationSymbols(
 				new NonTerminal(NonTerminalName.CONSTANT),
 				new NonTerminal(NonTerminalName.ELEMENTSFAT));
 		grammarAddDerivation(derivationAux);
 		
-		// (48)�sep1� ELEMENTS
+		// (49)�sep1� ELEMENTS
 		derivationAux.addDerivationSymbols(
 				new Terminal(TokenCategory.SEP1),
 				new NonTerminal(NonTerminalName.ELEMENTS));
 		grammarAddDerivation(derivationAux);
 		
-		// (49)Epsilon
+		// (50)Epsilon
 		grammarAddDerivation(null);
 		
-		// (50)�constNumInt�
+		// (51)�constNumInt�
 		derivationAux.addSymbol(new Terminal(TokenCategory.CONSTNUMINT));		
 		grammarAddDerivation(derivationAux);
 		
-		// (51)�constNumDec�
+		// (52)�constNumDec�
 		derivationAux.addSymbol(new Terminal(TokenCategory.CONSTNUMDEC));		
 		grammarAddDerivation(derivationAux);
 		
-		// (52)�constLogic�
+		// (53)�constLogic�
 		derivationAux.addSymbol(new Terminal(TokenCategory.CONSTLOGIC));		
 		grammarAddDerivation(derivationAux);
 		
-		// (53)�constChar�
+		// (54)�constChar�
 		derivationAux.addSymbol(new Terminal(TokenCategory.CONSTCHAR));		
 		grammarAddDerivation(derivationAux);
 		
-		// (54)�constCchar�
+		// (55)�constCchar�
 		derivationAux.addSymbol(new Terminal(TokenCategory.CONSTCCHAR));		
 		grammarAddDerivation(derivationAux);
 		
-		// (55)�paramBegin� LISTPARAMSCALL �paramEnd�
+		// (56)�paramBegin� LISTPARAMSCALL �paramEnd�
 		derivationAux.addDerivationSymbols(
 				new Terminal(TokenCategory.PARAMBEGIN),
 				new NonTerminal(NonTerminalName.LISTPARAMSCALL),
 				new Terminal(TokenCategory.PARAMEND));
 		grammarAddDerivation(derivationAux);
 		
-		// (56)PARAMITEM LISTPARAMSCALLFAT
+		// (57)PARAMITEM LISTPARAMSCALLFAT
 		derivationAux.addDerivationSymbols(
 				new NonTerminal(NonTerminalName.PARAMITEM),
 				new NonTerminal(NonTerminalName.LISTPARAMSCALLFAT));
 		grammarAddDerivation(derivationAux);
 		
-		// (57)�sep1� LISTPARAMSCALL
+		// (58)�sep1� LISTPARAMSCALL
 		derivationAux.addDerivationSymbols(
 				new Terminal(TokenCategory.SEP1),
 				new NonTerminal(NonTerminalName.LISTPARAMSCALL));
 		grammarAddDerivation(derivationAux);
 		
-		// (58)Epsilon
+		// (59)Epsilon
 		grammarAddDerivation(null);
 		
-		// (59)CONSTANT
+		// (60)CONSTANT
 		derivationAux.addSymbol(new NonTerminal(NonTerminalName.CONSTANT));
 		grammarAddDerivation(derivationAux);
 		
-		// (60)NAME
+		// (61)NAME
 		derivationAux.addSymbol(new NonTerminal(NonTerminalName.NAME));
 		grammarAddDerivation(derivationAux);
 		
-		// (61)�prPrintout� �paramBegin� MESSAGE �paramEnd�
+		// (62)�prPrintout� �paramBegin� MESSAGE �paramEnd�
 		derivationAux.addDerivationSymbols(
 				new Terminal(TokenCategory.PRPRINTOUT),
 				new Terminal(TokenCategory.PARAMBEGIN),
@@ -339,28 +343,28 @@ public class Grammar {
 				new Terminal(TokenCategory.PARAMEND));
 		grammarAddDerivation(derivationAux);
 		
-		// (62)�constCchar� MESSAGEFAT
+		// (63)�constCchar� MESSAGEFAT
 		derivationAux.addDerivationSymbols(
 				new Terminal(TokenCategory.CONSTCCHAR),
 				new NonTerminal(NonTerminalName.MESSAGEFAT));
 		grammarAddDerivation(derivationAux);
 		
-		// (63)NAME MESSAGEFAT
+		// (64)NAME MESSAGEFAT
 		derivationAux.addDerivationSymbols(
 				new NonTerminal(NonTerminalName.NAME),
 				new NonTerminal(NonTerminalName.MESSAGEFAT));
 		grammarAddDerivation(derivationAux);
 
-		// (64)�opConc� MESSAGE
+		// (65)�opConc� MESSAGE
 		derivationAux.addDerivationSymbols(
 				new Terminal(TokenCategory.OPCONC),
 				new NonTerminal(NonTerminalName.MESSAGE));
 		grammarAddDerivation(derivationAux);
 		
-		// (65)Epsilon
+		// (66)Epsilon
 		grammarAddDerivation(null);
 		
-		// (66)�prReadin� �paramBegin� TYPE �sep1� NAME �paramEnd�
+		// (67)�prReadin� �paramBegin� TYPE �sep1� NAME �paramEnd�
 		derivationAux.addDerivationSymbols(
 				new Terminal(TokenCategory.PRREADIN),
 				new Terminal(TokenCategory.PARAMBEGIN),
@@ -370,14 +374,14 @@ public class Grammar {
 				new Terminal(TokenCategory.PARAMEND));
 		grammarAddDerivation(derivationAux);
 		
-		// (67)IF ELSEIF ELSE
+		// (68)IF ELSEIF ELSE
 		derivationAux.addDerivationSymbols(
 				new NonTerminal(NonTerminalName.IF),
 				new NonTerminal(NonTerminalName.ELSEIF),
 				new NonTerminal(NonTerminalName.ELSE));
 		grammarAddDerivation(derivationAux);
 		
-		// (68)�prIf� �paramBegin� EXPRESSION �paramEnd� �escBegin� COMMANDS �escEnd�
+		// (69)�prIf� �paramBegin� EXPRESSION �paramEnd� �escBegin� COMMANDS �escEnd�
 		derivationAux.addDerivationSymbols(
 				new Terminal(TokenCategory.PRIF),
 				new Terminal(TokenCategory.PARAMBEGIN),
@@ -388,7 +392,7 @@ public class Grammar {
 				new Terminal(TokenCategory.ESCEND));
 		grammarAddDerivation(derivationAux);
 		
-		//(69)�prElseIf� paramBegin� EXPRESSION �paramEnd� �escBegin� COMMANDS �escEnd� ELSEIF
+		//(70)�prElseIf� paramBegin� EXPRESSION �paramEnd� �escBegin� COMMANDS �escEnd� ELSEIF
 		derivationAux.addDerivationSymbols(
 				new Terminal(TokenCategory.PRELSEIF), 
 				new Terminal(TokenCategory.PARAMBEGIN), 
@@ -400,10 +404,10 @@ public class Grammar {
 				new NonTerminal(NonTerminalName.ELSEIF));
 		grammarAddDerivation(derivationAux);
 		
-		// (70) Epsilon
+		// (71) Epsilon
 		grammarAddDerivation(null);
 		
-		// (71)�prElse�  �escBegin� COMMANDS �escEnd�
+		// (72)�prElse�  �escBegin� COMMANDS �escEnd�
 		derivationAux.addDerivationSymbols(
 				new Terminal(TokenCategory.PRELSE), 
 				new Terminal(TokenCategory.ESCBEGIN), 
@@ -411,10 +415,10 @@ public class Grammar {
 				new Terminal(TokenCategory.ESCEND));
 		grammarAddDerivation(derivationAux);
 		
-		// (72) Epsilon
+		// (73) Epsilon
 		grammarAddDerivation(null);
 		
-		// (73)�prWhile� �paramBegin� EXPRESSION �paramEnd� �escBegin� COMMANDS �escEnd�
+		// (74)�prWhile� �paramBegin� EXPRESSION �paramEnd� �escBegin� COMMANDS �escEnd�
 		derivationAux.addDerivationSymbols(
 				new Terminal(TokenCategory.PRWHILE), 
 				new Terminal(TokenCategory.PARAMBEGIN), 
@@ -425,7 +429,7 @@ public class Grammar {
 				new Terminal(TokenCategory.ESCEND));
 		grammarAddDerivation(derivationAux);
 		
-		// (74)�prDo� �escBegin� COMMANDS �escEnd� �prWhile� �paramBegin� EXPRESSION �paramEnd�
+		// (75)�prDo� �escBegin� COMMANDS �escEnd� �prWhile� �paramBegin� EXPRESSION �paramEnd�
 		derivationAux.addDerivationSymbols(
 				new Terminal(TokenCategory.PRDO), 
 				new Terminal(TokenCategory.ESCBEGIN), 
@@ -437,7 +441,7 @@ public class Grammar {
 				new Terminal(TokenCategory.PARAMEND));
 		grammarAddDerivation(derivationAux);
 		
-		//  (75)�prIterator� �paramBegin� 'id' ATTRIBUTION �sep2� EXPRESSION �sep2� 'id' ATTRIBUTION
+		//  (76)�prIterator� �paramBegin� 'id' ATTRIBUTION �sep2� EXPRESSION �sep2� 'id' ATTRIBUTION
 	    // �paramEnd� �escBegin� COMMANDS �escEnd�
 		derivationAux.addDerivationSymbols(
 				new Terminal(TokenCategory.PRITERATOR), 
@@ -455,21 +459,29 @@ public class Grammar {
 				new Terminal(TokenCategory.ESCEND));
 		grammarAddDerivation(derivationAux);
 		
-		//  (76)�prReturn� RETURNFAT
+		//  (77)�prReturn� RETURNFAT
 		derivationAux.addDerivationSymbols(
 				new Terminal(TokenCategory.PRRETURN), 
 				new NonTerminal(NonTerminalName.RETURNFAT));
 		grammarAddDerivation(derivationAux);
 		
-		// (77)CONSTANT
+		// (78)CONSTANT
 		derivationAux.addSymbol(new NonTerminal(NonTerminalName.CONSTANT));
 		grammarAddDerivation(derivationAux);
 		
-		// (78)NAME
+		// (79)NAME
 		derivationAux.addSymbol(new NonTerminal(NonTerminalName.NAME));
 		grammarAddDerivation(derivationAux);
-		
-		// (79)EXPRESSION
+
+		// (80)paramBegin TYPE paramEnd id
+		derivationAux.addDerivationSymbols(
+				new Terminal(TokenCategory.PARAMBEGIN),
+				new NonTerminal(NonTerminalName.TYPE),
+				new Terminal(TokenCategory.PARAMEND),
+				new Terminal(TokenCategory.ID));
+		grammarAddDerivation(derivationAux);
+
+		// (81)EXPRESSION
 		derivationAux.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
 		grammarAddDerivation(derivationAux);
 
