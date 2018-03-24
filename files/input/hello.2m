@@ -1,5 +1,13 @@
-principal () vazio {
-    decimal a;
+soma(inteiro a, inteiro b) inteiro {
+    inteiro c;
+    c = a + b;
+    retorne c;
+};
 
-   (inteiro) a;
+principal () vazio {
+    inteiro x, y, w;
+
+    w = soma(x, y);
+
+    imprima(w);
 };

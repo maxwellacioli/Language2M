@@ -1,5 +1,5 @@
-major () empty [
+principal () vazio {
 
-	x = a + b * c#
+	imprima("Olá");
 
-]#
+};

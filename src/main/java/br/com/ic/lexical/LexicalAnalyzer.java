@@ -145,11 +145,11 @@ public class LexicalAnalyzer {
 		}
 
 		if (tkValue == "") {
-			// Verifica��o de constantes inteiras ou decimais
+			// Verificaca~o de constantes inteiras ou decimais
 
 			switch (currentChar) {
 
-			case '"': // Compondo um token que possivelmente � um cchar
+			case '"': // Compondo um token que possivelmente e' um cchar
 
 				tkValue += currentChar;
 				currentChar = nextChar();
@@ -160,7 +160,7 @@ public class LexicalAnalyzer {
 					break;
 				}
 
-				// Buscar os pr�ximos caracteres at� que encontre uma ", ou
+				// Buscar os pro'ximos caracteres ate' que encontre uma ", ou
 				// acabe a linha
 				while (currentChar != LINE_BREAK) {
 					tkValue += currentChar;
@@ -196,7 +196,7 @@ public class LexicalAnalyzer {
 				}
 				break;
 
-			case '\'': // Compondo um token que possivelmente � um char
+			case '\'': // Compondo um token que possivelmente e' um char
 
 				tkValue += currentChar;
 
@@ -320,8 +320,8 @@ public class LexicalAnalyzer {
 
 	private boolean isOpNegUnary(String tkValue) {
 
-		if (tkValue.equals("-")) { // Decide se o - � o operador aditivo ou se �
-									// o un�rio negativo
+		if (tkValue.equals("-")) { // Decide se o - e' o operador aditivo ou se e'
+									// o una'rio negativo
 
 			Character previousChar = previousNotBlankChar();
 			if ((previousChar != null)
@@ -355,7 +355,7 @@ public class LexicalAnalyzer {
 			return true;
 		} else if (tkValue.startsWith("\"")) {
 			printError(
-					"cadeia de caracteres n�o fechada corretamente com '\"'.",
+					"cadeia de caracteres na~o fechada corretamente com '\"'.",
 					tkValue);
 		}
 		return false;
@@ -365,7 +365,7 @@ public class LexicalAnalyzer {
 		if (tkValue.matches("'(.?)'")) {
 			return true;
 		} else if (tkValue.startsWith("'")) {
-			printError("caracter n�o fechado corretamente com '.", tkValue);
+			printError("caracter na~o fechado corretamente com '.", tkValue);
 		}
 		return false;
 	}
@@ -379,27 +379,27 @@ public class LexicalAnalyzer {
 				printError("identificador muito longo.", tkValue);
 			}
 
-			// Caso em que o identificador n�o come�a com o caractere esperado.
-			// Tamb�m n�o considera tkValue que come�a com ", ' ou n�mero pois
+			// Caso em que o identificador nao comeca com o caractere esperado.
+			// Tambem neo considera tkValue que comeca com ", ' ou numero pois
 			// caso
-			// algum tkValue nessa condi��o chegue at� aqui, � um cchar ou um
+			// algum tkValue nessa condicao chegue ate aqui, e' um cchar ou um
 			// char que
-			// n�o foi propriamente fechado, ou uma constante decimal em formato
+			// nao foi propriamente fechado, ou uma constante decimal em formato
 			// errado.
 		} else if (tkValue.matches("[^_a-zA-Z\"'].*")) {
-			printError("identificador n�o iniciado com letra ou '_'.", tkValue);
+			printError("identificador nao iniciado com letra ou '_'.", tkValue);
 
 			// Caso em que o identificador come�a com o caracter esperado, mas
 			// cont�m algum caracter inv�lido,
 		} else if (tkValue.matches("[_a-zA-Z].*")) {
-			printError("identificador cont�m caracter inv�lido.", tkValue);
+			printError("identificador contem caracter invalido.", tkValue);
 
 		}
 		return false;
 	}
 
 	private void printError(String string, String token) {
-		System.err.println("Erro na <linha, coluna> " + "= <" + currentLine
+		System.err.println("Erro na <linha, coluna> " + "= <" + (currentLine + 1)
 				+ "," + currentColumn + ">. " + "'" + token + "'" + " "
 				+ string);
 		System.exit(1);
