@@ -52,6 +52,7 @@ public class LexicalTable {
 
 		lexemMap.put("caracter", TokenCategory.TCHAR);
 		lexemMap.put("cadeia", TokenCategory.TCCHAR);
+		lexemMap.put("longo", TokenCategory.TLONG);
 		lexemMap.put("decimal", TokenCategory.TDEC);
 		lexemMap.put("inteiro", TokenCategory.TINT);
 		lexemMap.put("logico", TokenCategory.TLOGIC);

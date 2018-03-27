@@ -1,5 +1,7 @@
 principal () vazio {
 
-	imprima("Olá");
+	longo a;
+
+	decimal x, y;
 
 };
