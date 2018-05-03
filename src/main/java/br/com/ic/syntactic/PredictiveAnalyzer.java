@@ -1,10 +1,10 @@
 package br.com.ic.syntactic;
-
+//
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-import br.com.ic.semantic.DerivationTree;
+//import br.com.ic.semantic.DerivationTree;
 import br.com.ic.syntactic.grammar.Derivation;
 import br.com.ic.syntactic.grammar.Grammar;
 import br.com.ic.syntactic.grammar.NonTerminal;
@@ -22,7 +22,7 @@ public class PredictiveAnalyzer {
 	private PredictiveTable predictiveTable;
 	private LexicalAnalyzer lexicalAnalyzer;
 	private PrecedenceAnalyzer precedenceAnalyzer;
-	private DerivationTree derivationTree;
+//	private DerivationTree derivationTree;
 
 	private Stack<Symbol> stack;
 	private Derivation derivation;
@@ -31,7 +31,7 @@ public class PredictiveAnalyzer {
 	public PredictiveAnalyzer(Grammar grammar, PredictiveTable predictiveTable,
 			LexicalAnalyzer lexicalAnalyzer) {
 
-		this.derivationTree = new DerivationTree();
+//		this.derivationTree = new DerivationTree();
 		this.grammar = grammar;
 		this.predictiveTable = predictiveTable;
 		this.lexicalAnalyzer = lexicalAnalyzer;
