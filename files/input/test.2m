@@ -1,5 +1,7 @@
 principal () vazio {
 
-	longo a;
+    iterador(a = 0 ; a < b ; a = a + 1) {
+
+    };
 
 };

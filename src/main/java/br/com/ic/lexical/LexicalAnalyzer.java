@@ -227,7 +227,7 @@ public class LexicalAnalyzer {
 				break;
 
 			case '+': // Compondo um token que pode ser operador aditivo, de
-						// concatena��o ou constante num�rica
+						// concatenacao ou constante numurica
 				tkValue += currentChar;
 				currentChar = nextChar();
 

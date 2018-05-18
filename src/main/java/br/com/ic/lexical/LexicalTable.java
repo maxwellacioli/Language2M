@@ -39,14 +39,14 @@ public class LexicalTable {
 		lexemMap.put("]", TokenCategory.ARRAYEND);
 		lexemMap.put("/$", TokenCategory.COMMENT);
 
-		// Terminador
-
-		lexemMap.put(";", TokenCategory.TERM);
+//		// Terminador
+//
+//		lexemMap.put(";", TokenCategory.TERM);
 
 		// Separador
 
 		lexemMap.put(",", TokenCategory.SEP1);
-		lexemMap.put("|", TokenCategory.SEP2);
+		lexemMap.put(";", TokenCategory.SEP2);
 
 		// Palavras-reservadas (comandos e operadores)
 

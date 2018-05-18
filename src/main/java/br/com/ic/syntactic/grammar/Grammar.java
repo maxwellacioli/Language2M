@@ -159,13 +159,13 @@ public class Grammar {
 				new Terminal(TokenCategory.ESCBEGIN),
 				new NonTerminal(NonTerminalName.COMMANDS),
 				new Terminal(TokenCategory.ESCEND),
-				new Terminal(TokenCategory.TERM));
+				new Terminal(TokenCategory.SEP2));
 		grammarAddDerivation(derivationAux);
 		
 		// (25)CMD �term� COMMANDS 
 		derivationAux.addDerivationSymbols(
 				new NonTerminal(NonTerminalName.CMD),
-				new Terminal(TokenCategory.TERM),
+				new Terminal(TokenCategory.SEP2),
 				new NonTerminal(NonTerminalName.COMMANDS));
 		grammarAddDerivation(derivationAux);
 		
@@ -459,21 +459,13 @@ public class Grammar {
 				new Terminal(TokenCategory.ESCEND));
 		grammarAddDerivation(derivationAux);
 		
-		//  (77)�prReturn� RETURNFAT
+		//  (77)'prReturn' EXPRESSION
 		derivationAux.addDerivationSymbols(
 				new Terminal(TokenCategory.PRRETURN), 
-				new NonTerminal(NonTerminalName.RETURNFAT));
+				new NonTerminal(NonTerminalName.EXPRESSION));
 		grammarAddDerivation(derivationAux);
 		
-		// (78)CONSTANT
-		derivationAux.addSymbol(new NonTerminal(NonTerminalName.CONSTANT));
-		grammarAddDerivation(derivationAux);
-		
-		// (79)NAME
-		derivationAux.addSymbol(new NonTerminal(NonTerminalName.NAME));
-		grammarAddDerivation(derivationAux);
-
-		// (80)paramBegin TYPE paramEnd id
+		// (78)'paramBegin' TYPE 'paramEnd' 'id'
 		derivationAux.addDerivationSymbols(
 				new Terminal(TokenCategory.PARAMBEGIN),
 				new NonTerminal(NonTerminalName.TYPE),
@@ -481,7 +473,7 @@ public class Grammar {
 				new Terminal(TokenCategory.ID));
 		grammarAddDerivation(derivationAux);
 
-		// (81)EXPRESSION
+		// (79)EXPRESSION
 		derivationAux.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
 		grammarAddDerivation(derivationAux);
 

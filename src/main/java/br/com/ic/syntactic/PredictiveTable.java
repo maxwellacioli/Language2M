@@ -95,8 +95,8 @@ public class PredictiveTable {
 
 		terminaisMap.put(TokenCategory.PARAMEND, 22);
 		terminaisMap.put(TokenCategory.ARRAYBEGIN, 21);
-		terminaisMap.put(TokenCategory.TERM, 22);
 		terminaisMap.put(TokenCategory.SEP1, 22);
+		terminaisMap.put(TokenCategory.SEP2, 22);
 		terminaisMap.put(TokenCategory.OPATRIB, 22);
 		terminaisMap.put(TokenCategory.OPCONC, 22);
 		predectiveTableMap.put(NonTerminalName.NAMEFAT, terminaisMap);
@@ -155,7 +155,7 @@ public class PredictiveTable {
 		terminaisMap.put(TokenCategory.SEP1, 37);
 		terminaisMap.put(TokenCategory.OPATRIB, 38);
 		terminaisMap.put(TokenCategory.ARRAYBEGIN, 38);
-		terminaisMap.put(TokenCategory.TERM, 39);
+		terminaisMap.put(TokenCategory.SEP2, 39);
 		predectiveTableMap.put(NonTerminalName.VARIABLE, terminaisMap);
 		terminaisMap = new HashMap<TokenCategory, Integer>();
 
@@ -263,12 +263,12 @@ public class PredictiveTable {
 
 		terminaisMap.put(TokenCategory.PRELSEIF, 69);
 		terminaisMap.put(TokenCategory.PRELSE, 70);
-		terminaisMap.put(TokenCategory.TERM, 70);
+		terminaisMap.put(TokenCategory.SEP2, 70);
 		predectiveTableMap.put(NonTerminalName.ELSEIF, terminaisMap);
 		terminaisMap = new HashMap<TokenCategory, Integer>();
 
 		terminaisMap.put(TokenCategory.PRELSE, 71);
-		terminaisMap.put(TokenCategory.TERM, 72);
+		terminaisMap.put(TokenCategory.SEP2, 72);
 		predectiveTableMap.put(NonTerminalName.ELSE, terminaisMap);
 		terminaisMap = new HashMap<TokenCategory, Integer>();
 
@@ -288,16 +288,7 @@ public class PredictiveTable {
 		predectiveTableMap.put(NonTerminalName.RETURN, terminaisMap);
 		terminaisMap = new HashMap<TokenCategory, Integer>();
 
-		terminaisMap.put(TokenCategory.ID, 78);
-		terminaisMap.put(TokenCategory.CONSTNUMINT, 77);
-		terminaisMap.put(TokenCategory.CONSTNUMDEC, 77);
-		terminaisMap.put(TokenCategory.CONSTLOGIC, 77);
-		terminaisMap.put(TokenCategory.CONSTCHAR, 77);
-		terminaisMap.put(TokenCategory.CONSTCCHAR, 77);
-		predectiveTableMap.put(NonTerminalName.RETURNFAT, terminaisMap);
-		terminaisMap = new HashMap<TokenCategory, Integer>();
-
-		terminaisMap.put(TokenCategory.PARAMBEGIN, 79);
+		terminaisMap.put(TokenCategory.PARAMBEGIN, 77);
 		predectiveTableMap.put(NonTerminalName.CASTING, terminaisMap);
 		terminaisMap = new HashMap<TokenCategory, Integer>();
 

@@ -12,7 +12,7 @@ public class Analyzer2M {
 	private static SemanticAnalyzer semanticAnalyzer;
 //	private static DerivationTree derivationTree;
 
-	private static String filePath = "files/input/test.2m";
+	private static String filePath = "files/input/hello.2m";
 
 	public Analyzer2M() {
 
