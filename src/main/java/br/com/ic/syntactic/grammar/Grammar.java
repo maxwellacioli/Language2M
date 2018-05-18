@@ -59,7 +59,7 @@ public class Grammar {
 				new Terminal(TokenCategory.MAJOR), 
 				new Terminal(TokenCategory.PARAMBEGIN),
 				new Terminal(TokenCategory.PARAMEND),
-				new Terminal(TokenCategory.TEMPTY),
+				new Terminal(TokenCategory.TINT),
 				new NonTerminal(NonTerminalName.ESCOPE));
 		grammarAddDerivation(derivationAux);
 

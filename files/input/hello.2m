@@ -1,7 +1,7 @@
 soma(inteiro a, inteiro b) inteiro {
     inteiro c;
     c = a + b;
-    retorne c;
+    retorne 0 + a;
 };
 
 principal () vazio {
