@@ -4,7 +4,7 @@ soma(inteiro a, inteiro b) inteiro {
     retorne 0 + a;
 };
 
-principal () vazio {
+principal () inteiro {
     inteiro x, y, w;
 
     w = soma(x, y);

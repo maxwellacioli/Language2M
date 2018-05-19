@@ -1,4 +1,4 @@
-principal () vazio {
+principal () inteiro {
 
     iterador(a = 0 ; a < b ; a = a + 1) {
 
