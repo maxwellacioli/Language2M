@@ -1,56 +1,51 @@
 package semantic;
 
-import java.util.List;
+import syntactic.grammar.Symbol;
+
 import java.util.ArrayList;
+import java.util.List;
 
-public class Node<T> {
+public class Node {
+    private Node parent;
+    private List<Node> children = new ArrayList<Node>();
+    private Symbol symbol;
 
-    private List<Node<T>> children = new ArrayList<Node<T>>();
-    private Node<T> parent = null;
-    private T data = null;
-
-    public Node(T data) {
-        this.data = data;
+    public Node(Symbol symbol) {
+        this.symbol = symbol;
     }
 
-    public Node(T data, Node<T> parent) {
-        this.data = data;
+    public Node(Symbol symbol, Node parent) {
+        this.symbol = symbol;
         this.parent = parent;
     }
 
-    public List<Node<T>> getChildren() {
-        return children;
-    }
-
-    public void setParent(Node<T> parent) {
+    public void setParent(Node parent) {
         parent.addChild(this);
         this.parent = parent;
     }
 
-    public void addChild(T data) {
-        Node<T> child = new Node<T>(data);
+    public void addChild(Node child) {
         child.setParent(this);
         this.children.add(child);
     }
 
-    public void addChild(Node<T> child) {
-        child.setParent(this);
-        this.children.add(child);
-    }
-
-    public void addChildren(List<Node<T>> children) {
+    public void addChildren(List<Node> children) {
         for(Node n : children) {
             n.setParent(this);
         }
         this.children.addAll(children);
     }
 
-    public T getData() {
-        return this.data;
+    public Symbol getSymbol() {
+        return symbol;
     }
 
-    public void setData(T data) {
-        this.data = data;
+    public Node getParent() {
+        return parent;
+    }
+
+    public void setSymbol(Symbol symbol) {
+        this.symbol = symbol;
     }
 
     public boolean isRoot() {
