@@ -2,12 +2,10 @@ package syntactic.grammar;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import lexical.TokenCategory;
 
 public class OperatorsGrammar {
 	private List<Derivation> operatorGrammarArray;
-	private Derivation operatorDerivation;
 	private List<TokenCategory> operatorsGrammarSymbols;
 	private static OperatorsGrammar operatorsGrammarSingleton;
 
@@ -58,10 +56,12 @@ public class OperatorsGrammar {
 	}
 
 	private void loadOperatorGrammar() {
+		Derivation operatorDerivation = new Derivation();
+
 		// (0)EXPRESSION = EXPRESSION OPLOGICOR EXPRESSION
-		operatorDerivation = new Derivation();
 		operatorDerivation
 				.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
+		operatorDerivation.addSymbol(new Terminal(TokenCategory.OPLOGICOR));
 		operatorDerivation.addSymbol(new Terminal(TokenCategory.OPLOGICOR));
 		operatorDerivation
 				.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));

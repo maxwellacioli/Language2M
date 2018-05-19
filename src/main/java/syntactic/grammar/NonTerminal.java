@@ -3,7 +3,7 @@ package syntactic.grammar;
 public class NonTerminal extends Symbol {
 
 	private NonTerminalName name;
-	private String tipo;
+	private String type;
 	private int index;
 
 	public NonTerminal(NonTerminalName name) {
@@ -23,11 +23,11 @@ public class NonTerminal extends Symbol {
 		this.index = index;
 	}
 	
-	public String getTipo() {
-		return tipo;
+	public String getType() {
+		return type;
 	}
 	
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public void setType(String type) {
+		this.type = type;
 	}
 }

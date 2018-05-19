@@ -129,11 +129,11 @@ public class PrecedenceAnalyzer {
 					}
 					checkEndOfSentence(token);
 
-				} else if (tableValue > PrecedenceTable.ELT) { // A��o Reduz
+				} else if (tableValue > PrecedenceTable.ELT) { // Acao Reduz
 
-					// Se a produ��o for 10(9), sera necessario 2 a��es pop para
+					// Se a producao for 10(9), sera necessario 2 acoes pop para
 					// tirar o '(' e ')'
-					// referente a produ��o EXPRESSION = PARAMBEGIN EXPRESSION
+					// referente a producao EXPRESSION = PARAMBEGIN EXPRESSION
 					// PARAMEND
 
 					if (tableValue >= PrecedenceTable.R11 && tableValue <= PrecedenceTable.R16) {
@@ -254,7 +254,7 @@ public class PrecedenceAnalyzer {
 					}
 					System.out.println();
 
-				} else { // A��o ERRO
+				} else { // Acao ERRO
 					SyntaticAnalyzer.printError(token);
 					System.exit(1);
 				}
