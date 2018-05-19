@@ -1,9 +1,9 @@
-package br.com.ic.analyzer;
+package analyzer;
 
-import br.com.ic.lexical.LexicalAnalyzer;
-//import br.com.ic.semantic.DerivationTree;
-import br.com.ic.semantic.SemanticAnalyzer;
-import br.com.ic.syntactic.SyntaticAnalyzer;
+import lexical.LexicalAnalyzer;
+//import semantic.DerivationTree;
+import semantic.SemanticAnalyzer;
+import syntactic.SyntaticAnalyzer;
 
 
 public class Analyzer2M {
