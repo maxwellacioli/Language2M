@@ -2,7 +2,7 @@ package lexical;
 
 public class Token {
 	
-	private String value;
+	private String lexValue;
 	private TokenCategory category;
 	private int line;
 	private int column;
@@ -14,15 +14,15 @@ public class Token {
 	
 	@Override
 	public String toString() {
-		return "<" + line + "," + column + "> " + category + " = '" + value + "'";
+		return "<" + line + "," + column + "> " + category + " = '" + lexValue + "'";
 	}
 
-	public String getValue() {
-		return value;
+	public String getLexValue() {
+		return lexValue;
 	}
 
-	public void setValue(String value) {
-		this.value = value;
+	public void setLexValue(String lexValue) {
+		this.lexValue = lexValue;
 	}
 
 	public TokenCategory getCategory() {

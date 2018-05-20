@@ -1,4 +1,12 @@
 package semantic;
 
-public class VarType {
+public enum VarType {
+
+    INTEIRO,
+    REAL,
+    CARACTER,
+    CADEIA,
+    LONGO,
+    LOGICO;
+
 }

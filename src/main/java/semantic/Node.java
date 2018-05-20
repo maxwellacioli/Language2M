@@ -7,16 +7,18 @@ import java.util.List;
 
 public class Node {
     private Node parent;
-    private List<Node> children = new ArrayList<Node>();
+    private List<Node> children;
     private Symbol symbol;
 
-    public Node(Symbol symbol) {
+    public Node(Node parent, Symbol symbol) {
+        children = new ArrayList<Node>();
+        this.parent = parent;
         this.symbol = symbol;
     }
 
-    public Node(Symbol symbol, Node parent) {
-        this.symbol = symbol;
-        this.parent = parent;
+    public Node(Symbol symbol) {
+        new Node(null, symbol);
+        children = new ArrayList<Node>();
     }
 
     public void setParent(Node parent) {
@@ -34,6 +36,10 @@ public class Node {
             n.setParent(this);
         }
         this.children.addAll(children);
+    }
+
+    public List<Node> getChildren() {
+        return children;
     }
 
     public Symbol getSymbol() {

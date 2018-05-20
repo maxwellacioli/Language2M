@@ -1,6 +1,9 @@
 package syntactic;
 
 import java.util.Stack;
+
+import semantic.DerivationTree;
+import semantic.Node;
 import syntactic.grammar.Derivation;
 import syntactic.grammar.Grammar;
 import syntactic.grammar.NonTerminal;
@@ -21,6 +24,7 @@ public class PredictiveAnalyzer {
 
 	private Stack<Symbol> stack;
 	private Derivation derivation;
+	private Node node;
 
 
 	public PredictiveAnalyzer(Grammar grammar, PredictiveTable predictiveTable,
@@ -38,7 +42,7 @@ public class PredictiveAnalyzer {
 	public void predictiveAnalyze() {
 
 		Symbol topSymbol;
-		Token token = new Token();
+		Token token;
 		Terminal terminal;
 		NonTerminal topNonTerminal;
 		Integer derivationNumber;
@@ -52,7 +56,13 @@ public class PredictiveAnalyzer {
 			token = lexicalAnalyzer.nextToken();
 
 			terminal = new Terminal(token);
-			stack.push(new NonTerminal(NonTerminalName.PROGRAM));
+			NonTerminal program = new NonTerminal(NonTerminalName.PROGRAM);
+			stack.push(program);
+
+			node = new Node(program);
+			DerivationTree derivationTree = DerivationTree.getInstance();
+			derivationTree.setRoot(node);
+
 			prodCount.push(1);
 
 			while (!stack.isEmpty()) {

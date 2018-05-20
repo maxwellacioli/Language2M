@@ -1,7 +1,5 @@
 principal () inteiro {
 
-    iterador(a = 0 ; a < b ; a = a + 1) {
-
-    };
+    inteiro a;
 
 };

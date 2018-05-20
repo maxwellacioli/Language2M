@@ -19,7 +19,7 @@ public class Terminal extends Symbol {
 
 		super(true, category.getCategoryValue());
 		this.category = category;
-		token = new Token();;
+		token = new Token();
 	}
 
 	public Terminal(Token token) {
@@ -33,11 +33,11 @@ public class Terminal extends Symbol {
 	}
 
 	public String getTerminalValue() {
-		return token.getValue();
+		return token.getLexValue();
 	}
 
-	public void setTerminalValue(String value) {
-		token.setValue(value);
+	public void setTerminalValue(String lexValue) {
+		token.setLexValue(lexValue);
 	}
 
 	public Token getTerminalToken() {

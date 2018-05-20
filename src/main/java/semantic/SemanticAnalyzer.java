@@ -42,7 +42,7 @@ public class SemanticAnalyzer {
     }
 
     //TODO implementar
-    public VarType checkType(String label) {
+    public VarType checkType(String varName) {
 
         return null;
     }

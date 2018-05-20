@@ -1,9 +1,11 @@
 package syntactic.grammar;
 
+import semantic.VarType;
+
 public class NonTerminal extends Symbol {
 
 	private NonTerminalName name;
-	private String type;
+	private VarType type;
 	private int index;
 
 	public NonTerminal(NonTerminalName name) {
@@ -23,11 +25,11 @@ public class NonTerminal extends Symbol {
 		this.index = index;
 	}
 	
-	public String getType() {
+	public VarType getType() {
 		return type;
 	}
 	
-	public void setType(String type) {
+	public void setType(VarType type) {
 		this.type = type;
 	}
 }
