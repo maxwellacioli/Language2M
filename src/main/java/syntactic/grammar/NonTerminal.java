@@ -2,7 +2,7 @@ package syntactic.grammar;
 
 import semantic.VarType;
 
-public class NonTerminal extends Symbol {
+public class NonTerminal extends GrammarSymbol {
 
 	private NonTerminalName name;
 	private VarType type;

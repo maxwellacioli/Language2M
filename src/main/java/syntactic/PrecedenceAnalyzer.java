@@ -6,7 +6,7 @@ import java.util.Stack;
 import syntactic.grammar.NonTerminal;
 import syntactic.grammar.NonTerminalName;
 import syntactic.grammar.OperatorsGrammar;
-import syntactic.grammar.Symbol;
+import syntactic.grammar.GrammarSymbol;
 import syntactic.grammar.Terminal;
 import lexical.LexicalAnalyzer;
 import lexical.Token;
@@ -14,7 +14,7 @@ import lexical.TokenCategory;
 
 public class PrecedenceAnalyzer {
 	private LexicalAnalyzer lexicalAnalyzer;
-	private Stack<Symbol> operatorsStack;
+	private Stack<GrammarSymbol> operatorsStack;
 	private Token endOfSentence;
 	private Terminal currentTerm;
 	private PrecedenceTable precedenceTable;
@@ -26,7 +26,7 @@ public class PrecedenceAnalyzer {
 
 	public PrecedenceAnalyzer(LexicalAnalyzer lexicalAnalyzer) {
 		this.lexicalAnalyzer = lexicalAnalyzer;
-		operatorsStack = new Stack<Symbol>();
+		operatorsStack = new Stack<GrammarSymbol>();
 		precedenceTable = PrecedenceTable.getInstance();
 	}
 
@@ -56,12 +56,40 @@ public class PrecedenceAnalyzer {
 		}
 	}
 
+//	private void printRedution(Stack<GrammarSymbol> operatorsStack, int elementsToPop) {
+////		System.out.print(NonTerminalName.EXPRESSION + "(" + count++ + ")" + " = ");
+//		GrammarSymbol grammarSymbol;
+//		Terminal term;
+//		System.out.print(NonTerminalName.EXPRESSION + " = ");
+//
+//		for (int i = 0 ; i < elementsToPop ; i--) {
+//			grammarSymbol = operatorsStack.pop();
+//
+//			if (grammarSymbol.isTerminal()) {
+//				term = ((Terminal) grammarSymbol).getCategory();
+//				if (term.getCategoryValue() >= TokenCategory.CONSTNUMINT.getCategoryValue()
+//						&& term.getCategoryValue() <= TokenCategory.CONSTCCHAR.getCategoryValue()
+//						|| term.equals(TokenCategory.ID)) {
+//					System.out.print(term + "(" + "\"" + currentTerm.getTerminalValue() + "\"" + ")" + " ");
+//				} else {
+//
+//					System.out.print(term + " ");
+//				}
+//			} else {
+//				nonTerm = (NonTerminal) grammarSymbol;
+//				System.out.print(nonTerm.getName() + " ");
+//			}
+//		}
+//		System.out.println();
+//	}
+
 	private int getIndexOfTerminalSymbol(Terminal terminal) {
 		return OperatorsGrammar.getInstance().getOperatorsGrammarSymbols().indexOf(terminal.getCategory());
 	}
 
 	private void handlerError() {
-		System.err.println("Handler invalido para reducao!");
+//		throw new RuntimeException("Handler invalido para reducao!");
+		System.out.println("Error");
 		System.exit(1);
 	}
 
@@ -76,7 +104,7 @@ public class PrecedenceAnalyzer {
 
 		System.out.println();
 		while (true) {
-			// Se pv e eof no cabe�ote => Aceita!
+			// Se pv e eof no cabecote => Aceita!
 
 			if ((operatorsStack.size() == 1) && !operatorsStack.peek().isTerminal() && (endOfSentence != null)) {
 				System.out.println();
@@ -86,7 +114,7 @@ public class PrecedenceAnalyzer {
 						|| operatorsStack.isEmpty()) {
 					tableAux = OperatorsGrammar.getInstance().getOperatorsGrammarSymbols().size();
 
-					// Se pv e terminal no cabe�ote
+					// Se pv e terminal no cabecote
 					if (operatorsStack.isEmpty()
 							|| ((operatorsStack.size() == 1) && !operatorsStack.peek().isTerminal())) {
 						tapeTerm = new Terminal(token);
@@ -94,7 +122,7 @@ public class PrecedenceAnalyzer {
 						tableValue = precedenceTable.getPrecedenceTableList().get(tableAux)
 								.get(getIndexOfTerminalSymbol(tapeTerm));
 
-					} // Se terminal no top da pilha e eof no cabe�ote
+					} // Se terminal no top da pilha e eof no cabecote
 					else {
 						if (!operatorsStack.peek().isTerminal()) {
 							stackTerm = (Terminal) operatorsStack.elementAt(operatorsStack.size() - 2);
@@ -118,9 +146,9 @@ public class PrecedenceAnalyzer {
 
 				}
 
-				// Verifica��o da a��o
+				// Verificacao da acao
 
-				if (tableValue == PrecedenceTable.ELT) { // A��o ELT
+				if (tableValue == PrecedenceTable.ELT) { // Acao ELT
 
 					operatorsStack.push(new Terminal(token));
 
@@ -229,16 +257,16 @@ public class PrecedenceAnalyzer {
 						}
 					}
 					
-					ArrayList<Symbol> derivation = OperatorsGrammar.getInstance().getOperatorDerivation(tableValue - 1)
+					ArrayList<GrammarSymbol> derivation = OperatorsGrammar.getInstance().getOperatorDerivation(tableValue - 1)
 							.getSymbolsList();
 					TokenCategory term;
 					NonTerminal nonTerm;
 
 					System.out.print(NonTerminalName.EXPRESSION + "(" + count++ + ")" + " = ");
 
-					for (Symbol symbol : derivation) {
-						if (symbol.isTerminal()) {
-							term = ((Terminal) symbol).getCategory();
+					for (GrammarSymbol grammarSymbol : derivation) {
+						if (grammarSymbol.isTerminal()) {
+							term = ((Terminal) grammarSymbol).getCategory();
 							if (term.getCategoryValue() >= TokenCategory.CONSTNUMINT.getCategoryValue()
 									&& term.getCategoryValue() <= TokenCategory.CONSTCCHAR.getCategoryValue()
 									|| term.equals(TokenCategory.ID)) {
@@ -248,7 +276,7 @@ public class PrecedenceAnalyzer {
 								System.out.print(term + " ");
 							}
 						} else {
-							nonTerm = (NonTerminal) symbol;
+							nonTerm = (NonTerminal) grammarSymbol;
 							System.out.print(nonTerm.getName() + " ");
 						}
 					}

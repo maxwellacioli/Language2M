@@ -1,6 +1,6 @@
 package semantic;
 
-import syntactic.grammar.Symbol;
+import syntactic.grammar.GrammarSymbol;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,16 +8,16 @@ import java.util.List;
 public class Node {
     private Node parent;
     private List<Node> children;
-    private Symbol symbol;
+    private GrammarSymbol grammarSymbol;
 
-    public Node(Node parent, Symbol symbol) {
+    public Node(Node parent, GrammarSymbol grammarSymbol) {
         children = new ArrayList<Node>();
         this.parent = parent;
-        this.symbol = symbol;
+        this.grammarSymbol = grammarSymbol;
     }
 
-    public Node(Symbol symbol) {
-        new Node(null, symbol);
+    public Node(GrammarSymbol grammarSymbol) {
+        new Node(null, grammarSymbol);
         children = new ArrayList<Node>();
     }
 
@@ -42,16 +42,16 @@ public class Node {
         return children;
     }
 
-    public Symbol getSymbol() {
-        return symbol;
+    public GrammarSymbol getGrammarSymbol() {
+        return grammarSymbol;
     }
 
     public Node getParent() {
         return parent;
     }
 
-    public void setSymbol(Symbol symbol) {
-        this.symbol = symbol;
+    public void setGrammarSymbol(GrammarSymbol grammarSymbol) {
+        this.grammarSymbol = grammarSymbol;
     }
 
     public boolean isRoot() {

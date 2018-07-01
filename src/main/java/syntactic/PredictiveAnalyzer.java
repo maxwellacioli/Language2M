@@ -9,7 +9,7 @@ import syntactic.grammar.Grammar;
 import syntactic.grammar.NonTerminal;
 import syntactic.grammar.NonTerminalName;
 import syntactic.grammar.OperatorsGrammar;
-import syntactic.grammar.Symbol;
+import syntactic.grammar.GrammarSymbol;
 import syntactic.grammar.Terminal;
 import lexical.LexicalAnalyzer;
 import lexical.Token;
@@ -22,10 +22,8 @@ public class PredictiveAnalyzer {
 	private LexicalAnalyzer lexicalAnalyzer;
 	private PrecedenceAnalyzer precedenceAnalyzer;
 
-	private Stack<Symbol> stack;
+	private Stack<GrammarSymbol> stack;
 	private Derivation derivation;
-	private Node node;
-
 
 	public PredictiveAnalyzer(Grammar grammar, PredictiveTable predictiveTable,
 			LexicalAnalyzer lexicalAnalyzer) {
@@ -35,13 +33,13 @@ public class PredictiveAnalyzer {
 		this.lexicalAnalyzer = lexicalAnalyzer;
 		precedenceAnalyzer = new PrecedenceAnalyzer(lexicalAnalyzer);
 
-		stack = new Stack<Symbol>();
+		stack = new Stack<GrammarSymbol>();
 		derivation = new Derivation();
 	}
 
 	public void predictiveAnalyze() {
 
-		Symbol topSymbol;
+		GrammarSymbol topGrammarSymbol;
 		Token token;
 		Terminal terminal;
 		NonTerminal topNonTerminal;
@@ -59,19 +57,15 @@ public class PredictiveAnalyzer {
 			NonTerminal program = new NonTerminal(NonTerminalName.PROGRAM);
 			stack.push(program);
 
-			node = new Node(program);
-			DerivationTree derivationTree = DerivationTree.getInstance();
-			derivationTree.setRoot(node);
-
 			prodCount.push(1);
 
 			while (!stack.isEmpty()) {
 
-				topSymbol = stack.peek();
+				topGrammarSymbol = stack.peek();
 
-				if (topSymbol.isTerminal()) {
+				if (topGrammarSymbol.isTerminal()) {
 
-					if (topSymbol.getValue() == terminal.getValue()) {
+					if (topGrammarSymbol.getValue() == terminal.getValue()) {
 						stack.pop();
 						if (lexicalAnalyzer.hasMoreTokens()) {
 							token = lexicalAnalyzer.nextToken();
@@ -85,7 +79,7 @@ public class PredictiveAnalyzer {
 
 				} else {
 
-					topNonTerminal = (NonTerminal) topSymbol;
+					topNonTerminal = (NonTerminal) topGrammarSymbol;
 
 					if (topNonTerminal.getName() == NonTerminalName.EXPRESSION) {
 						if (!OperatorsGrammar.getInstance()
@@ -98,7 +92,7 @@ public class PredictiveAnalyzer {
 							if (precedenceAnalyzer.precedenceAnalysis(token)) {
 
 								stack.pop();
-								topSymbol = stack.peek();
+								topGrammarSymbol = stack.peek();
 
 								terminal = new Terminal(
 										precedenceAnalyzer.getEndOfSentence());
@@ -133,7 +127,7 @@ public class PredictiveAnalyzer {
 										+ leftCount + ")" + " = ");
 								stack.pop();
 								// TO REMOVE
-								Symbol symb;
+								GrammarSymbol symb;
 								Terminal term;
 								NonTerminal nonTerm;
 

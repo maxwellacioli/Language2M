@@ -245,7 +245,7 @@ public class LexicalAnalyzer {
 
 		token = new Token();
 
-		token.setValue(tkValue);
+		token.setLexValue(tkValue);
 		token.setLine(tkBeginLine);
 		token.setColumn(tkBeginColumn);
 		token.setCategory(analyzeCategory(tkValue));

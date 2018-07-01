@@ -3,7 +3,7 @@ package syntactic.grammar;
 import lexical.Token;
 import lexical.TokenCategory;
 
-public class Terminal extends Symbol {
+public class Terminal extends GrammarSymbol {
 
 	private TokenCategory category;
 	private Token token;

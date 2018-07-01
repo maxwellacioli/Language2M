@@ -8,7 +8,7 @@ public class SemanticAnalyzer {
 
     //TODO implementar
     //Gera um nome de temporario
-    public String temGenerator() {
+    public String tempGenerator() {
         return "";
     }
 

@@ -1,10 +1,10 @@
 package syntactic.grammar;
 
-public class Symbol {
+public class GrammarSymbol {
 	private Boolean isTerminal;
 	private Integer value;
 
-	public Symbol(Boolean isTerminal, Integer value) {
+	public GrammarSymbol(Boolean isTerminal, Integer value) {
 		this.isTerminal = isTerminal;
 		this.value = value;
 	}

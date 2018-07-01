@@ -40,7 +40,7 @@ public class SyntaticAnalyzer {
 
 	public static void printError(Token token) {
 		System.err.println("Erro no token " + token.getCategory() + "("
-				+ token.getValue() + ")," + " na linha " + token.getLine()
+				+ token.getLexValue() + ")," + " na linha " + token.getLine()
 				+ " e coluna " + token.getColumn() + ".");
 	}
 }

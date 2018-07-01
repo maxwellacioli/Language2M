@@ -16,7 +16,7 @@ public class PrecedenceTable {
 	//Empilha e le proximo token
 	public static final int ELT = 0;
 	
-	//Redu��es
+	//Reducoes
 	public static final int R1 = 1;
 	public static final int R2 = 2;
 	public static final int R3 = 3;
@@ -64,7 +64,7 @@ public class PrecedenceTable {
 
 	private void loadTable() {
 
-		// Rela��o 'oparitadit' x (todos os terminais)
+		// Relacao 'oparitadit' x (todos os terminais)
 		lineTable.add(R5);
 		lineTable.add(ELT);
 		lineTable.add(ELT);
@@ -482,7 +482,7 @@ public class PrecedenceTable {
 		lineTable.add(ERROR);
 		lineTable.add(ERROR);
 		lineTable.add(ELT);
-		lineTable.add(ELT);
+		lineTable.add(R16);
 		lineTable.add(R16);
 		lineTable.add(R16);
 		precedenceTableList.add(lineTable);

@@ -13,7 +13,7 @@ public enum NonTerminalName {
 	RETURNTYPE(9),
 	RETURNTYPEFAT(10),
 	NAME(11),
-	NAMEFAT(12),
+	NAMEFAT1(12),
 	ESCOPE(13),
 	COMMANDS(14),
 	CMD(15),
@@ -45,7 +45,8 @@ public enum NonTerminalName {
 	RETURNFAT(41),
 	EXPRESSION(42),
 	VARIABLE(43),
-	CASTING(44);
+	CASTING(44),
+	NAMEFAT2(45);
 	
 	private int nonTerminalValue;
 	
