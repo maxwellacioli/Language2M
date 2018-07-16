@@ -1,5 +1,7 @@
 principal () inteiro {
 
-    array[4] = 4;
+    inteiro x;
+    inteiro y;
 
-};
+
+}; {return 0}

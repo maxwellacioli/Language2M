@@ -3,13 +3,21 @@ package semantic;
 import java.util.List;
 
 @SuppressWarnings("WeakerAccess")
-public class DerivationTree {
+public class AST {
 
     private Node root;
-    private static DerivationTree derivationTreeSingleton;
+    private static AST derivationTreeSingleton;
 
-    private DerivationTree() {
+    private AST() {
 
+    }
+
+    public static AST getInstance() {
+        if (derivationTreeSingleton == null) {
+            derivationTreeSingleton = new AST();
+        }
+
+        return derivationTreeSingleton;
     }
 
     public void setRoot(Node root) {
@@ -18,14 +26,6 @@ public class DerivationTree {
 
     public Node getRoot() {
         return root;
-    }
-
-    public static DerivationTree getInstance() {
-        if (derivationTreeSingleton == null) {
-            derivationTreeSingleton = new DerivationTree();
-        }
-
-        return derivationTreeSingleton;
     }
 
     public void dfsTree(Node node) {

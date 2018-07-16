@@ -2,7 +2,7 @@ package syntactic.grammar;
 
 import java.util.ArrayList;
 
-public class Derivation {
+public class Derivation implements Cloneable {
 
 	private ArrayList<GrammarSymbol> symbolsList;
 
@@ -12,6 +12,20 @@ public class Derivation {
 
 	public Derivation() {
 		symbolsList = new ArrayList<GrammarSymbol>();
+	}
+
+	@Override
+	public Object clone() {
+		try {
+			return super.clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	private void setSymbolsList(ArrayList<GrammarSymbol> symbolsList) {
+		this.symbolsList = symbolsList;
 	}
 
 	public void clearDerivationList() {

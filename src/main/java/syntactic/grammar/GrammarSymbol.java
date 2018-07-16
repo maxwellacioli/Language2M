@@ -1,12 +1,17 @@
 package syntactic.grammar;
 
-public class GrammarSymbol {
+public class GrammarSymbol implements Cloneable {
 	private Boolean isTerminal;
 	private Integer value;
 
 	public GrammarSymbol(Boolean isTerminal, Integer value) {
 		this.isTerminal = isTerminal;
 		this.value = value;
+	}
+
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		return super.clone();
 	}
 
 	public boolean isTerminal() {

@@ -4,18 +4,12 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class SymbolTable {
-    private static SymbolTable symbolTableSingleton;
+    private String tableName;
     private List<Symbol> symbolTable;
 
-    private SymbolTable() {
+    public SymbolTable(String name) {
+        this.tableName = name;
         symbolTable = new ArrayList<Symbol>();
-    }
-
-    public static SymbolTable getInstance() {
-        if (symbolTableSingleton == null) {
-            symbolTableSingleton = new SymbolTable();
-        }
-        return symbolTableSingleton;
     }
 
     public void insertSymbol(Symbol symbolInput) {
@@ -43,5 +37,9 @@ public class SymbolTable {
             }
         }
         return false;
+    }
+
+    public String getTableName() {
+        return tableName;
     }
 }

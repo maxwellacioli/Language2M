@@ -26,12 +26,11 @@ public class Grammar {
         }
         return grammarSingleton;
     }
-	
 
 	public ArrayList<Derivation> getGrammarMap() {
 		return grammarMap;
 	}
-	
+
 	private void loadGrammar() {
 		
 		// (1)FUNCTIONS MAJORF
@@ -228,14 +227,14 @@ public class Grammar {
 		// (39)TYPE NAME
 		derivationAux.addDerivationSymbols(
 				new NonTerminal(NonTerminalName.TYPE),
-				new Terminal(TokenCategory.ID),
+				(Terminal)new Terminal(TokenCategory.ID).clone(),
 				new NonTerminal(NonTerminalName.VARIABLE));
 		grammarAddDerivation(derivationAux);
 
 		// (40)'sep1' 'id' VARIABLE
 		derivationAux.addDerivationSymbols(
 				new Terminal(TokenCategory.SEP1),
-				new Terminal(TokenCategory.ID),
+				(Terminal)new Terminal(TokenCategory.ID).clone(),
 				new NonTerminal(NonTerminalName.VARIABLE));
 		grammarAddDerivation(derivationAux);
 
@@ -496,7 +495,7 @@ public class Grammar {
 
 	private void grammarAddDerivation(Derivation derivation) {		
 		grammarMap.add(derivation);		
-		if(derivation != null) {			
+		if(derivation != null) {
 			derivationAux = new Derivation();
 		}
 	}

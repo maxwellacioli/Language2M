@@ -1,6 +1,8 @@
 package semantic;
 
 import syntactic.grammar.GrammarSymbol;
+import syntactic.grammar.Terminal;
+import lexical.Token;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,12 +19,21 @@ public class Node {
     }
 
     public Node(GrammarSymbol grammarSymbol) {
-        new Node(null, grammarSymbol);
+        this(null, grammarSymbol);
         children = new ArrayList<Node>();
     }
 
+    public Node() {
+        this(null, null);
+    }
+
+    public void setTokenValue(Terminal term) {
+        if (grammarSymbol instanceof  Terminal) {
+            ((Terminal) grammarSymbol).setToken(term.getToken());
+        }
+    }
+
     public void setParent(Node parent) {
-        parent.addChild(this);
         this.parent = parent;
     }
 
