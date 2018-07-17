@@ -25,8 +25,11 @@ public class PredictiveAnalyzer {
 
 	//Tabela de Simbolos
 	private SymbolTable globalTable;
+	private FunctionSymbol functionSymbol;
 	private SymbolTable localSymbolTable;
+	private Boolean functionFlag;
 	private Boolean symbolFlag;
+	private Boolean functionReturnFlag;
 	private VarType varType;
 
 	private Stack<GrammarSymbol> stack;
@@ -49,6 +52,8 @@ public class PredictiveAnalyzer {
 
 		globalTable = new SymbolTable("Global");
 		symbolFlag = false;
+		functionFlag = false;
+		functionReturnFlag = false;
 
 		precedenceAnalyzer = new PrecedenceAnalyzer(lexicalAnalyzer);
 		stack = new Stack<GrammarSymbol>();
@@ -61,10 +66,17 @@ public class PredictiveAnalyzer {
 		derivation = new Derivation();
 	}
 
-	public void changeSymbolFlag() {
+	private void changeSymbolFlag() {
 		symbolFlag = !symbolFlag;
 	}
 
+	private void changeFunctionFlag() {
+		functionFlag = !functionFlag;
+	}
+
+	private void changeFunctionReturnFlag() {
+		functionReturnFlag = !functionReturnFlag;
+	}
 
 	public Boolean isType(Token token) {
 		String type = token.getLexValue();
@@ -122,6 +134,19 @@ public class PredictiveAnalyzer {
 								Symbol symbol = new Symbol(token.getLexValue(), varType);
 								localSymbolTable.insertSymbol(symbol);
 							}
+						} else if(functionFlag) {
+							if(token.getLexValue().equals(")")) {
+								changeFunctionFlag();
+							}else if(isType(token)) {
+								varType = VarType.getVarType(token.getLexValue());
+								functionSymbol.insertParamType(varType);
+							} else if(!token.getLexValue().equals(",") && !isType(token)){
+								Symbol symbol = new Symbol(token.getLexValue(), varType);
+								localSymbolTable.insertSymbol(symbol);
+							}
+						} else if(functionReturnFlag) {
+							functionSymbol.setType(VarType.getVarType(token.getLexValue()));
+							changeFunctionReturnFlag();
 						}
 
 						stack.pop();
@@ -154,19 +179,23 @@ public class PredictiveAnalyzer {
 								programAST.add(ast);
 							}
 							ast = new AST(token.getLexValue());
-							FunctionSymbol function = new FunctionSymbol(token.getLexValue(), null);
-							globalTable.insertSymbol(function);
+							functionSymbol = new FunctionSymbol(token.getLexValue(), null);
+							globalTable.insertSymbol(functionSymbol);
 							localSymbolTable = new SymbolTable(token.getLexValue());
 						}
 
-					} else if (topNonTerminal.getName() == NonTerminalName.MAJORF) {
+					} else if(topNonTerminal.getName() == NonTerminalName.PARAMSFAT) {
+						changeFunctionFlag();
+					} else if(topNonTerminal.getName() == NonTerminalName.RETURNTYPE) {
+						changeFunctionReturnFlag();
+					}else if (topNonTerminal.getName() == NonTerminalName.MAJORF) {
 						programAST.add(ast);
 						ast = new AST(token.getLexValue());
 						localSymbolTable = new SymbolTable(token.getLexValue());
 					}
 
 					//TODO Tabela de Simbolos local
-					if(topNonTerminal.getName() == NonTerminalName.TYPE) {
+					if(topNonTerminal.getName() == NonTerminalName.DECLARATION) {
 						changeSymbolFlag();
 						varType = VarType.getVarType(token.getLexValue());
 					}
@@ -194,10 +223,6 @@ public class PredictiveAnalyzer {
 
 						derivationNumber = null;
 						derivation = null;
-
-						if (topNonTerminal.getName() == NonTerminalName.RETURN) {
-							System.out.println();
-						}
 
 						if (topNonTerminal.getName() == NonTerminalName.VALUE
 								&& terminal.getCategory() != TokenCategory.ARRAYBEGIN) {
@@ -311,7 +336,7 @@ public class PredictiveAnalyzer {
 				}
 			}
 			programAST.add(ast);
-//			System.out.println("test");
+			System.out.println("test");
 		}
 	}
 }

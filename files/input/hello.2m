@@ -1,10 +1,10 @@
-soma(inteiro a) inteiro {
-    inteiro c, d;
+soma(inteiro a, inteiro b) inteiro {
+    inteiro c, c;
 
     retorne a + c;
 };
 
-subtracao(inteiro x) inteiro {
+subtracao(inteiro x, real k, logico z) inteiro {
     inteiro y;
 
     retorne x - y;
