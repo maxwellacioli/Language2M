@@ -7,11 +7,6 @@ public class Token {
 	private int line;
 	private int column;
 	
-	public Token() {
-		
-		
-	}
-	
 	@Override
 	public String toString() {
 		return "<" + line + "," + column + "> " + category + " = '" + lexValue + "'";

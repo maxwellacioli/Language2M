@@ -1,7 +1,13 @@
-soma(inteiro a, inteiro b) inteiro {
-    inteiro c;
-    c = a + b;
-    retorne 0 + a;
+soma(inteiro a) inteiro {
+    inteiro c, d;
+
+    retorne a + c;
+};
+
+subtracao(inteiro x) inteiro {
+    inteiro y;
+
+    retorne x - y;
 };
 
 principal () inteiro {

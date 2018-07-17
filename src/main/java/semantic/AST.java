@@ -5,19 +5,19 @@ import java.util.List;
 @SuppressWarnings("WeakerAccess")
 public class AST {
 
+    private String name;
     private Node root;
-    private static AST derivationTreeSingleton;
 
-    private AST() {
-
+    public AST (String name) {
+        this.name = name;
     }
 
-    public static AST getInstance() {
-        if (derivationTreeSingleton == null) {
-            derivationTreeSingleton = new AST();
-        }
+    public String getName() {
+        return name;
+    }
 
-        return derivationTreeSingleton;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setRoot(Node root) {
