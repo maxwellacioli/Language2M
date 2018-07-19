@@ -11,11 +11,21 @@ public class Node {
     private Node parent;
     private List<Node> children;
     private GrammarSymbol grammarSymbol;
+    private List<String> name;
 
     public Node(Node parent, GrammarSymbol grammarSymbol) {
         children = new ArrayList<Node>();
+        name = new ArrayList<String>();
         this.parent = parent;
         this.grammarSymbol = grammarSymbol;
+    }
+
+    public List<String> getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name.add(name);
     }
 
     public Node(GrammarSymbol grammarSymbol) {
@@ -67,6 +77,10 @@ public class Node {
 
     public boolean isRoot() {
         return (this.parent == null);
+    }
+
+    public void removeNode() {
+        this.parent.getChildren().remove(this);
     }
 
     public boolean isLeaf() {

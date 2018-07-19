@@ -113,7 +113,7 @@ public class LexicalAnalyzer {
 			}
 
 			if (currentChar != ' ') {
-				while (!LexicalTable.symbolList.contains(currentChar)) {
+				while (!LexicalTable.getSymbolList().contains(currentChar)) {
 					tkValue += currentChar;
 
 					// Vai para o proximo
@@ -129,7 +129,7 @@ public class LexicalAnalyzer {
 			// caracteres
 			// serao concatenados em uma string que devera ser um token
 			// identificador ou palavra chave.
-			while (!LexicalTable.symbolList.contains(currentChar)) {
+			while (!LexicalTable.getSymbolList().contains(currentChar)) {
 				tkValue += currentChar;
 
 				// Vai para o proximo
@@ -264,8 +264,14 @@ public class LexicalAnalyzer {
 		if (isOpNegUnary(tkValue)) {
 			return TokenCategory.OPNEGUN;
 
-		} else if (LexicalTable.lexemMap.containsKey(tkValue)) {
-			return LexicalTable.lexemMap.get(tkValue);
+		} else if (LexicalTable.getLexemMap().containsKey(tkValue)) {
+			return LexicalTable.getLexemMap().get(tkValue);
+
+		} else if (LexicalTable.getKeyWordsMap().containsKey(tkValue)) {
+			return LexicalTable.getKeyWordsMap().get(tkValue);
+
+		} else if (LexicalTable.getOperatorsMap().containsKey(tkValue)) {
+			return LexicalTable.getOperatorsMap().get(tkValue);
 
 		} else if (isCchar(tkValue)) {
 			return TokenCategory.CONSTCCHAR;

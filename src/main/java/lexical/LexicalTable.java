@@ -6,28 +6,46 @@ import java.util.List;
 
 public class LexicalTable {
 
-	public static HashMap<String, TokenCategory> lexemMap = new HashMap<String, TokenCategory>();
-	public static List<Character> symbolList = new ArrayList<Character>();
+	private static HashMap<String, TokenCategory> lexemMap = new HashMap<String, TokenCategory>();
+	private static HashMap<String, TokenCategory> keyWordsMap = new HashMap<String, TokenCategory>();
+	private static HashMap<String, TokenCategory> operatorsMap = new HashMap<String, TokenCategory>();
+	private static List<Character> symbolList = new ArrayList<Character>();
+
+	public static HashMap<String, TokenCategory> getLexemMap() {
+		return lexemMap;
+	}
+
+	public static HashMap<String, TokenCategory> getKeyWordsMap() {
+		return keyWordsMap;
+	}
+
+	public static HashMap<String, TokenCategory> getOperatorsMap() {
+		return operatorsMap;
+	}
+
+	public static List<Character> getSymbolList() {
+		return symbolList;
+	}
 
 	static {
 
 		// Operadores
 
-		lexemMap.put("+", TokenCategory.OPARITADIT);
-		lexemMap.put("-", TokenCategory.OPARITADIT);
-		lexemMap.put("*", TokenCategory.OPARITMULT);
-		lexemMap.put("/", TokenCategory.OPARITMULT);
-		lexemMap.put("^", TokenCategory.OPARITEXP);
+		operatorsMap.put("+", TokenCategory.OPARITADIT);
+		operatorsMap.put("-", TokenCategory.OPARITADIT);
+		operatorsMap.put("*", TokenCategory.OPARITMULT);
+		operatorsMap.put("/", TokenCategory.OPARITMULT);
+		operatorsMap.put("^", TokenCategory.OPARITEXP);
 
-		lexemMap.put("<", TokenCategory.OPREL1);
-		lexemMap.put(">", TokenCategory.OPREL1);
-		lexemMap.put("<=", TokenCategory.OPREL1);
-		lexemMap.put(">=", TokenCategory.OPREL1);
-		lexemMap.put("==", TokenCategory.OPREL2);
-		lexemMap.put("~=", TokenCategory.OPREL2);
+		operatorsMap.put("<", TokenCategory.OPREL1);
+		operatorsMap.put(">", TokenCategory.OPREL1);
+		operatorsMap.put("<=", TokenCategory.OPREL1);
+		operatorsMap.put(">=", TokenCategory.OPREL1);
+		operatorsMap.put("==", TokenCategory.OPREL2);
+		operatorsMap.put("~=", TokenCategory.OPREL2);
 
-		lexemMap.put("=", TokenCategory.OPATRIB);
-		lexemMap.put("++", TokenCategory.OPCONC);
+		operatorsMap.put("=", TokenCategory.OPATRIB);
+		operatorsMap.put("++", TokenCategory.OPCONC);
 
 		// Delimitadores
 
@@ -50,28 +68,28 @@ public class LexicalTable {
 
 		// Palavras-reservadas (comandos e operadores)
 
-		lexemMap.put("caracter", TokenCategory.TCHAR);
-		lexemMap.put("cadeia", TokenCategory.TCCHAR);
-		lexemMap.put("longo", TokenCategory.TLONG);
-		lexemMap.put("real", TokenCategory.TDEC);
-		lexemMap.put("inteiro", TokenCategory.TINT);
-		lexemMap.put("logico", TokenCategory.TLOGIC);
-		lexemMap.put("principal", TokenCategory.MAJOR);
-		lexemMap.put("se", TokenCategory.PRIF);
-		lexemMap.put("entao", TokenCategory.PRELSE);
-		lexemMap.put("senao", TokenCategory.PRELSEIF);
-		lexemMap.put("iterador", TokenCategory.PRITERATOR);
-		lexemMap.put("enquanto", TokenCategory.PRWHILE);
-		lexemMap.put("execute", TokenCategory.PRDO);
-		lexemMap.put("verdade", TokenCategory.CONSTLOGIC);
-		lexemMap.put("falso", TokenCategory.CONSTLOGIC);
-		lexemMap.put("no", TokenCategory.OPNEGLOGIC);
-		lexemMap.put("e", TokenCategory.OPLOGICAND);
-		lexemMap.put("ou", TokenCategory.OPLOGICOR);
-		lexemMap.put("vazio", TokenCategory.TEMPTY);
-		lexemMap.put("imprima", TokenCategory.PRPRINTOUT);
-		lexemMap.put("leia", TokenCategory.PRREADIN);
-		lexemMap.put("retorne", TokenCategory.PRRETURN);
+		keyWordsMap.put("caracter", TokenCategory.TCHAR);
+		keyWordsMap.put("cadeia", TokenCategory.TCCHAR);
+		keyWordsMap.put("longo", TokenCategory.TLONG);
+		keyWordsMap.put("real", TokenCategory.TDEC);
+		keyWordsMap.put("inteiro", TokenCategory.TINT);
+		keyWordsMap.put("logico", TokenCategory.TLOGIC);
+		keyWordsMap.put("principal", TokenCategory.MAJOR);
+		keyWordsMap.put("se", TokenCategory.PRIF);
+		keyWordsMap.put("entao", TokenCategory.PRELSE);
+		keyWordsMap.put("senao", TokenCategory.PRELSEIF);
+		keyWordsMap.put("iterador", TokenCategory.PRITERATOR);
+		keyWordsMap.put("enquanto", TokenCategory.PRWHILE);
+		keyWordsMap.put("execute", TokenCategory.PRDO);
+		keyWordsMap.put("verdade", TokenCategory.CONSTLOGIC);
+		keyWordsMap.put("falso", TokenCategory.CONSTLOGIC);
+		keyWordsMap.put("no", TokenCategory.OPNEGLOGIC);
+		keyWordsMap.put("e", TokenCategory.OPLOGICAND);
+		keyWordsMap.put("ou", TokenCategory.OPLOGICOR);
+		keyWordsMap.put("vazio", TokenCategory.TEMPTY);
+		keyWordsMap.put("imprima", TokenCategory.PRPRINTOUT);
+		keyWordsMap.put("leia", TokenCategory.PRREADIN);
+		keyWordsMap.put("retorne", TokenCategory.PRRETURN);
 		
 		// Simbolos que podem indicador proximo token
 		symbolList.add(' ');
@@ -97,7 +115,5 @@ public class LexicalTable {
 		symbolList.add('}');
 		symbolList.add('\'');
 		symbolList.add('"');
-
 	}
-
 }

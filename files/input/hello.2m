@@ -1,13 +1,13 @@
 soma(inteiro a, inteiro b) inteiro {
-    inteiro c, c;
+    inteiro c, t;
 
     retorne a + c;
 };
 
-subtracao(inteiro x, real k, logico z) inteiro {
-    inteiro y;
+subtracao(inteiro x, inteiro y) inteiro {
+    inteiro z;
 
-    retorne x - y;
+    retorne x + z - y;
 };
 
 principal () inteiro {
