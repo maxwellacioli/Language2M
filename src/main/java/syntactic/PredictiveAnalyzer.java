@@ -42,6 +42,8 @@ public class PredictiveAnalyzer {
 	private AST ast;
 	private Node node;
 	private ArrayList<Node> childrenList;
+	private Boolean transferRef;
+
 
 	//Variavel derivacao auxiliar
 	private Derivation derivation;
@@ -65,6 +67,7 @@ public class PredictiveAnalyzer {
 		programAST = new ArrayList<AST>();
 		astStack = new Stack<Node>();
 		childrenList = new ArrayList<Node>();
+		transferRef = false;
 
 		derivation = new Derivation();
 	}
@@ -233,6 +236,7 @@ public class PredictiveAnalyzer {
 					} else if(topNonTerminal.getName() == NonTerminalName.RETURNTYPE) {
 						changeFunctionReturnFlag();
 					}else if (topNonTerminal.getName() == NonTerminalName.MAJORF) {
+						System.out.println("AQUI");
 						//TODO AST
 						programAST.add(ast);
 						ast = new AST(token.getLexValue());
@@ -299,7 +303,7 @@ public class PredictiveAnalyzer {
 							if (derivation != null) {
 								System.out.print(topNonTerminal.getName() + "("
 										+ leftCount + ")" + " = ");
-								NonTerminal nonTermAux = (NonTerminal) stack.pop();
+								stack.pop();
 
 								//TODO AST
 								//Verifica se uma derivacao contem um comandos antes de remover o elemento do
@@ -307,6 +311,8 @@ public class PredictiveAnalyzer {
 								if(hasCommand(derivation)) {
 									node = astStack.pop();
 								}
+
+								transferRef = hasToTransferReference(derivation);
 
 								//A partir daqui eh feito o empilhamento na pilha preditiva
 								GrammarSymbol symb;
@@ -344,39 +350,47 @@ public class PredictiveAnalyzer {
 										nodeAux = new Node(nonTerm);
 
 										//TODO AST
-										//Se encontrar uma declaracao, remove o pai dela da arvore
-										if(nonTerm.getName().equals(NonTerminalName.DECLARATION)) {
-											node.removeNode();
+										if(transferRef) {
+											node = nodeAux;
 										} else {
-											if (Commands.getInstance().isCommand(nonTerm.getName())) {
-												//FIXME codigo
-												if(nonTerm.getName().equals(NonTerminalName.TYPE)) {
-													NonTerminal parent = (NonTerminal) node.getParent().getGrammarSymbol();
-													if(parent.getName().equals(NonTerminalName.READIN) ||
-															parent.getName().equals(NonTerminalName.CASTING)) {
+											//Se encontrar uma declaracao, remove o pai dela da arvore
+											if(nonTerm.getName().equals(NonTerminalName.DECLARATION)) {
+												node.removeNode();
+											} else {
+												if (Commands.getInstance().isCommand(nonTerm.getName())) {
+													//FIXME codigo
+													if(nonTerm.getName().equals(NonTerminalName.TYPE)) {
+														NonTerminal parent = (NonTerminal) node.getParent().getGrammarSymbol();
+														if(parent.getName().equals(NonTerminalName.READIN) ||
+																parent.getName().equals(NonTerminalName.CASTING)) {
+															childrenList.add(nodeAux);
+															astStack.push(nodeAux);
+														}
+													} else if(nonTerm.getName().equals(NonTerminalName.NAME)) {
+														NonTerminal parent = (NonTerminal) node.getParent().getGrammarSymbol();
+														if(parent.getName().equals(NonTerminalName.PARAMITEM) ||
+																parent.getName().equals(NonTerminalName.READIN)) {
+															childrenList.add(nodeAux);
+															astStack.push(nodeAux);
+														}
+													} else {
 														childrenList.add(nodeAux);
 														astStack.push(nodeAux);
 													}
-												} else if(nonTerm.getName().equals(NonTerminalName.NAME)) {
-													NonTerminal parent = (NonTerminal) node.getParent().getGrammarSymbol();
-													if(parent.getName().equals(NonTerminalName.PARAMITEM) ||
-															parent.getName().equals(NonTerminalName.READIN)) {
-														childrenList.add(nodeAux);
-														astStack.push(nodeAux);
-													}
-												} else {
-													childrenList.add(nodeAux);
-													astStack.push(nodeAux);
 												}
 											}
 										}
 									}
 
-//									stack.push(symb);
+									//stack.push(symb);
 								}
-//								//TODO AST (se nao for feita transferencia de referencia)
-//								node.addChildren(childrenList);
+								//TODO AST
+								// se nao for feita transferencia de referencia adiciona os filhos
+								if(!transferRef) {
+									node.addChildren(childrenList);
+								}
 								childrenList.clear();
+								transferRef = false;
 
 								for (int i = 0; i < derivation.getSymbolsList()
 										.size(); i++) {
@@ -407,6 +421,7 @@ public class PredictiveAnalyzer {
 										+ "(" + leftCount + ")" + " = epsilon");
 								stack.pop();
 
+								//TODO AST
 								//Remove o no do pai deste
 								node = astStack.pop();
 								node.removeNode();
