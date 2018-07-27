@@ -9,7 +9,7 @@ public class NonTerminal extends GrammarSymbol {
 	private int index;
 
 	public NonTerminal(NonTerminalName name) {
-		super(false, name.getNonTerminalValue());
+		super(false, name.getValue());
 		this.name = name;
 	}
 

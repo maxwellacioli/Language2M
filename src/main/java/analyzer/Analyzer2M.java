@@ -10,7 +10,7 @@ public class Analyzer2M {
 	private static SyntaticAnalyzer syntaticAnalyzer;
 	private static SemanticAnalyzer semanticAnalyzer;
 
-	private static String filePath = "files/input/fibonacci.2m";
+	private static String filePath = "files/input/hello.2m";
 
 	public Analyzer2M() {
 

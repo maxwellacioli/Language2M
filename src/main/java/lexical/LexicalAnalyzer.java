@@ -283,7 +283,7 @@ public class LexicalAnalyzer {
 			return TokenCategory.CONSTNUMINT;
 
 		} else if (isConstDec(tkValue)) {
-			return TokenCategory.CONSTNUMDEC;
+			return TokenCategory.CONSTNUMREAL;
 
 		} else if (isIdentifier(tkValue)) {
 			return TokenCategory.ID;

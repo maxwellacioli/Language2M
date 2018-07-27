@@ -57,10 +57,10 @@ public class PrecedenceAnalyzer {
 	}
 
 //	private void printRedution(Stack<GrammarSymbol> operatorsStack, int elementsToPop) {
-////		System.out.print(NonTerminalName.EXPRESSION + "(" + count++ + ")" + " = ");
+////		System.out.print(NonTerminalName.EXP + "(" + count++ + ")" + " = ");
 //		GrammarSymbol grammarSymbol;
 //		Terminal term;
-//		System.out.print(NonTerminalName.EXPRESSION + " = ");
+//		System.out.print(NonTerminalName.EXP + " = ");
 //
 //		for (int i = 0 ; i < elementsToPop ; i--) {
 //			grammarSymbol = operatorsStack.pop();
@@ -161,7 +161,7 @@ public class PrecedenceAnalyzer {
 
 					// Se a producao for 10(9), sera necessario 2 acoes pop para
 					// tirar o '(' e ')'
-					// referente a producao EXPRESSION = PARAMBEGIN EXPRESSION
+					// referente a producao EXP = PARAMBEGIN EXP
 					// PARAMEND
 
 					if (tableValue >= PrecedenceTable.R11 && tableValue <= PrecedenceTable.R16) {
@@ -172,13 +172,13 @@ public class PrecedenceAnalyzer {
 //								operatorsStack.pop();
 //							}
 //						}
-						operatorsStack.push(new NonTerminal(NonTerminalName.EXPRESSION));
+						operatorsStack.push(new NonTerminal(NonTerminalName.EXP));
 					} else if (tableValue == PrecedenceTable.R7 || tableValue == PrecedenceTable.R8) {
 						if (!operatorsStack.peek().isTerminal()) {
 							if (operatorsStack.elementAt(operatorsStack.size() - 2).isTerminal()) {
 								operatorsStack.pop();
 								operatorsStack.pop();
-								operatorsStack.push(new NonTerminal(NonTerminalName.EXPRESSION));
+								operatorsStack.push(new NonTerminal(NonTerminalName.EXP));
 							} else {
 								handlerError();
 							}
@@ -192,7 +192,7 @@ public class PrecedenceAnalyzer {
 										operatorsStack.pop();
 										operatorsStack.pop();
 										operatorsStack.pop();
-										operatorsStack.push(new NonTerminal(NonTerminalName.EXPRESSION));
+										operatorsStack.push(new NonTerminal(NonTerminalName.EXP));
 									} else {
 										handlerError();
 									}
@@ -227,7 +227,7 @@ public class PrecedenceAnalyzer {
 										currentTerm = ((Terminal) operatorsStack.pop());
 									}
 
-									operatorsStack.push(new NonTerminal(NonTerminalName.EXPRESSION));
+									operatorsStack.push(new NonTerminal(NonTerminalName.EXP));
 								} else {
 									handlerError();
 								}
@@ -245,7 +245,7 @@ public class PrecedenceAnalyzer {
 									operatorsStack.pop();
 									operatorsStack.pop();
 									operatorsStack.pop();
-									operatorsStack.push(new NonTerminal(NonTerminalName.EXPRESSION));
+									operatorsStack.push(new NonTerminal(NonTerminalName.EXP));
 								} else {
 									handlerError();
 								}
@@ -262,13 +262,13 @@ public class PrecedenceAnalyzer {
 					TokenCategory term;
 					NonTerminal nonTerm;
 
-					System.out.print(NonTerminalName.EXPRESSION + "(" + count++ + ")" + " = ");
+					System.out.print(NonTerminalName.EXP + "(" + count++ + ")" + " = ");
 
 					for (GrammarSymbol grammarSymbol : derivation) {
 						if (grammarSymbol.isTerminal()) {
 							term = ((Terminal) grammarSymbol).getCategory();
-							if (term.getCategoryValue() >= TokenCategory.CONSTNUMINT.getCategoryValue()
-									&& term.getCategoryValue() <= TokenCategory.CONSTCCHAR.getCategoryValue()
+							if (term.getValue() >= TokenCategory.CONSTNUMINT.getValue()
+									&& term.getValue() <= TokenCategory.CONSTCCHAR.getValue()
 									|| term.equals(TokenCategory.ID)) {
 								System.out.print(term + "(" + "\"" + currentTerm.getTerminalValue() + "\"" + ")" + " ");
 							} else {

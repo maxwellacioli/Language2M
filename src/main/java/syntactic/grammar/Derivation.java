@@ -90,11 +90,10 @@ public class Derivation implements Cloneable {
 	public void addDerivationSymbols(GrammarSymbol symb1, GrammarSymbol symb2, GrammarSymbol symb3,
                                      GrammarSymbol symb4, GrammarSymbol symb5, GrammarSymbol symb6, GrammarSymbol symb7,
                                      GrammarSymbol symb8, GrammarSymbol symb9, GrammarSymbol symb10, GrammarSymbol symb11,
-                                     GrammarSymbol symb12, GrammarSymbol symb13) {
+                                     GrammarSymbol symb12) {
 		addDerivationSymbols(symb1, symb2, symb3, symb4, symb5, symb6, symb7,
 				symb8, symb9, symb10, symb11);
 		symbolsList.add(symb12);
-		symbolsList.add(symb13);
 	}
 
 	public boolean isEmpty() {

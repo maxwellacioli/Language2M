@@ -10,20 +10,20 @@ public class Terminal extends GrammarSymbol implements Cloneable {
 
 	public Terminal(TokenCategory category, String value) {
 
-		super(true, category.getCategoryValue());
+		super(true, category.getValue());
 		this.category = category;
 		token = new Token();
 	}
 
 	public Terminal(TokenCategory category) {
 
-		super(true, category.getCategoryValue());
+		super(true, category.getValue());
 		this.category = category;
 		token = null;
 	}
 
 	public Terminal(Token token) {
-		super(true, token.getCategory().getCategoryValue());
+		super(true, token.getCategory().getValue());
 		this.token = token;
 		this.category = token.getCategory();
 	}

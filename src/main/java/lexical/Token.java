@@ -6,6 +6,13 @@ public class Token {
 	private TokenCategory category;
 	private int line;
 	private int column;
+
+	public Token(TokenCategory tokenCategory, String lexValue) {
+		this.category = tokenCategory;
+		this.lexValue = lexValue;
+	}
+
+	public Token() { }
 	
 	@Override
 	public String toString() {

@@ -23,25 +23,26 @@ public class OperatorsGrammar {
 
 	private void loadOperatorsGrammarSymbols() {
 		operatorsGrammarSymbols.add(TokenCategory.OPARITADIT);// 0
-		operatorsGrammarSymbols.add(TokenCategory.OPARITMULT);// 1
-		operatorsGrammarSymbols.add(TokenCategory.OPARITEXP);// 2
-		operatorsGrammarSymbols.add(TokenCategory.OPNEGUN);// 3
-		operatorsGrammarSymbols.add(TokenCategory.OPNEGLOGIC);// 4
-		operatorsGrammarSymbols.add(TokenCategory.PARAMBEGIN);// 5
-		operatorsGrammarSymbols.add(TokenCategory.PARAMEND);// 6
-		operatorsGrammarSymbols.add(TokenCategory.OPLOGICOR);// 7
-		operatorsGrammarSymbols.add(TokenCategory.OPLOGICAND);// 8
-		operatorsGrammarSymbols.add(TokenCategory.OPREL1);// 9
-		operatorsGrammarSymbols.add(TokenCategory.OPREL2);// 10
-		operatorsGrammarSymbols.add(TokenCategory.CONSTNUMINT);// 11
-		operatorsGrammarSymbols.add(TokenCategory.CONSTNUMDEC);// 12
-		operatorsGrammarSymbols.add(TokenCategory.CONSTLOGIC);// 13
-		operatorsGrammarSymbols.add(TokenCategory.CONSTCHAR);// 14
-		operatorsGrammarSymbols.add(TokenCategory.CONSTCCHAR);// 15
-		operatorsGrammarSymbols.add(TokenCategory.ID);// 16
-		operatorsGrammarSymbols.add(TokenCategory.ARRAYBEGIN);// 17
-		operatorsGrammarSymbols.add(TokenCategory.ARRAYEND);// 18
-		operatorsGrammarSymbols.add(TokenCategory.SEP1);// 19
+		operatorsGrammarSymbols.add(TokenCategory.OPCONC);// 1
+		operatorsGrammarSymbols.add(TokenCategory.OPARITMULT);// 2
+		operatorsGrammarSymbols.add(TokenCategory.OPARITEXP);// 3
+		operatorsGrammarSymbols.add(TokenCategory.OPNEGUN);// 4
+		operatorsGrammarSymbols.add(TokenCategory.OPNEGLOGIC);// 5
+		operatorsGrammarSymbols.add(TokenCategory.PARAMBEGIN);// 6
+		operatorsGrammarSymbols.add(TokenCategory.PARAMEND);// 7
+		operatorsGrammarSymbols.add(TokenCategory.OPLOGICOR);// 8
+		operatorsGrammarSymbols.add(TokenCategory.OPLOGICAND);// 9
+		operatorsGrammarSymbols.add(TokenCategory.OPREL1);// 10
+		operatorsGrammarSymbols.add(TokenCategory.OPREL2);// 11
+		operatorsGrammarSymbols.add(TokenCategory.CONSTNUMINT);// 12
+		operatorsGrammarSymbols.add(TokenCategory.CONSTNUMREAL);// 13
+		operatorsGrammarSymbols.add(TokenCategory.CONSTLOGIC);// 14
+		operatorsGrammarSymbols.add(TokenCategory.CONSTCHAR);// 15
+		operatorsGrammarSymbols.add(TokenCategory.CONSTCCHAR);// 16
+		operatorsGrammarSymbols.add(TokenCategory.ID);// 17
+		operatorsGrammarSymbols.add(TokenCategory.ARRAYBEGIN);// 18
+		operatorsGrammarSymbols.add(TokenCategory.ARRAYEND);// 19
+		operatorsGrammarSymbols.add(TokenCategory.SEP1);// 20
 	}
 
 	public static OperatorsGrammar getInstance() {
@@ -58,146 +59,155 @@ public class OperatorsGrammar {
 	private void loadOperatorGrammar() {
 		Derivation operatorDerivation = new Derivation();
 
-		// (0)EXPRESSION = EXPRESSION OPLOGICOR EXPRESSION
+		// (0)EXP = EXP OPLOGICOR EXP
 		operatorDerivation
-				.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
+				.addSymbol(new NonTerminal(NonTerminalName.EXP));
 		operatorDerivation.addSymbol(new Terminal(TokenCategory.OPLOGICOR));
 		operatorDerivation.addSymbol(new Terminal(TokenCategory.OPLOGICOR));
 		operatorDerivation
-				.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
+				.addSymbol(new NonTerminal(NonTerminalName.EXP));
 		operatorGrammarArray.add(operatorDerivation);
 
-		// (1)EXPRESSION = EXPRESSION OPLOGICAND EXPRESSION
+		// (1)EXP = EXP OPLOGICAND EXP
 		operatorDerivation = new Derivation();
 		operatorDerivation
-				.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
+				.addSymbol(new NonTerminal(NonTerminalName.EXP));
 		operatorDerivation.addSymbol(new Terminal(TokenCategory.OPLOGICAND));
 		operatorDerivation
-				.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
+				.addSymbol(new NonTerminal(NonTerminalName.EXP));
 		operatorGrammarArray.add(operatorDerivation);
 
-		// (2)EXPRESSION = EXPRESSION OPREL2 EXPRESSION
+		// (2)EXP = EXP OPREL2 EXP
 		operatorDerivation = new Derivation();
 		operatorDerivation
-				.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
+				.addSymbol(new NonTerminal(NonTerminalName.EXP));
 		operatorDerivation.addSymbol(new Terminal(TokenCategory.OPREL2));
 		operatorDerivation
-				.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
+				.addSymbol(new NonTerminal(NonTerminalName.EXP));
 		operatorGrammarArray.add(operatorDerivation);
 
-		// (3)EXPRESSION = EXPRESSION OPREL1 EXPRESSION
+		// (3)EXP = EXP OPREL1 EXP
 		operatorDerivation = new Derivation();
 		operatorDerivation
-				.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
+				.addSymbol(new NonTerminal(NonTerminalName.EXP));
 		operatorDerivation.addSymbol(new Terminal(TokenCategory.OPREL1));
 		operatorDerivation
-				.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
+				.addSymbol(new NonTerminal(NonTerminalName.EXP));
 		operatorGrammarArray.add(operatorDerivation);
 
-		// (4)EXPRESSION = EXPRESSION OPARITADIT EXPRESSION
+		// (4)EXP = EXP OPARITADIT EXP
 		operatorDerivation = new Derivation();
 		operatorDerivation
-				.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
+				.addSymbol(new NonTerminal(NonTerminalName.EXP));
+		operatorDerivation.addSymbol(new Terminal(TokenCategory.OPCONC));
+		operatorDerivation
+				.addSymbol(new NonTerminal(NonTerminalName.EXP));
+		operatorGrammarArray.add(operatorDerivation);
+
+		// (5)EXP = EXP OPARITADIT EXP
+		operatorDerivation = new Derivation();
+		operatorDerivation
+				.addSymbol(new NonTerminal(NonTerminalName.EXP));
 		operatorDerivation.addSymbol(new Terminal(TokenCategory.OPARITADIT));
 		operatorDerivation
-				.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
+				.addSymbol(new NonTerminal(NonTerminalName.EXP));
 		operatorGrammarArray.add(operatorDerivation);
 
-		// (5)EXPRESSION = EXPRESSION OPARITMULT EXPRESSION
+		// (6)EXP = EXP OPARITMULT EXP
 		operatorDerivation = new Derivation();
 		operatorDerivation
-				.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
+				.addSymbol(new NonTerminal(NonTerminalName.EXP));
 		operatorDerivation.addSymbol(new Terminal(TokenCategory.OPARITMULT));
 		operatorDerivation
-				.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
+				.addSymbol(new NonTerminal(NonTerminalName.EXP));
 		operatorGrammarArray.add(operatorDerivation);
 
-		// (6)EXPRESSION = EXPRESSION OPNEGUN EXPRESSION
+		// (7)EXP = EXP OPNEGUN EXP
 		operatorDerivation = new Derivation();
 		operatorDerivation.addSymbol(new Terminal(TokenCategory.OPNEGUN));
 		operatorDerivation
-				.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
+				.addSymbol(new NonTerminal(NonTerminalName.EXP));
 		operatorGrammarArray.add(operatorDerivation);
 
-		// (7)EXPRESSION = EXPRESSION OPNEGLOGIC EXPRESSION
+		// (8)EXP = EXP OPNEGLOGIC EXP
 		operatorDerivation = new Derivation();
 		operatorDerivation.addSymbol(new Terminal(TokenCategory.OPNEGLOGIC));
 		operatorDerivation
-				.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
+				.addSymbol(new NonTerminal(NonTerminalName.EXP));
 		operatorGrammarArray.add(operatorDerivation);
 
-		// (8)EXPRESSION = EXPRESSION OPARITEXP EXPRESSION
+		// (9)EXP = EXP OPARITEXP EXP
 		operatorDerivation = new Derivation();
 		operatorDerivation
-				.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
+				.addSymbol(new NonTerminal(NonTerminalName.EXP));
 		operatorDerivation.addSymbol(new Terminal(TokenCategory.OPARITEXP));
 		operatorDerivation
-				.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
+				.addSymbol(new NonTerminal(NonTerminalName.EXP));
 		operatorGrammarArray.add(operatorDerivation);
 
-		// (9)EXPRESSION = PARAMBEGIN EXPRESSION PARAMEND
+		// (10)EXP = PARAMBEGIN EXP PARAMEND
 		operatorDerivation = new Derivation();
 		operatorDerivation.addSymbol(new Terminal(TokenCategory.PARAMBEGIN));
 		operatorDerivation
-				.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
+				.addSymbol(new NonTerminal(NonTerminalName.EXP));
 		operatorDerivation.addSymbol(new Terminal(TokenCategory.PARAMEND));
 		operatorGrammarArray.add(operatorDerivation);
 
-		// (10)EXPRESSION = CONSTNUMINT
+		// (11)EXP = CONSTNUMINT
 		operatorDerivation = new Derivation();
 		operatorDerivation.addSymbol(new Terminal(TokenCategory.CONSTNUMINT));
 		operatorGrammarArray.add(operatorDerivation);
 
-		// (11)EXPRESSION = CONSTNUMDEC
+		// (12)EXP = CONSTNUMREAL
 		operatorDerivation = new Derivation();
-		operatorDerivation.addSymbol(new Terminal(TokenCategory.CONSTNUMDEC));
+		operatorDerivation.addSymbol(new Terminal(TokenCategory.CONSTNUMREAL));
 		operatorGrammarArray.add(operatorDerivation);
 
-		// (12)EXPRESSION = CONSTLOGIC
+		// (13)EXP = CONSTLOGIC
 		operatorDerivation = new Derivation();
 		operatorDerivation.addSymbol(new Terminal(TokenCategory.CONSTLOGIC));
 		operatorGrammarArray.add(operatorDerivation);
 
-		// (13)EXPRESSION = CONSTCHAR
+		// (14)EXP = CONSTCHAR
 		operatorDerivation = new Derivation();
 		operatorDerivation.addSymbol(new Terminal(TokenCategory.CONSTCHAR));
 		operatorGrammarArray.add(operatorDerivation);
 
-		// (14)EXPRESSION = CONSTCCHAR
+		// (15)EXP = CONSTCCHAR
 		operatorDerivation = new Derivation();
 		operatorDerivation.addSymbol(new Terminal(TokenCategory.CONSTCCHAR));
 		operatorGrammarArray.add(operatorDerivation);
 
-		// (15)EXPRESSION = ID
+		// (16)EXP = ID
 		operatorDerivation = new Derivation();
 		operatorDerivation.addSymbol(new Terminal(TokenCategory.ID));
 		operatorGrammarArray.add(operatorDerivation);
 
-		// (16)EXPRESSION = ID ARRAYBEGIN EXPRESSION ARRAYEND
+		// (17)EXP = ID ARRAYBEGIN EXP ARRAYEND
 		operatorDerivation = new Derivation();
 		operatorDerivation.addSymbol(new Terminal(TokenCategory.ID));
 		operatorDerivation.addSymbol(new Terminal(TokenCategory.ARRAYBEGIN));
 		operatorDerivation
-				.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
+				.addSymbol(new NonTerminal(NonTerminalName.EXP));
 		operatorDerivation.addSymbol(new Terminal(TokenCategory.ARRAYEND));
 		operatorGrammarArray.add(operatorDerivation);
 
-		// (17)EXPRESSION = ID PARAMBEGIN EXPRESSION PARAMEND
+		// (18)EXP = ID PARAMBEGIN EXP PARAMEND
 		operatorDerivation = new Derivation();
 		operatorDerivation.addSymbol(new Terminal(TokenCategory.ID));
 		operatorDerivation.addSymbol(new Terminal(TokenCategory.PARAMBEGIN));
 		operatorDerivation
-				.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
+				.addSymbol(new NonTerminal(NonTerminalName.EXP));
 		operatorDerivation.addSymbol(new Terminal(TokenCategory.PARAMEND));
 		operatorGrammarArray.add(operatorDerivation);
 
-		// (18)EXPRESSION = EXPRESSION SEP1 EXPRESSION
+		// (19)EXP = EXP SEP1 EXP
 		operatorDerivation = new Derivation();
 		operatorDerivation
-				.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
+				.addSymbol(new NonTerminal(NonTerminalName.EXP));
 		operatorDerivation.addSymbol(new Terminal(TokenCategory.SEP1));
 		operatorDerivation
-				.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
+				.addSymbol(new NonTerminal(NonTerminalName.EXP));
 		operatorGrammarArray.add(operatorDerivation);
 	}
 

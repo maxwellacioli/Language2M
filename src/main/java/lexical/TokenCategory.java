@@ -2,64 +2,63 @@ package lexical;
 
 public enum TokenCategory {
 
-	MAJOR(1, "principal"),
-	ID(2, null),
-	TEMPTY(3, "vazio"),
-	TINT(4, "inteiro"),
-	TLONG(5, "longo"),
-	TLOGIC(6, "logico"),
-	TCHAR(7, "caracter"),
-	TCCHAR(8, "cadeia"),
-	TDEC(9, "real"),
-	ESCBEGIN(10, "{"),
-	ESCEND(11, "}"),
-	PARAMBEGIN(12, "("),
-	PARAMEND(13, ")"),
-	ARRAYBEGIN(14, "["),
-	ARRAYEND(15, "]"),
-	COMMENT(16, "/$"),
-	SEP1(18, ","),
-	SEP2(19, ";"),
-	CONSTNUMINT(20, null),
-	CONSTNUMDEC(21, null),
-	CONSTLOGIC(22, null),
-	CONSTCHAR(23, null),
-	CONSTCCHAR(24, null),
-	PRIF(25, "se"),
-	PRELSE(26, "entao"),
-	PRELSEIF(27, "senao"),
-	PRITERATOR(28, "iterador"),
-	PRDO(29, "faca"),
-	PRWHILE(30, "enquanto"),
-	PRPRINTOUT(31, "imprima"),
-	PRREADIN(32, "leia"),
-	PRRETURN(33, "retorne"),
-	OPLOGICAND(34, "e"),
-	OPLOGICOR(35, "ou"),
-	OPNEGLOGIC(36, "no"),
-	OPARITADIT(37, null),
-	OPARITMULT(38, null),
-	OPARITEXP(39, null),
-	OPNEGUN(40, null),
-	OPREL1(41, null),
-	OPREL2(42, null),
-	OPATRIB(43, "="),
-	OPCONC(44, "++"),
-	UNKNOWN(45, null);
-	
-	private int value;
+	MAIN("principal", 1),
+	ID( null, 2),
+	TEMPTY("vazio", 3),
+	TINT("inteiro", 4),
+	TLOGIC("logico", 5),
+	TCHAR("letra", 6),
+	TCCHAR("texto", 7),
+	TREAL("real", 8),
+	ESCBEGIN("{", 9),
+	ESCEND( "}", 10),
+	PARAMBEGIN("(", 11),
+	PARAMEND(")", 12),
+	ARRAYBEGIN("[", 13),
+	ARRAYEND("]", 14),
+	COMMENT("/$", 15),
+	SEP1(",", 16),
+	SEP2(";", 17),
+	CONSTNUMINT(null, 18),
+	CONSTNUMREAL(null, 19),
+	CONSTLOGIC(null, 20),
+	CONSTCHAR(null, 21),
+	CONSTCCHAR(null, 22),
+	PRIF("se", 23),
+	PRELSE("senao", 24),
+	PRELSEIF("senaose", 25),
+	PRITERATOR("repita", 26),
+	PRDO("faca", 27),
+	PRWHILE("enquanto", 28),
+	PRPRINTOUT("imprima", 29),
+	PRREADIN("leia", 30),
+	PRRETURN("retorne", 31),
+	OPLOGICAND("e", 32),
+	OPLOGICOR("ou", 33),
+	OPNEGLOGIC("no", 34),
+	OPARITADIT(null, 35),
+	OPARITMULT(null, 36),
+	OPARITEXP(null, 37),
+	OPNEGUN(null, 38),
+	OPREL1(null, 39),
+	OPREL2(null, 40),
+	OPATRIB("=", 41),
+	OPCONC("++", 42),
+	UNKNOWN(null, 43);
+
 	private String name;
+	private int value;
 	
-	private TokenCategory(int value, String name) {
-		this.value = value;
+	private TokenCategory(String name, int value) {
 		this.name = name;
-	}
-	
-	public int getCategoryValue() {
-		return value;
+		this.value = value;
 	}
 
 	public String getName() {
 		return name;
+	}
+
+	public int getValue() {
+		return value;
 	}
 }

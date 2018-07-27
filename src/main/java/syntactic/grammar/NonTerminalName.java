@@ -1,60 +1,32 @@
 package syntactic.grammar;
 
 public enum NonTerminalName {
-	
-	PROGRAM(1), 
+
+	PROGRAM(1),
 	FUNCTIONS(2),
-	MAJORF(3),
-	PARAMS(4),
-	PARAMSFAT(5),
+	FUNCTIONSREC(3),
+	MAIN(4),
+	PARAMS(5),
 	LISTPARAMS(6),
-	LISTPARAMSFAT(7),
+	LISTPARAMSREC(7),
 	TYPE(8),
-	RETURNTYPE(9),
-	RETURNTYPEFAT(10),
-	NAME(11),
-	NAMEFAT1(12),
-	ESCOPE(13),
-	COMMANDS(14),
-	CMD(15),
-	DECLARATION(16),
-	CMDFAT(17),
-	ATTRIBUTION(18),
-	VALUE(19),
-	ARRAY(20),
-	ARRAYFAT(21),
-	ELEMENTS(22),
-	ELEMENTSFAT(23),
-	CONSTANT(24),
-	FUNCCALL(25),
-	LISTPARAMSCALL(26),
-	LISTPARAMSCALLFAT(27),
-	PARAMITEM(28),
-	PRINTOUT(29),
-	MESSAGE(30),
-	MESSAGEFAT(31),
-	READIN(32),
-	IFELSE(33),
-	IF(34),
-	ELSEIF(35),
-	ELSE(36),
-	WHILE(37),
-	DOWHILE(38),
-	ITERATOR(39),
-	RETURN(40),
-	RETURNFAT(41),
-	EXPRESSION(42),
-	VARIABLE(43),
-	CASTING(44),
-	NAMEFAT2(45);
-	
-	private int nonTerminalValue;
-	
+	ESCOPE(9),
+	CMDS(10),
+	CMDSREC(11),
+	CMD(12),
+	CMDELSEIF(13),
+	CMDELSEIFREC(14),
+	LISTNAME(15),
+	LISTNAMEREC(16),
+	EXP(17);
+
+	private int value;
+
 	private NonTerminalName(int value) {
-		this.nonTerminalValue = value;
+		this.value = value;
 	}
-	
-	public int getNonTerminalValue() {
-		return nonTerminalValue;
+
+	public int getValue() {
+		return value;
 	}
 }

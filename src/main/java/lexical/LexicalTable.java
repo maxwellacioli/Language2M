@@ -68,19 +68,18 @@ public class LexicalTable {
 
 		// Palavras-reservadas (comandos e operadores)
 
-		keyWordsMap.put("caracter", TokenCategory.TCHAR);
-		keyWordsMap.put("cadeia", TokenCategory.TCCHAR);
-		keyWordsMap.put("longo", TokenCategory.TLONG);
-		keyWordsMap.put("real", TokenCategory.TDEC);
+		keyWordsMap.put("letra", TokenCategory.TCHAR);
+		keyWordsMap.put("texto", TokenCategory.TCCHAR);
+		keyWordsMap.put("real", TokenCategory.TREAL);
 		keyWordsMap.put("inteiro", TokenCategory.TINT);
 		keyWordsMap.put("logico", TokenCategory.TLOGIC);
-		keyWordsMap.put("principal", TokenCategory.MAJOR);
+		keyWordsMap.put("principal", TokenCategory.MAIN);
 		keyWordsMap.put("se", TokenCategory.PRIF);
-		keyWordsMap.put("entao", TokenCategory.PRELSE);
-		keyWordsMap.put("senao", TokenCategory.PRELSEIF);
-		keyWordsMap.put("iterador", TokenCategory.PRITERATOR);
+		keyWordsMap.put("senao", TokenCategory.PRELSE);
+		keyWordsMap.put("senaose", TokenCategory.PRELSEIF);
+		keyWordsMap.put("repita", TokenCategory.PRITERATOR);
 		keyWordsMap.put("enquanto", TokenCategory.PRWHILE);
-		keyWordsMap.put("execute", TokenCategory.PRDO);
+		keyWordsMap.put("faca", TokenCategory.PRDO);
 		keyWordsMap.put("verdade", TokenCategory.CONSTLOGIC);
 		keyWordsMap.put("falso", TokenCategory.CONSTLOGIC);
 		keyWordsMap.put("no", TokenCategory.OPNEGLOGIC);
