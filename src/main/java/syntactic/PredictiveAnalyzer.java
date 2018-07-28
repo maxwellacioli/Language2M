@@ -240,10 +240,6 @@ public class PredictiveAnalyzer {
 										topNonTerminal.getName(),
 										terminal.getCategory());
 
-						if(derivationNumber == 33) {
-							System.out.println();
-						}
-
 						if (derivationNumber != null) {
 							leftCount = prodCount.pop();
 							rightCountAux = rightCount;

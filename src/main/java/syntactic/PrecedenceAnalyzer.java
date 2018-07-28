@@ -19,7 +19,6 @@ public class PrecedenceAnalyzer {
 	private Terminal currentTerm;
 	private PrecedenceTable precedenceTable;
 	private int paramCount = 0;
-	private int arrayCount = 0;
 
 	private Terminal stackTerm;
 	private Terminal tapeTerm;
@@ -44,14 +43,6 @@ public class PrecedenceAnalyzer {
 				endOfSentence = terminal;
 			} else {
 				paramCount--;
-			}
-		} else if (terminal.getCategory().equals(TokenCategory.ARRAYBEGIN)) {
-			arrayCount++;
-		} else if (terminal.getCategory().equals(TokenCategory.ARRAYEND)) {
-			if (arrayCount == 0) {
-				endOfSentence = terminal;
-			} else {
-				arrayCount--;
 			}
 		}
 	}
@@ -159,21 +150,16 @@ public class PrecedenceAnalyzer {
 
 				} else if (tableValue > PrecedenceTable.ELT) { // Acao Reduz
 
-					// Se a producao for 10(9), sera necessario 2 acoes pop para
+					// Se a producao for 10, sera necessario 2 acoes pop para
 					// tirar o '(' e ')'
-					// referente a producao EXP = PARAMBEGIN EXP
-					// PARAMEND
+					// referente a producao EXP = ( EXP )
 
-					if (tableValue >= PrecedenceTable.R11 && tableValue <= PrecedenceTable.R16) {
-//						if (operatorsStack.peek().isTerminal()) {
-//							if (tableValue == PrecedenceTable.R16) {
-								currentTerm = (Terminal) operatorsStack.pop();
-//							} else {
-//								operatorsStack.pop();
-//							}
-//						}
+					if (tableValue >= PrecedenceTable.R12 && tableValue <= PrecedenceTable.R16) {
+						currentTerm = (Terminal) operatorsStack.pop();
 						operatorsStack.push(new NonTerminal(NonTerminalName.EXP));
-					} else if (tableValue == PrecedenceTable.R7 || tableValue == PrecedenceTable.R8) {
+
+						//reducoes com operadores unarios
+					} else if (tableValue == PrecedenceTable.R8 || tableValue == PrecedenceTable.R9) {
 						if (!operatorsStack.peek().isTerminal()) {
 							if (operatorsStack.elementAt(operatorsStack.size() - 2).isTerminal()) {
 								operatorsStack.pop();
@@ -183,7 +169,9 @@ public class PrecedenceAnalyzer {
 								handlerError();
 							}
 						}
-					} else if (tableValue == PrecedenceTable.R17) {
+					}
+					//reducao da producao E = id ( E )
+					else if (tableValue == PrecedenceTable.R18) {
 						if (operatorsStack.peek().isTerminal()) {
 							if (!operatorsStack.elementAt(operatorsStack.size() - 2).isTerminal()) {
 								if (operatorsStack.elementAt(operatorsStack.size() - 3).isTerminal()) {
@@ -205,7 +193,7 @@ public class PrecedenceAnalyzer {
 						} else {
 							handlerError();
 						}
-					} else if (tableValue == PrecedenceTable.R10) {
+					} else if (tableValue == PrecedenceTable.R11) {
 						if (operatorsStack.size() > 3
 								&& (operatorsStack.elementAt(operatorsStack.size() - 4).isTerminal())) {
 							Terminal termAux = (Terminal) operatorsStack.elementAt(operatorsStack.size() - 4);

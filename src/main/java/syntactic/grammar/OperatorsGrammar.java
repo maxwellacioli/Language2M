@@ -40,9 +40,7 @@ public class OperatorsGrammar {
 		operatorsGrammarSymbols.add(TokenCategory.CONSTCHAR);// 15
 		operatorsGrammarSymbols.add(TokenCategory.CONSTCCHAR);// 16
 		operatorsGrammarSymbols.add(TokenCategory.ID);// 17
-		operatorsGrammarSymbols.add(TokenCategory.ARRAYBEGIN);// 18
-		operatorsGrammarSymbols.add(TokenCategory.ARRAYEND);// 19
-		operatorsGrammarSymbols.add(TokenCategory.SEP1);// 20
+		operatorsGrammarSymbols.add(TokenCategory.SEP1);// 18
 	}
 
 	public static OperatorsGrammar getInstance() {
@@ -95,7 +93,7 @@ public class OperatorsGrammar {
 				.addSymbol(new NonTerminal(NonTerminalName.EXP));
 		operatorGrammarArray.add(operatorDerivation);
 
-		// (4)EXP = EXP OPARITADIT EXP
+		// (4)EXP = EXP OPCONC EXP
 		operatorDerivation = new Derivation();
 		operatorDerivation
 				.addSymbol(new NonTerminal(NonTerminalName.EXP));
@@ -183,16 +181,7 @@ public class OperatorsGrammar {
 		operatorDerivation.addSymbol(new Terminal(TokenCategory.ID));
 		operatorGrammarArray.add(operatorDerivation);
 
-		// (17)EXP = ID ARRAYBEGIN EXP ARRAYEND
-		operatorDerivation = new Derivation();
-		operatorDerivation.addSymbol(new Terminal(TokenCategory.ID));
-		operatorDerivation.addSymbol(new Terminal(TokenCategory.ARRAYBEGIN));
-		operatorDerivation
-				.addSymbol(new NonTerminal(NonTerminalName.EXP));
-		operatorDerivation.addSymbol(new Terminal(TokenCategory.ARRAYEND));
-		operatorGrammarArray.add(operatorDerivation);
-
-		// (18)EXP = ID PARAMBEGIN EXP PARAMEND
+		// (17)EXP = ID PARAMBEGIN EXP PARAMEND
 		operatorDerivation = new Derivation();
 		operatorDerivation.addSymbol(new Terminal(TokenCategory.ID));
 		operatorDerivation.addSymbol(new Terminal(TokenCategory.PARAMBEGIN));
@@ -201,7 +190,7 @@ public class OperatorsGrammar {
 		operatorDerivation.addSymbol(new Terminal(TokenCategory.PARAMEND));
 		operatorGrammarArray.add(operatorDerivation);
 
-		// (19)EXP = EXP SEP1 EXP
+		// (18)EXP = EXP SEP1 EXP
 		operatorDerivation = new Derivation();
 		operatorDerivation
 				.addSymbol(new NonTerminal(NonTerminalName.EXP));
