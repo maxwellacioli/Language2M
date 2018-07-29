@@ -5,8 +5,7 @@ public enum VarType {
     INTEIRO("inteiro"),
     REAL("real"),
     CARACTER("caracter"),
-    CADEIA("cadeia"),
-    LONGO("longo"),
+    CADEIA("texto"),
     LOGICO("logico");
 
     private String name;
@@ -28,12 +27,18 @@ public enum VarType {
             return CARACTER;
         } else if(type.equals(CADEIA.getName())) {
             return CADEIA;
-        } else if(type.equals(LONGO.getName())) {
-            return LONGO;
         } else if(type.equals(LOGICO.getName())) {
             return LOGICO;
         }
 
         return null;
+    }
+
+    public static boolean isNumeric(VarType type) {
+        return (type.equals(INTEIRO) || type.equals(REAL));
+    }
+
+    public static boolean hasEqualType(VarType type1, VarType type2) {
+        return (type1.equals(type2));
     }
 }

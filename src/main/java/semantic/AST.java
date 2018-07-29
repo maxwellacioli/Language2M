@@ -1,5 +1,7 @@
 package semantic;
 
+import semantic.commands.Node;
+
 import java.util.List;
 
 @SuppressWarnings("WeakerAccess")

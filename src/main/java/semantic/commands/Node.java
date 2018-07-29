@@ -1,8 +1,7 @@
-package semantic;
+package semantic.commands;
 
 import syntactic.grammar.GrammarSymbol;
 import syntactic.grammar.Terminal;
-import lexical.Token;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +11,11 @@ public class Node {
     private List<Node> children;
     private GrammarSymbol grammarSymbol;
     private List<String> name;
+
+    public static int label = 0;
+    public int newLabel() {
+        return ++label;
+    }
 
     public Node(Node parent, GrammarSymbol grammarSymbol) {
         children = new ArrayList<Node>();

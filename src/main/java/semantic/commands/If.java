@@ -1,4 +1,5 @@
 package semantic.commands;
 
-public class If {
+public class If extends Node{
+
 }

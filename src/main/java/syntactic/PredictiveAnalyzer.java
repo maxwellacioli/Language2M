@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-import lexical.LexicalTable;
 import semantic.*;
+import semantic.commands.Node;
 import syntactic.grammar.Derivation;
 import syntactic.grammar.Grammar;
 import syntactic.grammar.NonTerminal;
@@ -15,7 +15,6 @@ import syntactic.grammar.GrammarSymbol;
 import syntactic.grammar.Terminal;
 import lexical.LexicalAnalyzer;
 import lexical.Token;
-import lexical.TokenCategory;
 
 public class PredictiveAnalyzer {
 
