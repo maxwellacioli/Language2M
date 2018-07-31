@@ -1,5 +1,7 @@
 principal () inteiro {
-    inteiro a;
+    a = 5;
 
-    a = somma(5);
+    se( a < 3) {
+        a = 1;
+    };
 }

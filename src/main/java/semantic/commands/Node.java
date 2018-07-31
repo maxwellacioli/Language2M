@@ -47,6 +47,11 @@ public class Node {
         this.children.add(child);
     }
 
+    public void addChild(int index, Node child) {
+        child.setParent(this);
+        this.children.add(index, child);
+    }
+
     public void addChildren(List<Node> children) {
         for(Node n : children) {
             n.setParent(this);

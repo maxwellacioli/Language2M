@@ -32,6 +32,7 @@ public class PredictiveAnalyzer {
 	private Boolean functionReturnFlag;
 	private VarType varType;
 	private final int DECLARATION_DERIVATION = 19;
+	private final int CASTING_DERIVATION = 28;
 	private final int PARAM_DERIVATION = 7;
 
 	//Pilha preditiva
@@ -96,8 +97,11 @@ public class PredictiveAnalyzer {
 	private void changeNodeReference(Node node, Node child) {
 		Node parent;
 		parent = node.getParent();
+
+		int index = parent.getChildren().indexOf(node);
+
 		node.removeNode();
-		parent.addChild(child);
+		parent.addChild(index, child);
 	}
 
 	private void derivationSemantincAction(int derivationNumber) {
@@ -149,17 +153,16 @@ public class PredictiveAnalyzer {
 				cmdsRec = new CmdsRec();
 				node = astStack.pop();
 
-				changeNodeReference(node, new Cmds(cmd, cmdsRec));
+				if(node.isRoot()) {
+					ast.setRoot(new Cmds(cmd, cmdsRec));
+				} else {
+					changeNodeReference(node, new Cmds(cmd, cmdsRec));
+				}
 
 				astStack.push(cmdsRec);
 				astStack.push(cmd);
 				break;
 			case 18:
-				//Remove o no do pai deste
-				node = astStack.pop();
-				node.removeNode();
-				break;
-			case 19:
 				node = astStack.pop();
 				node.removeNode();
 				break;
@@ -169,32 +172,41 @@ public class PredictiveAnalyzer {
 				node = astStack.pop();
 
 				changeNodeReference(node, new Attribution("=", id, exp));
+
 				astStack.push(exp);
 				astStack.push(id);
 				break;
 			case 21:
 				exp = new Exp();
 				node = astStack.pop();
-				node = new Printout(exp);
+
+				changeNodeReference(node, new Printout(exp));
+
 				astStack.push(exp);
 				break;
 			case 22:
 				id = new Id();
 				node = astStack.pop();
-				node = new ReadIn(id);
+
+				changeNodeReference(node, new ReadIn(id));
+
 				astStack.push(id);
 				break;
 			case 23:
 				ifElseFat = new IfElseFat();
 				node = astStack.pop();
-				node = ifElseFat;
+
+				changeNodeReference(node, ifElseFat);
+
 				astStack.push(ifElseFat);
 				break;
 			case 24:
 				exp = new Exp();
 				escope = new Escope();
 				node = astStack.pop();
-				node = new While(exp, escope);
+
+				changeNodeReference(node, new While(exp, escope));
+
 				astStack.push(escope);
 				astStack.push(exp);
 				break;
@@ -202,7 +214,9 @@ public class PredictiveAnalyzer {
 				escope = new Escope();
 				exp = new Exp();
 				node = astStack.pop();
-				node = new Do(escope, exp);
+
+				changeNodeReference(node, new Do(escope, exp));
+
 				astStack.push(exp);
 				astStack.push(escope);
 				break;
@@ -212,7 +226,9 @@ public class PredictiveAnalyzer {
 				Exp exp1 = new Exp();
 				escope = new Escope();
 				node = astStack.pop();
-				node = new Iterator(attribution, exp, exp1, escope);
+
+				changeNodeReference(node, new Iterator(attribution, exp, exp1, escope));
+
 				astStack.push(escope);
 				astStack.push(exp1);
 				astStack.push(exp);
@@ -223,18 +239,17 @@ public class PredictiveAnalyzer {
 				node = astStack.pop();
 
 				changeNodeReference(node, new Return(exp));
+
 				astStack.push(exp);
-				break;
-			case 28:
-				//Remove o no do pai deste
-				node = astStack.pop();
-				node.removeNode();
 				break;
 			case 29:
 				exp = new Exp();
 				escope = new Escope();
 				Escope escope1 = new Escope();
-				node = new IfElse(exp, escope, escope1);
+				node = astStack.pop();
+
+				changeNodeReference(node, new IfElse(exp, escope, escope1));
+
 				astStack.push(escope1);
 				astStack.push(escope);
 				astStack.push(exp);
@@ -242,7 +257,10 @@ public class PredictiveAnalyzer {
 			case 30:
 				exp = new Exp();
 				escope = new Escope();
-				node = new If(exp, escope);
+				node = astStack.pop();
+
+				changeNodeReference(node, new If(exp, escope));
+
 				astStack.push(escope);
 				astStack.push(exp);
 				break;
@@ -306,7 +324,13 @@ public class PredictiveAnalyzer {
 							}
 						}
 
+						//TODO AST
 //						//Verifica se o topo da pilha preditiva e da pilha da ast sao iguais
+						if(!astStack.isEmpty()) {
+							if(astStack.peek() instanceof Id) {
+								astStack.pop();
+							}
+						}
 //						if(astStack.peek().getGrammarSymbol() instanceof Terminal) {
 //							Terminal nodeaux = (Terminal) astStack.peek().getGrammarSymbol();
 //							if(nodeaux.getCategory().equals(token.getCategory())) {
@@ -382,6 +406,10 @@ public class PredictiveAnalyzer {
 								terminal = new Terminal(
 										precedenceAnalyzer.getEndOfSentence());
 
+								//FIXME Fazer acoes semanticas para estes NT
+								if(astStack.peek() instanceof Exp) {
+									astStack.pop();
+								}
 							}
 						}
 					} else {
@@ -403,9 +431,10 @@ public class PredictiveAnalyzer {
 								varType = VarType.getVarType(token.getLexValue());
 							}
 
-							//TODO AST
+							//TODO ############# AST #############
 							//executa acao semantica para construir a ast
-							if(derivationNumber >= 15 || derivationNumber <= 30) {
+							if((derivationNumber >= 15 || derivationNumber <= 30) && derivationNumber
+									!= CASTING_DERIVATION && derivationNumber != DECLARATION_DERIVATION) {
 								derivationSemantincAction(derivationNumber);
 							}
 
