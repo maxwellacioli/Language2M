@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Stack;
 
 import semantic.*;
-import semantic.commands.Node;
+import semantic.commands.*;
 import syntactic.grammar.Derivation;
 import syntactic.grammar.Grammar;
 import syntactic.grammar.NonTerminal;
@@ -31,18 +31,17 @@ public class PredictiveAnalyzer {
 	private Boolean symbolFlag;
 	private Boolean functionReturnFlag;
 	private VarType varType;
+	private final int DECLARATION_DERIVATION = 19;
+	private final int PARAM_DERIVATION = 7;
 
 	//Pilha preditiva
 	private Stack<GrammarSymbol> stack;
 
 	//AST
-	private List<AST> programAST;
-	private Stack<Node> astStack;
+	private List<AST> programAst;
 	private AST ast;
+	private Stack<Node> astStack;
 	private Node node;
-	private ArrayList<Node> childrenList;
-	private Boolean transferRef;
-
 
 	//Variavel derivacao auxiliar
 	private Derivation derivation;
@@ -63,10 +62,10 @@ public class PredictiveAnalyzer {
 		stack = new Stack<GrammarSymbol>();
 
 		//TODO AST
-		programAST = new ArrayList<AST>();
+		programAst = new ArrayList<AST>();
 		astStack = new Stack<Node>();
-		childrenList = new ArrayList<Node>();
-		transferRef = false;
+		node = null;
+		ast = null;
 
 		derivation = new Derivation();
 	}
@@ -83,19 +82,152 @@ public class PredictiveAnalyzer {
 		functionReturnFlag = !functionReturnFlag;
 	}
 
-	public Boolean isType(Token token) {
+	private Boolean isType(Token token) {
 		String type = token.getLexValue();
 
 		if (type.equals(VarType.INTEIRO.getName()) ||
 				type.equals(VarType.REAL.getName()) ||
 				type.equals(VarType.CARACTER.getName()) ||
 				type.equals(VarType.CADEIA.getName()) ||
-				type.equals(VarType.LONGO.getName()) ||
 				type.equals(VarType.LOGICO.getName())
 				) {
 			return true;
 		}
 		return false;
+	}
+
+	private void derivationSemantincAction(int derivationNumber) {
+		Cmd cmd = null;
+		Cmds cmds = null;
+		CmdsRec cmdsRec = null;
+		Escope escope = null;
+		Attribution attribution = null;
+		Do doCmd = null;
+		Id id = null;
+		If ifCmd = null;
+		IfElse ifElse = null;
+		IfElseFat ifElseFat = null;
+		Iterator iterator = null;
+		Printout printout = null;
+		ReadIn readIn = null;
+		Return returnCmd = null;
+		While whileCmd = null;
+		Exp exp = null;
+
+		switch (derivationNumber) {
+			case 15:
+				cmds = new Cmds();
+				node = astStack.pop();
+				node = cmds;
+				astStack.push(cmds);
+				break;
+			case 16:
+				cmd = new Cmd();
+				cmdsRec = new CmdsRec();
+				node = astStack.pop();
+				node = new CmdsRec(cmd, cmdsRec);
+				astStack.push(cmdsRec);
+				astStack.push(cmd);
+				break;
+			case 17:
+				cmd = new Cmd();
+				cmds = new Cmds();
+				node = astStack.pop();
+				node = new Cmds(cmd, cmds);
+				astStack.push(cmds);
+				astStack.push(cmd);
+				break;
+			case 18:
+				//Remove o no do pai deste
+				node = astStack.pop();
+				node.removeNode();
+				break;
+			case 19:
+				node = astStack.pop();
+				node = null;
+				break;
+			case 20:
+				id = new Id();
+				exp = new Exp();
+				node = astStack.pop();
+				node = new Attribution("=", id, exp);
+				astStack.push(exp);
+				astStack.push(id);
+				break;
+			case 21:
+				exp = new Exp();
+				node = astStack.pop();
+				node = new Printout(exp);
+				astStack.push(exp);
+				break;
+			case 22:
+				id = new Id();
+				node = astStack.pop();
+				node = new ReadIn(id);
+				astStack.push(id);
+				break;
+			case 23:
+				ifElseFat = new IfElseFat();
+				node = astStack.pop();
+				node = ifElseFat;
+				astStack.push(ifElseFat);
+				break;
+			case 24:
+				exp = new Exp();
+				escope = new Escope();
+				node = astStack.pop();
+				node = new While(exp, escope);
+				astStack.push(escope);
+				astStack.push(exp);
+				break;
+			case 25:
+				escope = new Escope();
+				exp = new Exp();
+				node = astStack.pop();
+				node = new Do(escope, exp);
+				astStack.push(exp);
+				astStack.push(escope);
+				break;
+			case 26:
+				attribution = new Attribution();
+				exp = new Exp();
+				Exp exp1 = new Exp();
+				escope = new Escope();
+				node = astStack.pop();
+				node = new Iterator(attribution, exp, exp1, escope);
+				astStack.push(escope);
+				astStack.push(exp1);
+				astStack.push(exp);
+				astStack.push(attribution);
+				break;
+			case 27:
+				exp = new Exp();
+				node = astStack.pop();
+				node = new Return(exp);
+				astStack.push(exp);
+				break;
+			case 28:
+				//Remove o no do pai deste
+				node = astStack.pop();
+				node.removeNode();
+				break;
+			case 29:
+				exp = new Exp();
+				escope = new Escope();
+				Escope escope1 = new Escope();
+				node = new IfElse(exp, escope, escope1);
+				astStack.push(escope1);
+				astStack.push(escope);
+				astStack.push(exp);
+				break;
+			case 30:
+				exp = new Exp();
+				escope = new Escope();
+				node = new If(exp, escope);
+				astStack.push(escope);
+				astStack.push(exp);
+				break;
+		}
 	}
 
 
@@ -130,28 +262,31 @@ public class PredictiveAnalyzer {
 
 					if (topGrammarSymbol.getValue() == terminal.getValue()) {
 						//Adiciona simbolos a tabela de simbolo local
-//						if(symbolFlag) {
-//							if(token.getLexValue().equals(";") || token.getLexValue().equals(")") || token.getLexValue().equals("{")) {
-//								changeSymbolFlag();
-//							} else if(!token.getLexValue().equals(",") && !isType(token)){
-//								Symbol symbol = new Symbol(token.getLexValue(), varType);
-//								localSymbolTable.insertSymbol(symbol);
-//							}
-//						} else if(functionFlag) {
-//							if(token.getLexValue().equals(")")) {
-//								changeFunctionFlag();
-//							}else if(isType(token)) {
-//								varType = VarType.getVarType(token.getLexValue());
-//								functionSymbol.insertParamType(varType);
-//							} else if(!token.getLexValue().equals(",") && !isType(token)){
-//								Symbol symbol = new Symbol(token.getLexValue(), varType);
-//								localSymbolTable.insertSymbol(symbol);
-//							}
-//						} else if(functionReturnFlag) {
-//							functionSymbol.setType(VarType.getVarType(token.getLexValue()));
-//							changeFunctionReturnFlag();
-//						}
-//
+						if(symbolFlag) {
+							if(token.getLexValue().equals(";") || token.getLexValue().equals(")") || token.getLexValue().equals("{")) {
+								changeSymbolFlag();
+							} else if(!token.getLexValue().equals(",") && !isType(token)){
+								Symbol symbol = new Symbol(token.getLexValue(), varType);
+								localSymbolTable.insertSymbol(symbol);
+							}
+						} else if(functionFlag) {
+							if(token.getLexValue().equals(")")) {
+								changeFunctionFlag();
+								changeFunctionReturnFlag();
+							}else if(isType(token)) {
+								varType = VarType.getVarType(token.getLexValue());
+								functionSymbol.insertParamType(varType);
+							} else if(!token.getLexValue().equals(",") && !isType(token)){
+								Symbol symbol = new Symbol(token.getLexValue(), varType);
+								localSymbolTable.insertSymbol(symbol);
+							}
+						} else if(functionReturnFlag) {
+							if(!token.getLexValue().equals(")")) {
+								functionSymbol.setType(VarType.getVarType(token.getLexValue()));
+								changeFunctionReturnFlag();
+							}
+						}
+
 //						//Verifica se o topo da pilha preditiva e da pilha da ast sao iguais
 //						if(astStack.peek().getGrammarSymbol() instanceof Terminal) {
 //							Terminal nodeaux = (Terminal) astStack.peek().getGrammarSymbol();
@@ -178,39 +313,38 @@ public class PredictiveAnalyzer {
 
 					topNonTerminal = (NonTerminal) topGrammarSymbol;
 					//Cria a ast da funcao que esta sendo analizada
-//					if(topNonTerminal.getName() == NonTerminalName.FUNCTIONS) {
-//						//o token = "principal" significa que nao temos uma assintura de funcao
-//						if(!token.getLexValue().equals("principal")) {
-//							//verifica se a ast esta construida antes de adiciona-la
-//							if(ast != null) {
-//								programAST.add(ast);
-//							}
-//							ast = new AST(token.getLexValue());
-//							//TODO AST
-//							node = new Node(topNonTerminal);
-//							ast.setRoot(node);
-//							astStack.push(node);
-//							functionSymbol = new FunctionSymbol(token.getLexValue(), null);
-//							globalTable.insertSymbol(functionSymbol);
-//							localSymbolTable = new SymbolTable(token.getLexValue());
-//						}
-//
-//					}else if (topNonTerminal.getName() == NonTerminalName.MAIN) {
-//						//TODO AST
-//						programAST.add(ast);
-//						ast = new AST(token.getLexValue());
-//						node = new Node(topNonTerminal);
-//						ast.setRoot(node);
-//						astStack.push(node);
-//
-//						localSymbolTable = new SymbolTable(token.getLexValue());
-//					}
+					if(topNonTerminal.getName() == NonTerminalName.FUNCTIONSREC) {
+						//se o token atual for "principal" significa que nao temos uma assintura de funcao
+						if(!token.getLexValue().equals("principal")) {
+							//Verifica se a ast foi criada antes de adicionar a lista de asts
+							if(ast != null) {
+								programAst.add(ast);
+							}
 
-					//Tabela de Simbolos local
-//					if(topNonTerminal.getName() == NonTerminalName.DECLARATION) {
-//						changeSymbolFlag();
-//						varType = VarType.getVarType(token.getLexValue());
-//					}
+							functionSymbol = new FunctionSymbol(token.getLexValue(), null);
+							globalTable.insertSymbol(functionSymbol);
+							localSymbolTable = new SymbolTable(token.getLexValue());
+
+							ast = new AST(token.getLexValue());
+							node = new Escope();
+							ast.setRoot(node);
+							astStack.push(node);
+						}
+					}
+ 						else if (topNonTerminal.getName() == NonTerminalName.MAIN) {
+						//Verifica se a ast foi criada antes de adicionar a lista de asts
+						if(ast != null) {
+							programAst.add(ast);
+						}
+						ast = new AST(token.getLexValue());
+						node = new Escope();
+						ast.setRoot(node);
+						astStack.push(node);
+
+						localSymbolTable = new SymbolTable(token.getLexValue());
+					}
+
+
 
 					//TODO Adicionar no' a AST quando NT for EXPRESSION
 					if (topNonTerminal.getName() == NonTerminalName.EXP) {
@@ -240,6 +374,22 @@ public class PredictiveAnalyzer {
 										terminal.getCategory());
 
 						if (derivationNumber != null) {
+
+							// Tabela de Simbolos local
+							if(derivationNumber == DECLARATION_DERIVATION) {
+								changeSymbolFlag();
+								varType = VarType.getVarType(token.getLexValue());
+							} else if(derivationNumber == PARAM_DERIVATION) {
+								changeFunctionFlag();
+								varType = VarType.getVarType(token.getLexValue());
+							}
+
+							//TODO AST
+							//executa acao semantica para construir a ast
+							if(derivationNumber >= 15 || derivationNumber <= 30) {
+								derivationSemantincAction(derivationNumber);
+							}
+
 							leftCount = prodCount.pop();
 							rightCountAux = rightCount;
 
@@ -257,41 +407,21 @@ public class PredictiveAnalyzer {
 										+ leftCount + ")" + " = ");
 								stack.pop();
 
-								//TODO AST
-								//Verifica se uma derivacao contem um comandos antes de remover o elemento do
-								//topo da pilha da ast
-
 								//A partir daqui eh feito o empilhamento na pilha preditiva
 								GrammarSymbol symb;
 								Terminal term;
 								NonTerminal nonTerm;
-								Node nodeAux;
 
 								for (int i = derivation.getSymbolsList().size() - 1; i >= 0; i--) {
 									symb = derivation.getSymbolsList().get(i);
 									if (symb.isTerminal()) {
 										term = (Terminal) symb;
 										stack.push(term);
-//										nodeAux = new Node(term);
-
-										//TODO AST
-										//TODO Se a categoria for um tipo
 									} else {
 										nonTerm = (NonTerminal) symb;
 										stack.push(nonTerm);
-//										nodeAux = new Node(nonTerm);
-
-										//TODO AST
 									}
-
-									//stack.push(symb);
 								}
-								//TODO AST
-								// se nao for feita transferencia de referencia adiciona os filhos
-//								if(!transferRef) {
-//									node.addChildren(childrenList);
-//								}
-//								childrenList.clear();
 
 								for (int i = 0; i < derivation.getSymbolsList()
 										.size(); i++) {
@@ -321,11 +451,6 @@ public class PredictiveAnalyzer {
 								System.out.println(topNonTerminal.getName()
 										+ "(" + leftCount + ")" + " = epsilon");
 								stack.pop();
-
-								//TODO AST
-								//Remove o no do pai deste
-//								node = astStack.pop();
-//								node.removeNode();
 							}
 
 							if (rightCount > rightCountAux) {
@@ -343,7 +468,8 @@ public class PredictiveAnalyzer {
 					}
 				}
 			}
-//			programAST.add(ast);
+			//Adiciona a ast da funcao "principal"
+			programAst.add(ast);
 //			System.out.println("test");
 		}
 	}

@@ -2,6 +2,10 @@ package syntactic.grammar;
 
 import semantic.VarType;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+
 public class NonTerminal extends GrammarSymbol {
 
 	private NonTerminalName name;

@@ -10,35 +10,26 @@ public class Node {
     private Node parent;
     private List<Node> children;
     private GrammarSymbol grammarSymbol;
-    private List<String> name;
 
-    public static int label = 0;
-    public int newLabel() {
-        return ++label;
+    //TODO
+//    public static int label = 0;
+//    public int newLabel() {
+//        return ++label;
+//    }
+
+    public Node() {
+        this(null, null);
     }
 
     public Node(Node parent, GrammarSymbol grammarSymbol) {
         children = new ArrayList<Node>();
-        name = new ArrayList<String>();
         this.parent = parent;
         this.grammarSymbol = grammarSymbol;
-    }
-
-    public List<String> getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name.add(name);
     }
 
     public Node(GrammarSymbol grammarSymbol) {
         this(null, grammarSymbol);
         children = new ArrayList<Node>();
-    }
-
-    public Node() {
-        this(null, null);
     }
 
     public void setTokenValue(Terminal term) {

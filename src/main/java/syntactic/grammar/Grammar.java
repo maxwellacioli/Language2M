@@ -175,7 +175,7 @@ public class Grammar {
 				new NonTerminal(NonTerminalName.EXP),
 				new Terminal(TokenCategory.PARAMEND),
 				new NonTerminal(NonTerminalName.ESCOPE),
-				new NonTerminal(NonTerminalName.CMDELSEIF),
+				new NonTerminal(NonTerminalName.IFELSEFAT),
 				new Terminal(TokenCategory.SEP2));
 		grammarAddDerivation(derivationAux);
 
@@ -232,28 +232,14 @@ public class Grammar {
 				new Terminal(TokenCategory.SEP2));
 		grammarAddDerivation(derivationAux);
 
-		// CMDELSEIFREC
-		derivationAux.addSymbol(new NonTerminal(NonTerminalName.CMDELSEIFREC));
-		grammarAddDerivation(derivationAux);
-
-		// Epsilon
-		grammarAddDerivation(null);
-
-		// senaose ( EXP ) ESCOPE CMDELSEIFREC
-		derivationAux.addDerivationSymbols(
-				new Terminal(TokenCategory.PRELSEIF),
-				new Terminal(TokenCategory.PARAMBEGIN),
-				new NonTerminal(NonTerminalName.EXP),
-				new Terminal(TokenCategory.PARAMEND),
-				new NonTerminal(NonTerminalName.ESCOPE),
-				new NonTerminal(NonTerminalName.CMDELSEIFREC));
-		grammarAddDerivation(derivationAux);
-
 		// senao ESCOPE
 		derivationAux.addDerivationSymbols(
 				new Terminal(TokenCategory.PRELSE),
 				new NonTerminal(NonTerminalName.ESCOPE));
 		grammarAddDerivation(derivationAux);
+
+		// Epsilon
+		grammarAddDerivation(null);
 
 		// id LISTNAMEREC
 		derivationAux.addDerivationSymbols(
@@ -283,5 +269,14 @@ public class Grammar {
 		if(derivation != null) {
 			derivationAux = new Derivation();
 		}
+	}
+
+	//De acordo com a documentacao da gramatica as derivacoes que
+	//tem acoes semanticas sao: 0-4 e 15-32
+	public boolean hasSemantincAction(int derivation) {
+		if(derivation >= 0 && derivation <= 4 || derivation >= 15 && derivation <= 32) {
+			return true;
+		}
+		return false;
 	}
 }

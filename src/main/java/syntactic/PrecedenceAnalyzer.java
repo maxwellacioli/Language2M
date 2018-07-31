@@ -93,7 +93,6 @@ public class PrecedenceAnalyzer {
 
 		checkEndOfSentence(token);
 
-		System.out.println();
 		while (true) {
 			// Se pv e eof no cabecote => Aceita!
 
@@ -154,7 +153,7 @@ public class PrecedenceAnalyzer {
 					// tirar o '(' e ')'
 					// referente a producao EXP = ( EXP )
 
-					if (tableValue >= PrecedenceTable.R12 && tableValue <= PrecedenceTable.R16) {
+					if (tableValue >= PrecedenceTable.R12 && tableValue <= PrecedenceTable.R17) {
 						currentTerm = (Terminal) operatorsStack.pop();
 						operatorsStack.push(new NonTerminal(NonTerminalName.EXP));
 

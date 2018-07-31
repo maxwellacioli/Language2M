@@ -7,6 +7,8 @@ public class Exp extends Node {
     private Token token;
     private VarType type;
 
+    public Exp() {}
+
     public Exp(Token token, VarType type) {
         this.token = token;
         this.type = type;

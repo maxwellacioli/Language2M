@@ -1,10 +1,9 @@
 package semantic.commands;
 
-public class If extends Node {
+public class While extends Node {
 
-    public If(Node child1, Node child2) {
+    public While (Node child1, Node child2) {
         addChild(child1);
         addChild(child2);
     }
-
 }

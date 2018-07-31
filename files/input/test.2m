@@ -1,16 +1,15 @@
 soma(inteiro a) inteiro {
     inteiro c;
-
     c = a + b;
-
     retorne c;
-};
+}
+
+multi(inteiro a, inteiro b) inteiro {
+    retorne a * b;
+}
 
 principal () inteiro {
-
     inteiro x;
-
     x = x + 1;
-
     retorne x;
-};
+}
