@@ -85,15 +85,19 @@ public class PredictiveAnalyzer {
 	private Boolean isType(Token token) {
 		String type = token.getLexValue();
 
-		if (type.equals(VarType.INTEIRO.getName()) ||
+		return (type.equals(VarType.INTEIRO.getName()) ||
 				type.equals(VarType.REAL.getName()) ||
 				type.equals(VarType.CARACTER.getName()) ||
 				type.equals(VarType.CADEIA.getName()) ||
 				type.equals(VarType.LOGICO.getName())
-				) {
-			return true;
-		}
-		return false;
+				);
+	}
+
+	private void changeNodeReference(Node node, Node child) {
+		Node parent;
+		parent = node.getParent();
+		node.removeNode();
+		parent.addChild(child);
 	}
 
 	private void derivationSemantincAction(int derivationNumber) {
@@ -113,28 +117,41 @@ public class PredictiveAnalyzer {
 		Return returnCmd = null;
 		While whileCmd = null;
 		Exp exp = null;
+		Node parent = null;
 
 		switch (derivationNumber) {
 			case 15:
 				cmds = new Cmds();
 				node = astStack.pop();
-				node = cmds;
+				if(node.isRoot()) {
+					ast.setRoot(cmds);
+				} else {
+					changeNodeReference(node, cmds);
+				}
 				astStack.push(cmds);
 				break;
 			case 16:
 				cmd = new Cmd();
 				cmdsRec = new CmdsRec();
 				node = astStack.pop();
-				node = new CmdsRec(cmd, cmdsRec);
+
+				if(node.isRoot()) {
+					ast.setRoot(new Cmds(cmd, cmdsRec));
+				} else {
+					changeNodeReference(node, new Cmds(cmd, cmdsRec));
+				}
+
 				astStack.push(cmdsRec);
 				astStack.push(cmd);
 				break;
 			case 17:
 				cmd = new Cmd();
-				cmds = new Cmds();
+				cmdsRec = new CmdsRec();
 				node = astStack.pop();
-				node = new Cmds(cmd, cmds);
-				astStack.push(cmds);
+
+				changeNodeReference(node, new Cmds(cmd, cmdsRec));
+
+				astStack.push(cmdsRec);
 				astStack.push(cmd);
 				break;
 			case 18:
@@ -144,13 +161,14 @@ public class PredictiveAnalyzer {
 				break;
 			case 19:
 				node = astStack.pop();
-				node = null;
+				node.removeNode();
 				break;
 			case 20:
 				id = new Id();
 				exp = new Exp();
 				node = astStack.pop();
-				node = new Attribution("=", id, exp);
+
+				changeNodeReference(node, new Attribution("=", id, exp));
 				astStack.push(exp);
 				astStack.push(id);
 				break;
@@ -203,7 +221,8 @@ public class PredictiveAnalyzer {
 			case 27:
 				exp = new Exp();
 				node = astStack.pop();
-				node = new Return(exp);
+
+				changeNodeReference(node, new Return(exp));
 				astStack.push(exp);
 				break;
 			case 28:
@@ -470,7 +489,7 @@ public class PredictiveAnalyzer {
 			}
 			//Adiciona a ast da funcao "principal"
 			programAst.add(ast);
-//			System.out.println("test");
+			System.out.println("test");
 		}
 	}
 }
