@@ -106,7 +106,7 @@ public class PredictiveAnalyzer {
 
 	private void derivationSemantincAction(int derivationNumber) {
 		Cmd cmd = null;
-		Cmds cmds = null;
+		ListCmds listCmds = null;
 		CmdsRec cmdsRec = null;
 		Escope escope = null;
 		Attribution attribution = null;
@@ -125,14 +125,14 @@ public class PredictiveAnalyzer {
 
 		switch (derivationNumber) {
 			case 15:
-				cmds = new Cmds();
+				listCmds = new ListCmds();
 				node = astStack.pop();
 				if(node.isRoot()) {
-					ast.setRoot(cmds);
+					ast.setRoot(listCmds);
 				} else {
-					changeNodeReference(node, cmds);
+					changeNodeReference(node, listCmds);
 				}
-				astStack.push(cmds);
+				astStack.push(listCmds);
 				break;
 			case 16:
 				cmd = new Cmd();
@@ -140,9 +140,9 @@ public class PredictiveAnalyzer {
 				node = astStack.pop();
 
 				if(node.isRoot()) {
-					ast.setRoot(new Cmds(cmd, cmdsRec));
+					ast.setRoot(new ListCmds(cmd, cmdsRec));
 				} else {
-					changeNodeReference(node, new Cmds(cmd, cmdsRec));
+					changeNodeReference(node, new ListCmds(cmd, cmdsRec));
 				}
 
 				astStack.push(cmdsRec);
@@ -154,9 +154,9 @@ public class PredictiveAnalyzer {
 				node = astStack.pop();
 
 				if(node.isRoot()) {
-					ast.setRoot(new Cmds(cmd, cmdsRec));
+					ast.setRoot(new ListCmds(cmd, cmdsRec));
 				} else {
-					changeNodeReference(node, new Cmds(cmd, cmdsRec));
+					changeNodeReference(node, new ListCmds(cmd, cmdsRec));
 				}
 
 				astStack.push(cmdsRec);
@@ -512,7 +512,7 @@ public class PredictiveAnalyzer {
 			}
 			//Adiciona a ast da funcao "principal"
 			programAst.add(ast);
-//			System.out.println("test");
+			System.out.println("test");
 		}
 	}
 }
