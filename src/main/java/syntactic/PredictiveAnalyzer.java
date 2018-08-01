@@ -193,12 +193,16 @@ public class PredictiveAnalyzer {
 				astStack.push(id);
 				break;
 			case 23:
+				exp = new Exp();
+				escope = new Escope();
 				ifElseFat = new IfElseFat();
 				node = astStack.pop();
 
-				changeNodeReference(node, ifElseFat);
+				changeNodeReference(node, new IfElse(exp, escope, ifElseFat));
 
 				astStack.push(ifElseFat);
+				astStack.push(escope);
+				astStack.push(exp);
 				break;
 			case 24:
 				exp = new Exp();
@@ -243,26 +247,16 @@ public class PredictiveAnalyzer {
 				astStack.push(exp);
 				break;
 			case 29:
-				exp = new Exp();
 				escope = new Escope();
-				Escope escope1 = new Escope();
 				node = astStack.pop();
 
-				changeNodeReference(node, new IfElse(exp, escope, escope1));
+				changeNodeReference(node, escope);
 
-				astStack.push(escope1);
 				astStack.push(escope);
-				astStack.push(exp);
 				break;
 			case 30:
-				exp = new Exp();
-				escope = new Escope();
 				node = astStack.pop();
-
-				changeNodeReference(node, new If(exp, escope));
-
-				astStack.push(escope);
-				astStack.push(exp);
+				node.removeNode();
 				break;
 		}
 	}
@@ -518,7 +512,7 @@ public class PredictiveAnalyzer {
 			}
 			//Adiciona a ast da funcao "principal"
 			programAst.add(ast);
-			System.out.println("test");
+//			System.out.println("test");
 		}
 	}
 }

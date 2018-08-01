@@ -1,7 +1,7 @@
 principal () inteiro {
     a = 5;
 
-    enquanto( a < 3) {
+    se( a < 3) {
         a = 1;
     };
 }
