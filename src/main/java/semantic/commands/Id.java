@@ -10,4 +10,12 @@ public class Id extends Node {
     public Id(Token token) {
         this.token = token;
     }
+
+    public void setToken(Token token) {
+        this.token = token;
+    }
+
+    public Token getToken() {
+        return token;
+    }
 }

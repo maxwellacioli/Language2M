@@ -34,6 +34,7 @@ public class PredictiveAnalyzer {
 	private final int DECLARATION_DERIVATION = 19;
 	private final int CASTING_DERIVATION = 28;
 	private final int PARAM_DERIVATION = 7;
+	private final int CMDREC_DERIVATION = 17;
 
 	//Pilha preditiva
 	private Stack<GrammarSymbol> stack;
@@ -43,6 +44,7 @@ public class PredictiveAnalyzer {
 	private AST ast;
 	private Stack<Node> astStack;
 	private Node node;
+	private boolean semanticActionFlag;
 
 	//Variavel derivacao auxiliar
 	private Derivation derivation;
@@ -67,6 +69,9 @@ public class PredictiveAnalyzer {
 		astStack = new Stack<Node>();
 		node = null;
 		ast = null;
+		//desativa a flag quando nao e' para executar acoes semanticas
+		//no caso das derivacoes 19 e 28 da gramatica
+		semanticActionFlag = true;
 
 		derivation = new Derivation();
 	}
@@ -81,6 +86,10 @@ public class PredictiveAnalyzer {
 
 	private void changeFunctionReturnFlag() {
 		functionReturnFlag = !functionReturnFlag;
+	}
+
+	private void changeSemanticActionFlag() {
+		semanticActionFlag = !semanticActionFlag;
 	}
 
 	private Boolean isType(Token token) {
@@ -319,21 +328,15 @@ public class PredictiveAnalyzer {
 						}
 
 						//TODO AST
-//						//Verifica se o topo da pilha preditiva e da pilha da ast sao iguais
 						if(!astStack.isEmpty()) {
+							//Verifica se no topo da pilha e' um id
 							if(astStack.peek() instanceof Id) {
 								astStack.pop();
+								//TODO ATualiza token no topo da AST
+//								Id id = (Id) astStack.pop();
+//								id.setToken(token);
 							}
 						}
-//						if(astStack.peek().getGrammarSymbol() instanceof Terminal) {
-//							Terminal nodeaux = (Terminal) astStack.peek().getGrammarSymbol();
-//							if(nodeaux.getCategory().equals(token.getCategory())) {
-//								astStack.pop();
-//								//TODO ATualizar valor lexico do token na AST
-//								//node = astStack.pop();
-//								//node.setTokenValue(terminal);
-//							}
-//						}
 						stack.pop();
 
 						if (lexicalAnalyzer.hasMoreTokens()) {
@@ -426,10 +429,27 @@ public class PredictiveAnalyzer {
 							}
 
 							//TODO ############# AST #############
+							//Nao executa acoes semanticas
+							if(derivationNumber == CASTING_DERIVATION ||
+									derivationNumber == DECLARATION_DERIVATION) {
+								changeSemanticActionFlag();
+							}
+
 							//executa acao semantica para construir a ast
-							if((derivationNumber >= 15 || derivationNumber <= 30) && derivationNumber
-									!= CASTING_DERIVATION && derivationNumber != DECLARATION_DERIVATION) {
-								derivationSemantincAction(derivationNumber);
+							if(derivationNumber >= 15 && derivationNumber <= 30) {
+								if(semanticActionFlag) {
+									derivationSemantincAction(derivationNumber);
+								}
+							}
+
+							//TODO AST
+							//Verifica se a flag de acao semantica esta desativada
+							//e ativa quando desempilhar O NT <CMDREC>, pois nao deve
+							//ser executada acao semantica depois das derivaceos 19 e 28
+							if(derivationNumber == CMDREC_DERIVATION) {
+								if(!semanticActionFlag) {
+										changeSemanticActionFlag();
+								}
 							}
 
 							leftCount = prodCount.pop();
@@ -512,7 +532,7 @@ public class PredictiveAnalyzer {
 			}
 			//Adiciona a ast da funcao "principal"
 			programAst.add(ast);
-			System.out.println("test");
+//			System.out.println("test");
 		}
 	}
 }

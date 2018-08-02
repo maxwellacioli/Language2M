@@ -1,5 +1,7 @@
 soma(inteiro a) inteiro {
     inteiro c;
+    inteiro b;
+
     c = a + b;
     retorne c;
 }
