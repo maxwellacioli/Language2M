@@ -6,6 +6,8 @@ import java.util.Stack;
 
 import semantic.*;
 import semantic.commands.*;
+import semantic.commands.expression.Exp;
+import semantic.commands.expression.Id;
 import syntactic.grammar.Derivation;
 import syntactic.grammar.Grammar;
 import syntactic.grammar.NonTerminal;
@@ -176,6 +178,7 @@ public class PredictiveAnalyzer {
 				node.removeNode();
 				break;
 			case 20:
+				//TODO settar Id valor léxico
 				id = new Id();
 				exp = new Exp();
 				node = astStack.pop();
@@ -395,7 +398,8 @@ public class PredictiveAnalyzer {
 							System.exit(1);
 
 						} else {
-							if (precedenceAnalyzer.precedenceAnalysis(token)) {
+							//TODO AST
+							if (precedenceAnalyzer.precedenceAnalysis(token, (Exp) astStack.peek())) {
 
 								stack.pop();
 //								topGrammarSymbol = stack.peek();

@@ -3,6 +3,8 @@ package syntactic;
 import java.util.ArrayList;
 import java.util.Stack;
 
+import semantic.commands.Node;
+import semantic.commands.expression.*;
 import syntactic.grammar.NonTerminal;
 import syntactic.grammar.NonTerminalName;
 import syntactic.grammar.OperatorsGrammar;
@@ -20,6 +22,9 @@ public class PrecedenceAnalyzer {
 	private PrecedenceTable precedenceTable;
 	private int paramCount = 0;
 
+	//TODO AST
+	private Stack<Exp> expStack;
+
 	private Terminal stackTerm;
 	private Terminal tapeTerm;
 
@@ -27,6 +32,7 @@ public class PrecedenceAnalyzer {
 		this.lexicalAnalyzer = lexicalAnalyzer;
 		operatorsStack = new Stack<GrammarSymbol>();
 		precedenceTable = PrecedenceTable.getInstance();
+		expStack = new Stack<Exp>();
 	}
 
 	public Token getEndOfSentence() {
@@ -84,7 +90,39 @@ public class PrecedenceAnalyzer {
 		System.exit(1);
 	}
 
-	public boolean precedenceAnalysis(Token token) {
+	//TODO AST
+	private void createBinaryNode(Terminal op) {
+		Exp right = expStack.pop();
+		Exp left = expStack.pop();
+		switch (op.getCategory()) {
+			case OPLOGICOR:
+				expStack.push(new OpOr(op.getToken(), left, right));
+				break;
+			case OPLOGICAND:
+				expStack.push(new OpAnd(op.getToken(), left, right));
+				break;
+			case OPREL2:
+				expStack.push(new OpRel2(op.getToken(), left, right));
+				break;
+			case OPREL1:
+				expStack.push(new OpRel1(op.getToken(), left, right));
+				break;
+			case OPCONC:
+				expStack.push(new OpConc(op.getToken(), left, right));
+				break;
+			case OPARITADIT:
+				expStack.push(new OpArith(op.getToken(), left, right));
+				break;
+			case OPARITMULT:
+				expStack.push(new OpMult(op.getToken(), left, right));
+				break;
+			case OPARITEXP:
+				expStack.push(new OpExp(op.getToken(), left, right));
+				break;
+		}
+	}
+
+	public boolean precedenceAnalysis(Token token, Exp exp) {
 		int tableValue;
 		int tableAux;
 		int count = 1;
@@ -98,6 +136,7 @@ public class PrecedenceAnalyzer {
 
 			if ((operatorsStack.size() == 1) && !operatorsStack.peek().isTerminal() && (endOfSentence != null)) {
 				System.out.println();
+				exp = expStack.peek();
 				return true;
 			} else {
 				if (((operatorsStack.size() == 1) && !operatorsStack.peek().isTerminal()) || (endOfSentence != null)
@@ -149,13 +188,20 @@ public class PrecedenceAnalyzer {
 
 				} else if (tableValue > PrecedenceTable.ELT) { // Acao Reduz
 
-					// Se a producao for 10, sera necessario 2 acoes pop para
+					// Se a producao for 11, sera necessario 2 acoes pop para
 					// tirar o '(' e ')'
 					// referente a producao EXP = ( EXP )
 
 					if (tableValue >= PrecedenceTable.R12 && tableValue <= PrecedenceTable.R17) {
 						currentTerm = (Terminal) operatorsStack.pop();
 						operatorsStack.push(new NonTerminal(NonTerminalName.EXP));
+
+						//TODO AST
+						if(tableValue != PrecedenceTable.R17) {
+							expStack.push(new Constant(currentTerm.getToken()));
+						} else {
+							expStack.push(new Id(currentTerm.getToken()));
+						}
 
 						//reducoes com operadores unarios
 					} else if (tableValue == PrecedenceTable.R8 || tableValue == PrecedenceTable.R9) {
@@ -226,13 +272,18 @@ public class PrecedenceAnalyzer {
 						}
 					} else {
 						if (!operatorsStack.peek().isTerminal()) {
-							if (operatorsStack.elementAt(operatorsStack.size() - 2).isTerminal()) {
+							GrammarSymbol symbol = operatorsStack.elementAt(operatorsStack.size() - 2);
+
+							if (symbol.isTerminal()) {
 								if ((operatorsStack.size() > 2)
 										&& !operatorsStack.elementAt(operatorsStack.size() - 3).isTerminal()) {
 									operatorsStack.pop();
 									operatorsStack.pop();
 									operatorsStack.pop();
 									operatorsStack.push(new NonTerminal(NonTerminalName.EXP));
+
+									//TODO AST
+									createBinaryNode((Terminal) symbol);
 								} else {
 									handlerError();
 								}

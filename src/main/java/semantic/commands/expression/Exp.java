@@ -1,7 +1,8 @@
-package semantic.commands;
+package semantic.commands.expression;
 
 import lexical.Token;
 import semantic.VarType;
+import semantic.commands.Node;
 
 public class Exp extends Node {
     private Token token;
@@ -11,6 +12,14 @@ public class Exp extends Node {
 
     public Exp(Token token, VarType type) {
         this.token = token;
+        this.type = type;
+    }
+
+    public void setToken(Token token) {
+        this.token = token;
+    }
+
+    public void setType(VarType type) {
         this.type = type;
     }
 
