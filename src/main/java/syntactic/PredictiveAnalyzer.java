@@ -399,7 +399,9 @@ public class PredictiveAnalyzer {
 
 						} else {
 							//TODO AST
-							if (precedenceAnalyzer.precedenceAnalysis(token, (Exp) astStack.peek())) {
+							Exp exp = precedenceAnalyzer.precedenceAnalysis(token);
+
+							if (exp != null) {
 
 								stack.pop();
 //								topGrammarSymbol = stack.peek();
@@ -409,7 +411,7 @@ public class PredictiveAnalyzer {
 
 								//FIXME Fazer acoes semanticas para estes NT
 								if(astStack.peek() instanceof Exp) {
-									astStack.pop();
+									changeNodeReference(astStack.pop(), exp);
 								}
 							}
 						}

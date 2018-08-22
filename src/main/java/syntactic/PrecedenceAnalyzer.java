@@ -122,12 +122,13 @@ public class PrecedenceAnalyzer {
 		}
 	}
 
-	public boolean precedenceAnalysis(Token token, Exp exp) {
+	public Exp precedenceAnalysis(Token token) {
 		int tableValue;
 		int tableAux;
 		int count = 1;
 		endOfSentence = null;
 		operatorsStack.removeAllElements();
+		expStack.removeAllElements();
 
 		checkEndOfSentence(token);
 
@@ -136,8 +137,7 @@ public class PrecedenceAnalyzer {
 
 			if ((operatorsStack.size() == 1) && !operatorsStack.peek().isTerminal() && (endOfSentence != null)) {
 				System.out.println();
-				exp = expStack.peek();
-				return true;
+				return expStack.peek();
 			} else {
 				if (((operatorsStack.size() == 1) && !operatorsStack.peek().isTerminal()) || (endOfSentence != null)
 						|| operatorsStack.isEmpty()) {
