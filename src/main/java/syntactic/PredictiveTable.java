@@ -89,7 +89,6 @@ public class PredictiveTable {
 		terminaisMap.put(TokenCategory.PRDO, 16);
 		terminaisMap.put(TokenCategory.PRWHILE, 16);
 		terminaisMap.put(TokenCategory.PRRETURN, 16);
-		terminaisMap.put(TokenCategory.PARAMBEGIN, 16);
 		predectiveTableMap.put(NonTerminalName.CMDS, terminaisMap);
 		terminaisMap = new HashMap<TokenCategory, Integer>();
 
@@ -106,7 +105,6 @@ public class PredictiveTable {
 		terminaisMap.put(TokenCategory.PRDO, 17);
 		terminaisMap.put(TokenCategory.PRWHILE, 17);
 		terminaisMap.put(TokenCategory.PRRETURN, 17);
-		terminaisMap.put(TokenCategory.PARAMBEGIN, 17);
 		terminaisMap.put(TokenCategory.ESCEND, 18);
 		predectiveTableMap.put(NonTerminalName.CMDSREC, terminaisMap);
 		terminaisMap = new HashMap<TokenCategory, Integer>();
@@ -124,21 +122,20 @@ public class PredictiveTable {
 		terminaisMap.put(TokenCategory.PRDO, 25);
 		terminaisMap.put(TokenCategory.PRWHILE, 24);
 		terminaisMap.put(TokenCategory.PRRETURN, 27);
-		terminaisMap.put(TokenCategory.PARAMBEGIN, 28);
 		predectiveTableMap.put(NonTerminalName.CMD, terminaisMap);
 		terminaisMap = new HashMap<TokenCategory, Integer>();
 
-		terminaisMap.put(TokenCategory.PRELSE, 29);
-		terminaisMap.put(TokenCategory.SEP2, 30);
+		terminaisMap.put(TokenCategory.PRELSE, 28);
+		terminaisMap.put(TokenCategory.SEP2, 29);
 		predectiveTableMap.put(NonTerminalName.IFELSEFAT, terminaisMap);
 		terminaisMap = new HashMap<TokenCategory, Integer>();
 
-		terminaisMap.put(TokenCategory.ID, 31);
+		terminaisMap.put(TokenCategory.ID, 30);
 		predectiveTableMap.put(NonTerminalName.LISTNAME, terminaisMap);
 		terminaisMap = new HashMap<TokenCategory, Integer>();
 
-		terminaisMap.put(TokenCategory.SEP1, 32);
-		terminaisMap.put(TokenCategory.SEP2, 33);
+		terminaisMap.put(TokenCategory.SEP1, 31);
+		terminaisMap.put(TokenCategory.SEP2, 32);
 		predectiveTableMap.put(NonTerminalName.LISTNAMEREC, terminaisMap);
 		terminaisMap = new HashMap<TokenCategory, Integer>();
 

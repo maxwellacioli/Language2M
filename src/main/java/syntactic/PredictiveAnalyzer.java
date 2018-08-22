@@ -258,7 +258,7 @@ public class PredictiveAnalyzer {
 
 				astStack.push(exp);
 				break;
-			case 29:
+			case 28:
 				escope = new Escope();
 				node = astStack.pop();
 
@@ -266,7 +266,7 @@ public class PredictiveAnalyzer {
 
 				astStack.push(escope);
 				break;
-			case 30:
+			case 29:
 				node = astStack.pop();
 				node.removeNode();
 				break;

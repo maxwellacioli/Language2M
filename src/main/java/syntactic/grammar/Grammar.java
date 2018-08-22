@@ -223,15 +223,6 @@ public class Grammar {
 				new Terminal(TokenCategory.SEP2));
 		grammarAddDerivation(derivationAux);
 
-		// ( TYPE ) id ;
-		derivationAux.addDerivationSymbols(
-				new Terminal(TokenCategory.PARAMBEGIN),
-				new NonTerminal(NonTerminalName.TYPE),
-				new Terminal(TokenCategory.PARAMEND),
-				new Terminal(TokenCategory.ID),
-				new Terminal(TokenCategory.SEP2));
-		grammarAddDerivation(derivationAux);
-
 		// senao ESCOPE
 		derivationAux.addDerivationSymbols(
 				new Terminal(TokenCategory.PRELSE),
