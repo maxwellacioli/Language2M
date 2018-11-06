@@ -1,5 +1,6 @@
 package semantic.commands;
 
+import org.bytedeco.javacpp.LLVM.*;
 import syntactic.grammar.GrammarSymbol;
 import syntactic.grammar.Terminal;
 
@@ -93,4 +94,8 @@ public class Node {
     public void removeParent() {
         this.parent = null;
     }
+
+    //Geração de IR pela LLVM
+    public static LLVMValueRef codeGen(LLVMModuleRef moduleRef, LLVMContextRef contextRef,
+                                       LLVMBuilderRef builderRef) { return  null; }
 }

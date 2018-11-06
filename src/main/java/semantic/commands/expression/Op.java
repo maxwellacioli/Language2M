@@ -7,5 +7,4 @@ public class Op extends Exp {
     public Op(Token token, VarType type) {
         super(token, type);
     }
-
 }

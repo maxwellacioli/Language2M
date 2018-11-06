@@ -250,6 +250,12 @@ public class LexicalAnalyzer {
 		token.setColumn(tkBeginColumn);
 		token.setCategory(analyzeCategory(tkValue));
 
+		//Atualiza o valor da cadeia de caracteres ou caracter
+		if(token.getCategory().equals(TokenCategory.CONSTCCHAR) ||
+				token.getCategory().equals(TokenCategory.CONSTCHAR)) {
+			token.setLexValue(tkValue.substring(1, tkValue.length()-1));
+		}
+
 		if (token.getCategory().equals(TokenCategory.COMMENT)) {
 			if (hasMoreTokens()) {
 				return nextToken();

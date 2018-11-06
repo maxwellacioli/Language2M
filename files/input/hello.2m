@@ -1,3 +1,5 @@
 principal () inteiro {
-    a = 5 * 3 - 4 / 2;
+
+    imprima("ola " ++ "mundo!");
+
 }

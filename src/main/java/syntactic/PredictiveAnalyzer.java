@@ -538,7 +538,7 @@ public class PredictiveAnalyzer {
 			}
 			//Adiciona a ast da funcao "principal"
 			programAst.add(ast);
-//			System.out.println("test");
+			System.out.println("test");
 		}
 	}
 }

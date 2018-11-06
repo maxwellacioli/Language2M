@@ -3,7 +3,6 @@ package syntactic;
 import java.util.ArrayList;
 import java.util.Stack;
 
-import semantic.commands.Node;
 import semantic.commands.expression.*;
 import syntactic.grammar.NonTerminal;
 import syntactic.grammar.NonTerminalName;
@@ -111,7 +110,7 @@ public class PrecedenceAnalyzer {
 				expStack.push(new OpConc(op.getToken(), left, right));
 				break;
 			case OPARITADIT:
-				expStack.push(new OpArith(op.getToken(), left, right));
+				expStack.push(new OpArithAdit(op.getToken(), left, right));
 				break;
 			case OPARITMULT:
 				expStack.push(new OpMult(op.getToken(), left, right));
