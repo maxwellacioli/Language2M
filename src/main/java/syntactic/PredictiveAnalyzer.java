@@ -4,6 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+import analyzer.LLVMConfiguration;
+import org.bytedeco.javacpp.*;
+import org.bytedeco.javacpp.LLVM.LLVMTypeRef;
+import org.bytedeco.javacpp.LLVM.LLVMValueRef;
+
+//Headers required by LLVM
+import static org.bytedeco.javacpp.LLVM.*;
+
 import semantic.*;
 import semantic.commands.*;
 import semantic.commands.expression.Exp;
@@ -385,9 +393,17 @@ public class PredictiveAnalyzer {
 						astStack.push(node);
 
 						localSymbolTable = new SymbolTable(token.getLexValue());
+
+						LLVMBuilderRef builder = LLVMConfiguration.getInstance().getGlobalBuilder();
+
+						LLVMTypeRef mainType = LLVMFunctionType(LLVMInt32Type(), new PointerPointer((Pointer)null), 0, 0);
+						LLVMValueRef mainFunc = LLVMAddFunction(LLVMConfiguration.getInstance().getGlobalMod(), token.getLexValue(), mainType);
+						LLVMBasicBlockRef entry = LLVMAppendBasicBlock(mainFunc, "entry");
+						LLVMPositionBuilderAtEnd(builder, entry);
+
+						LLVMValueRef ret = LLVMConstInt(LLVMInt32Type(), 1, 1);
+						LLVMBuildRet(builder, ret);
 					}
-
-
 
 					//TODO Adicionar no' a AST quando NT for EXPRESSION
 					if (topNonTerminal.getName() == NonTerminalName.EXP) {
@@ -458,8 +474,8 @@ public class PredictiveAnalyzer {
 								}
 							}
 
-							leftCount = prodCount.pop();
-							rightCountAux = rightCount;
+//							leftCount = prodCount.pop();
+//							rightCountAux = rightCount;
 
 							//FIXME Copiar por valor e nao por referencia (clonagem) <-------------
 							if (grammar.getGrammarMap().get(derivationNumber) != null) {
@@ -471,8 +487,8 @@ public class PredictiveAnalyzer {
 							}
 
 							if (derivation != null) {
-								System.out.print(topNonTerminal.getName() + "("
-										+ leftCount + ")" + " = ");
+//								System.out.print(topNonTerminal.getName() + "("
+//										+ leftCount + ")" + " = ");
 								stack.pop();
 
 								//A partir daqui eh feito o empilhamento na pilha preditiva
@@ -491,7 +507,7 @@ public class PredictiveAnalyzer {
 									}
 								}
 
-								for (int i = 0; i < derivation.getSymbolsList()
+								/*for (int i = 0; i < derivation.getSymbolsList()
 										.size(); i++) {
 									symb = derivation.getSymbolsList().get(i);
 									if (symb.isTerminal()) {
@@ -513,20 +529,20 @@ public class PredictiveAnalyzer {
 													+ " ");
 										}
 									}
-								}
-								System.out.println();
+								}*/
+
 							} else {
-								System.out.println(topNonTerminal.getName()
-										+ "(" + leftCount + ")" + " = epsilon");
+								/*System.out.println(topNonTerminal.getName()
+										+ "(" + leftCount + ")" + " = epsilon");*/
 								stack.pop();
 							}
 
-							if (rightCount > rightCountAux) {
-								int aux = rightCount;
-								while (aux > rightCountAux) {
-									prodCount.push(aux--);
-								}
-							}
+//							if (rightCount > rightCountAux) {
+//								int aux = rightCount;
+//								while (aux > rightCountAux) {
+//									prodCount.push(aux--);
+//								}
+//							}
 
 						} else {
 							SyntaticAnalyzer.printError(terminal
@@ -538,7 +554,8 @@ public class PredictiveAnalyzer {
 			}
 			//Adiciona a ast da funcao "principal"
 			programAst.add(ast);
-			System.out.println("test");
+			//Test to debug
+			System.out.println();
 		}
 	}
 }

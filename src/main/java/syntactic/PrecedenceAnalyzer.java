@@ -52,32 +52,32 @@ public class PrecedenceAnalyzer {
 		}
 	}
 
-//	private void printRedution(Stack<GrammarSymbol> operatorsStack, int elementsToPop) {
-////		System.out.print(NonTerminalName.EXP + "(" + count++ + ")" + " = ");
-//		GrammarSymbol grammarSymbol;
-//		Terminal term;
-//		System.out.print(NonTerminalName.EXP + " = ");
-//
-//		for (int i = 0 ; i < elementsToPop ; i--) {
-//			grammarSymbol = operatorsStack.pop();
-//
-//			if (grammarSymbol.isTerminal()) {
-//				term = ((Terminal) grammarSymbol).getCategory();
-//				if (term.getCategoryValue() >= TokenCategory.CONSTNUMINT.getCategoryValue()
-//						&& term.getCategoryValue() <= TokenCategory.CONSTCCHAR.getCategoryValue()
-//						|| term.equals(TokenCategory.ID)) {
-//					System.out.print(term + "(" + "\"" + currentTerm.getTerminalValue() + "\"" + ")" + " ");
-//				} else {
-//
-//					System.out.print(term + " ");
-//				}
-//			} else {
-//				nonTerm = (NonTerminal) grammarSymbol;
-//				System.out.print(nonTerm.getName() + " ");
-//			}
-//		}
-//		System.out.println();
-//	}
+	/*private void printRedution(Stack<GrammarSymbol> operatorsStack, int elementsToPop) {
+		System.out.print(NonTerminalName.EXP + "(" + count++ + ")" + " = ");
+		GrammarSymbol grammarSymbol;
+		Terminal term;
+		System.out.print(NonTerminalName.EXP + " = ");
+
+		for (int i = 0 ; i < elementsToPop ; i--) {
+			grammarSymbol = operatorsStack.pop();
+
+			if (grammarSymbol.isTerminal()) {
+				term = ((Terminal) grammarSymbol).getCategory();
+				if (term.getCategoryValue() >= TokenCategory.CONSTNUMINT.getCategoryValue()
+						&& term.getCategoryValue() <= TokenCategory.CONSTCCHAR.getCategoryValue()
+						|| term.equals(TokenCategory.ID)) {
+					System.out.print(term + "(" + "\"" + currentTerm.getTerminalValue() + "\"" + ")" + " ");
+				} else {
+
+					System.out.print(term + " ");
+				}
+			} else {
+				nonTerm = (NonTerminal) grammarSymbol;
+				System.out.print(nonTerm.getName() + " ");
+			}
+		}
+		System.out.println();
+	}*/
 
 	private int getIndexOfTerminalSymbol(Terminal terminal) {
 		return OperatorsGrammar.getInstance().getOperatorsGrammarSymbols().indexOf(terminal.getCategory());
@@ -294,7 +294,7 @@ public class PrecedenceAnalyzer {
 						}
 					}
 					
-					ArrayList<GrammarSymbol> derivation = OperatorsGrammar.getInstance().getOperatorDerivation(tableValue - 1)
+					/*ArrayList<GrammarSymbol> derivation = OperatorsGrammar.getInstance().getOperatorDerivation(tableValue - 1)
 							.getSymbolsList();
 					TokenCategory term;
 					NonTerminal nonTerm;
@@ -317,7 +317,7 @@ public class PrecedenceAnalyzer {
 							System.out.print(nonTerm.getName() + " ");
 						}
 					}
-					System.out.println();
+					System.out.println();*/
 
 				} else { // Acao ERRO
 					SyntaticAnalyzer.printError(token);
