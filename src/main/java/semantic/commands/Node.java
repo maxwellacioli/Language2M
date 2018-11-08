@@ -7,7 +7,7 @@ import syntactic.grammar.Terminal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Node {
+public abstract class Node {
     private Node parent;
     private List<Node> children;
     private GrammarSymbol grammarSymbol;
@@ -105,8 +105,8 @@ public class Node {
     }
 
     //Geração de IR pela LLVM
-    public static LLVMValueRef codeGen(LLVMModuleRef moduleRef, LLVMContextRef contextRef,
-                                       LLVMBuilderRef builderRef) { return null; }
+    public abstract LLVMValueRef codeGen(LLVMModuleRef moduleRef, LLVMContextRef contextRef,
+                                       LLVMBuilderRef builderRef);
 
     //A variavel strCode é necessaria para construir a sequencia de strings que serão impressas
     public static LLVMValueRef visitor(Node node, LLVMModuleRef moduleRef, LLVMContextRef contextRef,

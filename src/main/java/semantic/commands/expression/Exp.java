@@ -36,4 +36,8 @@ public class Exp extends Node {
         return this;
     }
 
+    @Override
+    public LLVM.LLVMValueRef codeGen(LLVM.LLVMModuleRef moduleRef, LLVM.LLVMContextRef contextRef, LLVM.LLVMBuilderRef builderRef) {
+        return null;
+    }
 }

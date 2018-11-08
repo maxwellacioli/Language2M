@@ -2,6 +2,8 @@ package semantic.commands.expression;
 
 import lexical.Token;
 import static org.bytedeco.javacpp.LLVM.*;
+
+import org.bytedeco.javacpp.LLVM;
 import semantic.VarType;
 
 public class Constant extends Exp {
@@ -36,17 +38,19 @@ public class Constant extends Exp {
         }
     }
 
-    public static LLVMValueRef codeGen() {
-        switch (type) {
-            case REAL:
-                return LLVMConstReal(LLVMDoubleType(), Double.parseDouble(token.getLexValue()));
-            case INTEIRO:
-                return LLVMConstInt(LLVMInt32Type(), Integer.parseInt(token.getLexValue()), 1);
-            case CADEIA:
-                return LLVMConstString(token.getLexValue(), token.getLexValue().length(), 1);
-
-        }
+    @Override
+    public LLVMValueRef codeGen(LLVMModuleRef moduleRef, LLVMContextRef contextRef, LLVMBuilderRef builderRef) {
+//        switch (type) {
+//            case REAL:
+//                return LLVMConstReal(LLVMDoubleType(), Double.parseDouble(token.getLexValue()));
+//            case INTEIRO:
+//                return LLVMConstInt(LLVMInt32Type(), Integer.parseInt(token.getLexValue()), 1);
+//            case CADEIA:
+//                System.out.println(token.getLexValue());
+//                return LLVMConstString(token.getLexValue(), token.getLexValue().length(), 1);
+//
+//        }
+        System.out.println(this.getToken().getLexValue());
         return  null;
     }
-
 }

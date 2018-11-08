@@ -28,8 +28,15 @@ public class Analyzer2M {
 		syntaticAnalyzer = new SyntaticAnalyzer(lexicalAnalyzer);
 		syntaticAnalyzer.analyze();
 
-		AST ast =  syntaticAnalyzer.getASTList().get(0);
-		Node.visitor(ast.getRoot(), null, null, null);
+		System.out.println("################# AST #################");
+		System.out.println();
+		System.out.println();
+
+		for (AST ast: syntaticAnalyzer.getASTList()
+			 ) {
+			Node.visitor(ast.getRoot(), null, null, null);
+		}
+
 		//Executa a pilha de execução do LLVM
 //		LLVMConfiguration.getInstance().runLLVM();
 	}
