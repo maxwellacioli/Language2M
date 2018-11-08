@@ -11,6 +11,7 @@ public class Node {
     private Node parent;
     private List<Node> children;
     private GrammarSymbol grammarSymbol;
+    private LLVMValueRef llvmValueRef;
 
     //TODO
 //    public static int label = 0;
@@ -31,6 +32,14 @@ public class Node {
     public Node(GrammarSymbol grammarSymbol) {
         this(null, grammarSymbol);
         children = new ArrayList<Node>();
+    }
+
+    public void setLlvmValueRef(LLVMValueRef llvmValueRef) {
+        this.llvmValueRef = llvmValueRef;
+    }
+
+    public LLVMValueRef getLlvmValueRef() {
+        return llvmValueRef;
     }
 
     public void setTokenValue(Terminal term) {
@@ -97,5 +106,29 @@ public class Node {
 
     //Geração de IR pela LLVM
     public static LLVMValueRef codeGen(LLVMModuleRef moduleRef, LLVMContextRef contextRef,
-                                       LLVMBuilderRef builderRef) { return  null; }
+                                       LLVMBuilderRef builderRef) { return null; }
+
+    //A variavel strCode é necessaria para construir a sequencia de strings que serão impressas
+    public static LLVMValueRef visitor(Node node, LLVMModuleRef moduleRef, LLVMContextRef contextRef,
+                                       LLVMBuilderRef builderRef) {
+// TODO Implemntar condição para fazer a chamada quando temos ListCmds
+// TODO pois não pode ser executada a geração de código para este tipo de nó
+
+        if(node.children.size() == 0) {
+            return node.codeGen(moduleRef, contextRef, builderRef);
+        }
+
+        for (Node n: node.children) {
+            if(n instanceof  ListCmds) {
+                visitor(n,moduleRef, contextRef, builderRef);
+            } else {
+                n.setLlvmValueRef(visitor(n,moduleRef, contextRef, builderRef));
+            }
+        }
+
+        if(node instanceof  ListCmds) {
+            return null;
+        }
+        return node.codeGen(moduleRef, contextRef, builderRef);
+    }
 }

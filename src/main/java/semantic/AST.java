@@ -30,14 +30,4 @@ public class AST {
         return root;
     }
 
-    public void dfsTree(Node node) {
-        List<Node> children = node.getChildren();
-        if(children.size() == 0) {
-            return;
-        }
-
-        for (Node child : children) {
-            dfsTree(child);
-        }
-    }
 }

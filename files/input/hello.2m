@@ -1,5 +1,5 @@
 principal () inteiro {
 
-    imprima("ola " ++ "mundo!");
+    imprima("ola_" ++ "mundo" ++ "!");
 
 }
