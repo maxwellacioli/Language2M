@@ -3,6 +3,7 @@ package syntactic;
 import java.util.ArrayList;
 import java.util.Stack;
 
+import semantic.commands.Node;
 import semantic.commands.expression.*;
 import syntactic.grammar.NonTerminal;
 import syntactic.grammar.NonTerminalName;
@@ -96,15 +97,15 @@ public class PrecedenceAnalyzer {
 
 	//TODO AST
 	private void createBinaryNode(Terminal op) {
-		Exp right;
-		Exp left;
+		Node right;
+		Node left;
 		if(!functionCallFlag) {
 			right = expStack.pop();
 			left = expStack.pop();
 		} else {
 			int size = expStack.peek().getChildren().size();
-			right = (Exp)expStack.peek().getChildren().remove(size - 1);
-			left = (Exp)expStack.peek().getChildren().remove(size - 2);
+			right = expStack.peek().getChildren().remove(size - 1);
+			left = expStack.peek().getChildren().remove(size - 2);
 		}
 
 		switch (op.getCategory()) {

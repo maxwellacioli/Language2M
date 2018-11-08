@@ -87,6 +87,10 @@ public class PredictiveAnalyzer {
 		derivation = new Derivation();
 	}
 
+	public List<AST> getProgramASTList() {
+		return programAst;
+	}
+
 	private void changeSymbolFlag() {
 		symbolFlag = !symbolFlag;
 	}
@@ -125,22 +129,22 @@ public class PredictiveAnalyzer {
 	}
 
 	private void derivationSemantincAction(int derivationNumber) {
-		Cmd cmd = null;
-		ListCmds listCmds = null;
-		CmdsRec cmdsRec = null;
-		Escope escope = null;
-		Attribution attribution = null;
-		Do doCmd = null;
-		Id id = null;
-		If ifCmd = null;
-		IfElse ifElse = null;
-		IfElseFat ifElseFat = null;
-		Iterator iterator = null;
-		Printout printout = null;
-		ReadIn readIn = null;
-		Return returnCmd = null;
-		While whileCmd = null;
-		Exp exp = null;
+		Node cmd = null;
+		Node listCmds = null;
+		Node cmdsRec = null;
+		Node escope = null;
+		Node attribution = null;
+		Node doCmd = null;
+		Node id = null;
+		Node ifCmd = null;
+		Node ifElse = null;
+		Node ifElseFat = null;
+		Node iterator = null;
+		Node printout = null;
+		Node readIn = null;
+		Node returnCmd = null;
+		Node whileCmd = null;
+		Node exp = null;
 		Node parent = null;
 
 		switch (derivationNumber) {

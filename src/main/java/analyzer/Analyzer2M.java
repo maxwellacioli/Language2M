@@ -1,7 +1,9 @@
 package analyzer;
 
 import lexical.LexicalAnalyzer;
+import semantic.AST;
 import semantic.SemanticAnalyzer;
+import semantic.commands.Node;
 import syntactic.SyntaticAnalyzer;
 
 public class Analyzer2M {
@@ -26,6 +28,8 @@ public class Analyzer2M {
 		syntaticAnalyzer = new SyntaticAnalyzer(lexicalAnalyzer);
 		syntaticAnalyzer.analyze();
 
+		AST ast =  syntaticAnalyzer.getASTList().get(0);
+		Node.visitor(ast.getRoot(), null, null, null);
 		//Executa a pilha de execução do LLVM
 //		LLVMConfiguration.getInstance().runLLVM();
 	}

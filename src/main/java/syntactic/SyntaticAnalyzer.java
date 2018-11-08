@@ -1,5 +1,6 @@
 package syntactic;
 
+import semantic.AST;
 import semantic.SymbolTable;
 import syntactic.grammar.Grammar;
 import lexical.LexicalAnalyzer;
@@ -46,6 +47,10 @@ public class SyntaticAnalyzer {
 
 	public void analyze() {
 		predictiveAnalyzer.predictiveAnalyze();
+	}
+
+	public List<AST> getASTList() {
+		return predictiveAnalyzer.getProgramASTList();
 	}
 
 	public static void printError(Token token) {
