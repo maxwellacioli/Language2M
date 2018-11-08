@@ -9,7 +9,7 @@ public class Analyzer2M {
 	private static SyntaticAnalyzer syntaticAnalyzer;
 	//private static SemanticAnalyzer semanticAnalyzer;
 
-	private static String filePath = "files/input/hello.2m";
+	private static String filePath = "files/input/test.2m";
 
 	public Analyzer2M() {
 
@@ -21,12 +21,12 @@ public class Analyzer2M {
 		lexicalAnalyzer.readFile();
 
 		//Inicializa o LLVM
-		LLVMConfiguration.getInstance().initLLVM();
+//		LLVMConfiguration.getInstance().initLLVM();
 
 		syntaticAnalyzer = new SyntaticAnalyzer(lexicalAnalyzer);
 		syntaticAnalyzer.analyze();
 
 		//Executa a pilha de execução do LLVM
-		LLVMConfiguration.getInstance().runLLVM();
+//		LLVMConfiguration.getInstance().runLLVM();
 	}
 }

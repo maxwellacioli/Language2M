@@ -1,17 +1,14 @@
-soma(inteiro a) inteiro {
+soma(inteiro a, inteiro b) inteiro {
     inteiro c;
-    inteiro b;
 
     c = a + b;
     retorne c;
 }
 
-multi(inteiro a, inteiro b) inteiro {
-    retorne a * b;
-}
-
 principal () inteiro {
-    inteiro x;
-    x = x + 1;
-    retorne x;
+    inteiro x, y, z;
+
+    x = soma(z + 1, y);
+
+    imprima(x);
 }

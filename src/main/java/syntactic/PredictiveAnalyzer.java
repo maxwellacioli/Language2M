@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Stack;
 
 import analyzer.LLVMConfiguration;
+import lexical.TokenCategory;
 import org.bytedeco.javacpp.*;
 import org.bytedeco.javacpp.LLVM.LLVMTypeRef;
 import org.bytedeco.javacpp.LLVM.LLVMValueRef;
@@ -191,7 +192,7 @@ public class PredictiveAnalyzer {
 				exp = new Exp();
 				node = astStack.pop();
 
-				changeNodeReference(node, new Attribution("=", id, exp));
+				changeNodeReference(node, new Attribution(id, exp));
 
 				astStack.push(exp);
 				astStack.push(id);
@@ -342,10 +343,12 @@ public class PredictiveAnalyzer {
 						if(!astStack.isEmpty()) {
 							//Verifica se no topo da pilha e' um id
 							if(astStack.peek() instanceof Id) {
-								astStack.pop();
+//								astStack.pop();
 								//TODO ATualiza token no topo da AST
-//								Id id = (Id) astStack.pop();
-//								id.setToken(token);
+								Id id = (Id) astStack.pop();
+								if(token.getCategory().equals(TokenCategory.ID)) {
+									id.setToken(token);
+								}
 							}
 						}
 						stack.pop();
@@ -474,8 +477,8 @@ public class PredictiveAnalyzer {
 								}
 							}
 
-//							leftCount = prodCount.pop();
-//							rightCountAux = rightCount;
+							leftCount = prodCount.pop();
+							rightCountAux = rightCount;
 
 							//FIXME Copiar por valor e nao por referencia (clonagem) <-------------
 							if (grammar.getGrammarMap().get(derivationNumber) != null) {
@@ -487,8 +490,8 @@ public class PredictiveAnalyzer {
 							}
 
 							if (derivation != null) {
-//								System.out.print(topNonTerminal.getName() + "("
-//										+ leftCount + ")" + " = ");
+								System.out.print(topNonTerminal.getName() + "("
+										+ leftCount + ")" + " = ");
 								stack.pop();
 
 								//A partir daqui eh feito o empilhamento na pilha preditiva
@@ -507,7 +510,7 @@ public class PredictiveAnalyzer {
 									}
 								}
 
-								/*for (int i = 0; i < derivation.getSymbolsList()
+								for (int i = 0; i < derivation.getSymbolsList()
 										.size(); i++) {
 									symb = derivation.getSymbolsList().get(i);
 									if (symb.isTerminal()) {
@@ -529,20 +532,21 @@ public class PredictiveAnalyzer {
 													+ " ");
 										}
 									}
-								}*/
+								}
 
 							} else {
-								/*System.out.println(topNonTerminal.getName()
-										+ "(" + leftCount + ")" + " = epsilon");*/
+								System.out.println(topNonTerminal.getName()
+										+ "(" + leftCount + ")" + " = epsilon");
 								stack.pop();
 							}
 
-//							if (rightCount > rightCountAux) {
-//								int aux = rightCount;
-//								while (aux > rightCountAux) {
-//									prodCount.push(aux--);
-//								}
-//							}
+							System.out.println();
+							if (rightCount > rightCountAux) {
+								int aux = rightCount;
+								while (aux > rightCountAux) {
+									prodCount.push(aux--);
+								}
+							}
 
 						} else {
 							SyntaticAnalyzer.printError(terminal

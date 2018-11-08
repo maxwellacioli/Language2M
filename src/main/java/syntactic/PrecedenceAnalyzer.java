@@ -20,6 +20,7 @@ public class PrecedenceAnalyzer {
 	private Terminal currentTerm;
 	private PrecedenceTable precedenceTable;
 	private int paramCount = 0;
+	private boolean functionCallFlag = false;
 
 	//TODO AST
 	private Stack<Exp> expStack;
@@ -50,6 +51,10 @@ public class PrecedenceAnalyzer {
 				paramCount--;
 			}
 		}
+	}
+
+	private void changeFunctionCallFlag() {
+		functionCallFlag = !functionCallFlag;
 	}
 
 	/*private void printRedution(Stack<GrammarSymbol> operatorsStack, int elementsToPop) {
@@ -91,34 +96,59 @@ public class PrecedenceAnalyzer {
 
 	//TODO AST
 	private void createBinaryNode(Terminal op) {
-		Exp right = expStack.pop();
-		Exp left = expStack.pop();
+		Exp right;
+		Exp left;
+		if(!functionCallFlag) {
+			right = expStack.pop();
+			left = expStack.pop();
+		} else {
+			int size = expStack.peek().getChildren().size();
+			right = (Exp)expStack.peek().getChildren().remove(size - 1);
+			left = (Exp)expStack.peek().getChildren().remove(size - 2);
+		}
+
 		switch (op.getCategory()) {
 			case OPLOGICOR:
-				expStack.push(new OpOr(op.getToken(), left, right));
+				expStack.push(new OpBinaryOr(op.getToken(), left, right));
 				break;
 			case OPLOGICAND:
-				expStack.push(new OpAnd(op.getToken(), left, right));
+				expStack.push(new OpBinaryAnd(op.getToken(), left, right));
 				break;
 			case OPREL2:
-				expStack.push(new OpRel2(op.getToken(), left, right));
+				expStack.push(new OpBinaryRel2(op.getToken(), left, right));
 				break;
 			case OPREL1:
-				expStack.push(new OpRel1(op.getToken(), left, right));
+				expStack.push(new OpBinaryRel1(op.getToken(), left, right));
 				break;
 			case OPCONC:
-				expStack.push(new OpConc(op.getToken(), left, right));
+				expStack.push(new OpBinaryConc(op.getToken(), left, right));
 				break;
 			case OPARITADIT:
-				expStack.push(new OpArithAdit(op.getToken(), left, right));
+				if(functionCallFlag) {
+					expStack.peek().addChild(new OpBinaryArithAdit(op.getToken(), left, right));
+				} else {
+					expStack.push(new OpBinaryArithAdit(op.getToken(), left, right));
+				}
 				break;
 			case OPARITMULT:
-				expStack.push(new OpMult(op.getToken(), left, right));
+				if(functionCallFlag) {
+					expStack.peek().addChild(new OpBinaryMult(op.getToken(), left, right));
+				} else {
+					expStack.push(new OpBinaryMult(op.getToken(), left, right));
+				}
 				break;
 			case OPARITEXP:
-				expStack.push(new OpExp(op.getToken(), left, right));
+				if(functionCallFlag) {
+					expStack.peek().addChild(new OpBinaryExp(op.getToken(), left, right));
+				} else {
+					expStack.push(new OpBinaryExp(op.getToken(), left, right));
+				}
 				break;
 		}
+	}
+
+	private void createFunctionCallNode(Terminal functionName) {
+		expStack.push(new FunctionCall(functionName.getToken()));
 	}
 
 	public Exp precedenceAnalysis(Token token) {
@@ -133,7 +163,6 @@ public class PrecedenceAnalyzer {
 
 		while (true) {
 			// Se pv e eof no cabecote => Aceita!
-
 			if ((operatorsStack.size() == 1) && !operatorsStack.peek().isTerminal() && (endOfSentence != null)) {
 				System.out.println();
 				return expStack.peek();
@@ -178,10 +207,17 @@ public class PrecedenceAnalyzer {
 
 				if (tableValue == PrecedenceTable.ELT) { // Acao ELT
 
-					operatorsStack.push(new Terminal(token));
+					//terminal que vai para a pilha de operadores
+					Terminal termToStack = new Terminal((token));
+					operatorsStack.push(termToStack);
 
 					if (lexicalAnalyzer.hasMoreTokens()) {
 						token = lexicalAnalyzer.nextToken();
+					}
+
+					if(termToStack.getCategory().equals(TokenCategory.ID) && token.getLexValue().equals("(")) {
+						createFunctionCallNode(termToStack);
+						changeFunctionCallFlag();
 					}
 					checkEndOfSentence(token);
 
@@ -197,9 +233,17 @@ public class PrecedenceAnalyzer {
 
 						//TODO AST
 						if(tableValue != PrecedenceTable.R17) {
-							expStack.push(new Constant(currentTerm.getToken()));
+							if(functionCallFlag) {
+								expStack.peek().addChild(new Constant(currentTerm.getToken()));
+							} else {
+								expStack.push(new Constant(currentTerm.getToken()));
+							}
 						} else {
-							expStack.push(new Id(currentTerm.getToken()));
+							if(functionCallFlag) {
+								expStack.peek().addChild(new Id(currentTerm.getToken()));
+							} else {
+								expStack.push(new Id(currentTerm.getToken()));
+							}
 						}
 
 						//reducoes com operadores unarios
@@ -257,6 +301,9 @@ public class PrecedenceAnalyzer {
 									// topo -4
 									if (tableValue == PrecedenceTable.R18) {
 										currentTerm = ((Terminal) operatorsStack.pop());
+
+										//Desativa a adição de parametros na chamada de função
+										changeFunctionCallFlag();
 									}
 
 									operatorsStack.push(new NonTerminal(NonTerminalName.EXP));
@@ -282,7 +329,11 @@ public class PrecedenceAnalyzer {
 									operatorsStack.push(new NonTerminal(NonTerminalName.EXP));
 
 									//TODO AST
-									createBinaryNode((Terminal) symbol);
+									//Se o operador da redução for um ',', então não se cria um nó binario
+									//porque faz parte da redução de parametros de uma chamada de função
+									if(!stackTerm.getToken().getCategory().equals(TokenCategory.SEP1)) {
+										createBinaryNode((Terminal) symbol);
+									}
 								} else {
 									handlerError();
 								}
@@ -294,7 +345,7 @@ public class PrecedenceAnalyzer {
 						}
 					}
 					
-					/*ArrayList<GrammarSymbol> derivation = OperatorsGrammar.getInstance().getOperatorDerivation(tableValue - 1)
+					ArrayList<GrammarSymbol> derivation = OperatorsGrammar.getInstance().getOperatorDerivation(tableValue - 1)
 							.getSymbolsList();
 					TokenCategory term;
 					NonTerminal nonTerm;
@@ -317,7 +368,7 @@ public class PrecedenceAnalyzer {
 							System.out.print(nonTerm.getName() + " ");
 						}
 					}
-					System.out.println();*/
+					System.out.println();
 
 				} else { // Acao ERRO
 					SyntaticAnalyzer.printError(token);
