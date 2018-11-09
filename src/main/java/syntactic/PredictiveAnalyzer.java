@@ -422,7 +422,7 @@ public class PredictiveAnalyzer {
 
 						} else {
 							//TODO AST
-							Exp exp = precedenceAnalyzer.precedenceAnalysis(token);
+							Node exp = precedenceAnalyzer.precedenceAnalysis(token);
 
 							if (exp != null) {
 

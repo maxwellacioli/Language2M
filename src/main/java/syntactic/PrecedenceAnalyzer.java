@@ -3,6 +3,7 @@ package syntactic;
 import java.util.ArrayList;
 import java.util.Stack;
 
+import org.bytedeco.javacpp.annotation.Const;
 import semantic.commands.Node;
 import semantic.commands.expression.*;
 import syntactic.grammar.NonTerminal;
@@ -148,6 +149,22 @@ public class PrecedenceAnalyzer {
 		}
 	}
 
+	private Node createConstant(Token token) {
+		switch (token.getCategory()) {
+			case CONSTNUMINT:
+				return new IntegerConstant(currentTerm.getToken());
+			case CONSTCCHAR:
+				return new ChainCharConstant(currentTerm.getToken());
+			case CONSTNUMREAL:
+				return new RealConstant(currentTerm.getToken());
+			case CONSTLOGIC:
+				return new LogicConstant(currentTerm.getToken());
+			case CONSTCHAR:
+				return new CharConstant(currentTerm.getToken());
+		}
+		return null;
+	}
+
 	private void createFunctionCallNode(Terminal functionName) {
 		expStack.push(new FunctionCall(functionName.getToken()));
 	}
@@ -234,12 +251,14 @@ public class PrecedenceAnalyzer {
 
 						//TODO AST
 						if(tableValue != PrecedenceTable.R17) {
+							Node constant = createConstant(currentTerm.getToken());
 							if(functionCallFlag) {
-								expStack.peek().addChild(new Constant(currentTerm.getToken()));
+								expStack.peek().addChild(constant);
 							} else {
-								expStack.push(new Constant(currentTerm.getToken()));
+								expStack.push((Exp)constant);
 							}
 						} else {
+							currentTerm = (Terminal) operatorsStack.pop();
 							if(functionCallFlag) {
 								expStack.peek().addChild(new Id(currentTerm.getToken()));
 							} else {

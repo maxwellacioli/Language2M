@@ -3,10 +3,6 @@ package semantic.commands.expression;
 import lexical.Token;
 import semantic.commands.Node;
 import org.bytedeco.javacpp.*;
-import org.bytedeco.javacpp.LLVM.LLVMTypeRef;
-import org.bytedeco.javacpp.LLVM.LLVMValueRef;
-
-//Headers required by LLVM
 import static org.bytedeco.javacpp.LLVM.*;
 
 public class OpBinaryConc extends OpBinary {
