@@ -253,7 +253,7 @@ public class LexicalAnalyzer {
 		//Atualiza o valor da cadeia de caracteres ou caracter
 		if(token.getCategory().equals(TokenCategory.CONSTCCHAR) ||
 				token.getCategory().equals(TokenCategory.CONSTCHAR)) {
-			token.setLexValue(tkValue.substring(1, tkValue.length()-1));
+			token.setLexValue(tkValue.substring(1, tkValue.length()-1).replace("\\n", "\n"));
 		}
 
 		if (token.getCategory().equals(TokenCategory.COMMENT)) {
