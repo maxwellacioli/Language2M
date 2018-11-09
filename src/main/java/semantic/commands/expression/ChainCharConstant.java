@@ -1,8 +1,10 @@
 package semantic.commands.expression;
 
+import analyzer.LLVMConfiguration;
 import lexical.Token;
-import org.bytedeco.javacpp.LLVM;
 import semantic.VarType;
+import org.bytedeco.javacpp.*;
+import static org.bytedeco.javacpp.LLVM.*;
 
 public class ChainCharConstant extends Exp {
 
@@ -12,7 +14,10 @@ public class ChainCharConstant extends Exp {
 
     @Override
     public LLVM.LLVMValueRef codeGen(LLVM.LLVMModuleRef moduleRef, LLVM.LLVMContextRef contextRef, LLVM.LLVMBuilderRef builderRef) {
-        System.out.println(getToken().getLexValue());
+        LLVMValueRef str = LLVMBuildGlobalString(builderRef, getToken().getLexValue(), getToken().getLexValue());
+        LLVMConfiguration.getInstance().addPrintArg(str);
+        LLVMConfiguration.getInstance().addStrCode("%s");
+
         return null;
     }
 }

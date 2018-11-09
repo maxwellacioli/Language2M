@@ -1,34 +1,17 @@
 package semantic.commands;
 
+import analyzer.LLVMConfiguration;
 import org.bytedeco.javacpp.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.bytedeco.javacpp.LLVM.*;
 
 public class Printout extends Node {
-    private static String strCode = "";
-    private static boolean strCodeFlag = false;
 
     public Printout(Node child) {
         addChild(child);
-    }
-
-    public static void addStrCode(String sc) {
-        strCode += sc;
-    }
-
-    public static void resetStrCode() {
-        strCode = "";
-    }
-
-    public boolean isStrEmpty() {
-        return (strCode.length() == 0);
-    }
-
-    public void changeStrCodeFlag() {
-        strCodeFlag = !strCodeFlag;
-    }
-
-    public boolean getStrCodeFlag() {
-        return strCodeFlag;
     }
 
     @Override
@@ -37,7 +20,17 @@ public class Printout extends Node {
         LLVMTypeRef llvmPrintfType = LLVMFunctionType(LLVMInt32Type(), new PointerPointer(printfParams), 0, 1);
         LLVMAddFunction(moduleRef, "printf", llvmPrintfType);
 
-        System.out.println("imprima");
+        List<LLVMValueRef> printArgs = LLVMConfiguration.getInstance().getPrintArgs();
+        LLVMConfiguration.insertStringCode();
+
+        //Converter ArrayList para Array
+        LLVMValueRef[] args = new LLVMValueRef[printArgs.size()];
+        args = printArgs.toArray(args);
+
+        LLVMValueRef printFunction = LLVMGetNamedFunction(moduleRef, "printf");
+        LLVMBuildCall(builderRef, printFunction, new PointerPointer(args), printArgs.size(), "printf");
+
+        LLVMConfiguration.resetPrintConfig();
         return null;
     }
 }

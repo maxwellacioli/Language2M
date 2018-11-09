@@ -400,16 +400,6 @@ public class PredictiveAnalyzer {
 						astStack.push(node);
 
 						localSymbolTable = new SymbolTable(token.getLexValue());
-
-						LLVMBuilderRef builder = LLVMConfiguration.getInstance().getGlobalBuilder();
-
-						LLVMTypeRef mainType = LLVMFunctionType(LLVMInt32Type(), new PointerPointer((Pointer)null), 0, 0);
-						LLVMValueRef mainFunc = LLVMAddFunction(LLVMConfiguration.getInstance().getGlobalMod(), token.getLexValue(), mainType);
-						LLVMBasicBlockRef entry = LLVMAppendBasicBlock(mainFunc, "entry");
-						LLVMPositionBuilderAtEnd(builder, entry);
-
-						LLVMValueRef ret = LLVMConstInt(LLVMInt32Type(), 1, 1);
-						LLVMBuildRet(builder, ret);
 					}
 
 					//TODO Adicionar no' a AST quando NT for EXPRESSION

@@ -1,6 +1,10 @@
 package analyzer;
 
 import org.bytedeco.javacpp.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.bytedeco.javacpp.LLVM.*;
 
 public class LLVMConfiguration {
@@ -10,10 +14,16 @@ public class LLVMConfiguration {
     private static LLVMModuleRef globalMod;
     private static LLVMBuilderRef globalBuilder;
 
+    //Configurações do printf
+    private static String printStringCode = "";
+    private static boolean strCodeFlag = false;
+    private static List<LLVMValueRef> printArgs;
+
     private LLVMConfiguration() {
         error = new BytePointer((Pointer) null);
         globalMod = LLVMModuleCreateWithName("globalMod");
         globalBuilder = LLVMCreateBuilder();
+        printArgs = new ArrayList<LLVMValueRef>();
     }
 
     public static LLVMConfiguration getInstance() {
@@ -21,6 +31,47 @@ public class LLVMConfiguration {
             llvmConfigurationInstance = new LLVMConfiguration();
         }
         return llvmConfigurationInstance;
+    }
+
+    public static void addPrintArg(LLVMValueRef arg) {
+        printArgs.add(arg);
+    }
+
+    //Adiciona o código da string que será impressa
+    public static void insertStringCode() {
+        printStringCode += "\n";
+        LLVMValueRef strCode = LLVMBuildGlobalString(globalBuilder, printStringCode, "strigPrintCode");
+        printArgs.add(0, strCode);
+    }
+
+    public static void resetPrintConfig() {
+        resetStrCode();
+        cleanPrintArgs();
+        changeStrCodeFlag();
+    }
+
+    private static void cleanPrintArgs() {
+        printArgs.clear();
+    }
+
+    public static void addStrCode(String sc) {
+        printStringCode += sc;
+    }
+
+    private static void resetStrCode() {
+        printStringCode = "";
+    }
+
+    public static List<LLVMValueRef> getPrintArgs() {
+        return printArgs;
+    }
+
+    public static void changeStrCodeFlag() {
+        strCodeFlag = !strCodeFlag;
+    }
+
+    public static boolean getStrCodeFlag() {
+        return strCodeFlag;
     }
 
     public BytePointer getError() {
