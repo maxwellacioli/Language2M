@@ -1,8 +1,11 @@
 package semantic.commands.expression;
 
+import analyzer.LLVMConfiguration;
 import lexical.Token;
 import semantic.commands.Node;
 import org.bytedeco.javacpp.*;
+import semantic.commands.Printout;
+
 import static org.bytedeco.javacpp.LLVM.*;
 
 public class OpBinaryArithAdit extends OpBinary {
@@ -13,25 +16,27 @@ public class OpBinaryArithAdit extends OpBinary {
     }
 
     //TODO Verificação de compatibilidade de tipos é na análise semântica
-//    @Override
-//    public LLVMValueRef codeGen(LLVM.LLVMModuleRef moduleRef, LLVM.LLVMContextRef contextRef, LLVM.LLVMBuilderRef builderRef) {
-//        LLVMValueRef left;
-//        LLVMValueRef right;
-//
-//        switch (getToken().getCategory()) {
-//            case :
-//                break;
-//            case REAL:
-//                break;
-//            case CADEIA:
-//                break;
-//            case CARACTER:
-//                break;
-//            case LOGICO:
-//                break;
-//        }
-//        return null;
-//    }
+    @Override
+    public LLVMValueRef codeGen(LLVM.LLVMModuleRef moduleRef, LLVM.LLVMContextRef contextRef, LLVM.LLVMBuilderRef builderRef) {
+        String operator = getToken().getLexValue();
+        LLVMValueRef left = getChildren().get(0).getLlvmValueRef();
+        LLVMValueRef right = getChildren().get(1).getLlvmValueRef();
+        LLVMValueRef result = null;
+
+        if(operator.equals("+")) {
+            result = LLVMBuildAdd(builderRef, left, right, "result");
+        } else if(operator.equals("-")) {
+            result = LLVMBuildSub(builderRef, left, right, "result");
+        }
+
+        //TODO Condição que verifica se a flag de imprimir string está habilitada
+        if(LLVMConfiguration.getStrCodeFlag() &&
+                (this.getParent() instanceof Printout || this.getParent() instanceof OpBinaryConc)) {
+            LLVMConfiguration.getInstance().addPrintArg(result);
+            LLVMConfiguration.getInstance().addStrCode("%d");
+        }
+        return result;
+    }
 }
 
 

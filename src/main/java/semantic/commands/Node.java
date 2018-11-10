@@ -1,5 +1,6 @@
 package semantic.commands;
 
+import analyzer.LLVMConfiguration;
 import org.bytedeco.javacpp.LLVM.*;
 import syntactic.grammar.GrammarSymbol;
 import syntactic.grammar.Terminal;
@@ -116,6 +117,10 @@ public abstract class Node {
 
         if(node.children.size() == 0) {
             return node.codeGen(moduleRef, contextRef, builderRef);
+        }
+
+        if(node instanceof Printout) {
+            LLVMConfiguration.changeStrCodeFlag();
         }
 
         for (Node n: node.children) {
