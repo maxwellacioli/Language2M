@@ -127,5 +127,13 @@ public class LLVMConfiguration {
         LLVMInitializeNativeDisassembler();
         LLVMInitializeNativeTarget();
 
+        //Adiciona a função printf no módulo principal
+        insertPrintfFunction();
+    }
+
+    private static void insertPrintfFunction() {
+        LLVMTypeRef[] printfParams = { LLVMPointerType(LLVMInt8Type(), 0) };
+        LLVMTypeRef llvmPrintfType = LLVMFunctionType(LLVMInt32Type(), new PointerPointer(printfParams), 0, 1);
+        LLVMAddFunction(globalMod, "printf", llvmPrintfType);
     }
 }

@@ -16,10 +16,6 @@ public class Printout extends Node {
 
     @Override
     public LLVMValueRef codeGen(LLVMModuleRef moduleRef, LLVMContextRef contextRef, LLVMBuilderRef builderRef) {
-        LLVMTypeRef[] printfParams = { LLVMPointerType(LLVMInt8Type(), 0) };
-        LLVMTypeRef llvmPrintfType = LLVMFunctionType(LLVMInt32Type(), new PointerPointer(printfParams), 0, 1);
-        LLVMAddFunction(moduleRef, "printf", llvmPrintfType);
-
         List<LLVMValueRef> printArgs = LLVMConfiguration.getInstance().getPrintArgs();
         LLVMConfiguration.insertStringCode();
 
