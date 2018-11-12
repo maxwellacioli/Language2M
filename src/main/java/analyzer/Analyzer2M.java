@@ -14,7 +14,7 @@ public class Analyzer2M {
 	private static SyntaticAnalyzer syntaticAnalyzer;
 	//private static SemanticAnalyzer semanticAnalyzer;
 
-	private static String filePath = "files/input/hello.2m";
+	private static String filePath = "files/input/test.2m";
 
 	public Analyzer2M() {
 
@@ -36,26 +36,26 @@ public class Analyzer2M {
 		System.out.println();
 		System.out.println();
 
-		for (AST ast: syntaticAnalyzer.getASTList()
-			 ) {
-			LLVMBuilderRef builder = LLVMConfiguration.getInstance().getGlobalBuilder();
-
-			LLVMTypeRef mainType = LLVMFunctionType(LLVMInt32Type(), new PointerPointer((Pointer)null), 0, 0);
-			LLVMValueRef mainFunc = LLVMAddFunction(LLVMConfiguration.getInstance().getGlobalMod(), ast.getName(), mainType);
-			LLVMBasicBlockRef entry = LLVMAppendBasicBlock(mainFunc, "entry");
-			LLVMPositionBuilderAtEnd(builder, entry);
-
-			Node.visitor(ast.getRoot(), LLVMConfiguration.getInstance().getGlobalMod(), null, LLVMConfiguration.getInstance().getGlobalBuilder());
-
-			//FIXME Resolver para retorno de função que não seja a função principal
-
-			if(ast.getName().equals("principal")) {
-				LLVMValueRef ret = LLVMConstInt(LLVMInt32Type(), 1, 1);
-				LLVMBuildRet(builder, ret);
-			}
-		}
-
-		//Executa a pilha de execução do LLVM
-		LLVMConfiguration.getInstance().runLLVM();
+//		for (AST ast: syntaticAnalyzer.getASTList()
+//			 ) {
+//			LLVMBuilderRef builder = LLVMConfiguration.getInstance().getGlobalBuilder();
+//
+//			LLVMTypeRef mainType = LLVMFunctionType(LLVMInt32Type(), new PointerPointer((Pointer)null), 0, 0);
+//			LLVMValueRef mainFunc = LLVMAddFunction(LLVMConfiguration.getInstance().getGlobalMod(), ast.getName(), mainType);
+//			LLVMBasicBlockRef entry = LLVMAppendBasicBlock(mainFunc, "entry");
+//			LLVMPositionBuilderAtEnd(builder, entry);
+//
+//			Node.visitor(ast.getRoot(), LLVMConfiguration.getInstance().getGlobalMod(), null, LLVMConfiguration.getInstance().getGlobalBuilder());
+//
+//			//FIXME Resolver para retorno de função que não seja a função principal
+//
+//			if(ast.getName().equals("principal")) {
+//				LLVMValueRef ret = LLVMConstInt(LLVMInt32Type(), 1, 1);
+//				LLVMBuildRet(builder, ret);
+//			}
+//		}
+//
+//		//Executa a pilha de execução do LLVM
+//		LLVMConfiguration.getInstance().runLLVM();
 	}
 }

@@ -40,7 +40,6 @@ public class SemanticAnalyzer {
     }
 
 
-//    //
 //    public void sendLabel(String label) {
 //
 //    }

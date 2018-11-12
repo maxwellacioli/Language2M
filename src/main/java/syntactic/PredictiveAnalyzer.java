@@ -286,7 +286,6 @@ public class PredictiveAnalyzer {
 		}
 	}
 
-
 	public void predictiveAnalyze() {
 
 		GrammarSymbol topGrammarSymbol;
@@ -412,7 +411,7 @@ public class PredictiveAnalyzer {
 
 						} else {
 							//TODO AST
-							Node exp = precedenceAnalyzer.precedenceAnalysis(token);
+							Node exp = precedenceAnalyzer.precedenceAnalysis(token, localSymbolTable);
 
 							if (exp != null) {
 

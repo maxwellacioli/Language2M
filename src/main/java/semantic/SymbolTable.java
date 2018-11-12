@@ -20,6 +20,17 @@ public class SymbolTable {
         symbolTable.add(symbolInput);
     }
 
+    public VarType getSymbolType(String symbolName) {
+        VarType type = null;
+        for (Symbol symbol :
+             symbolTable) {
+            if(symbol.name.equals(symbolName)) {
+                type = symbol.getType();
+            }
+        }
+        return type;
+    }
+
     //Necessario para verificar tipo de variaveis em expressoes
     public VarType lookType(String name) {
         for (Symbol symbol : symbolTable) {

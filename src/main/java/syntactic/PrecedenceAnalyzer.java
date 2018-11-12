@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 import org.bytedeco.javacpp.annotation.Const;
+import semantic.SymbolTable;
 import semantic.VarType;
 import semantic.commands.Node;
 import semantic.commands.expression.*;
@@ -24,6 +25,8 @@ public class PrecedenceAnalyzer {
 	private PrecedenceTable precedenceTable;
 	private int paramCount = 0;
 	private boolean functionCallFlag = false;
+
+	private SymbolTable localSymbolTable;
 
 	//TODO AST
 	private Stack<Exp> expStack;
@@ -150,20 +153,10 @@ public class PrecedenceAnalyzer {
 		}
 	}
 
+	//Olhar na tabela de simbolos a categoria da variável
 	private Node createId(Token token) {
-		switch (token.getCategory()) {
-			case CONSTNUMINT:
-				return new Id(currentTerm.getToken(), VarType.INTEIRO);
-			case CONSTCCHAR:
-				return new Id(currentTerm.getToken(), VarType.CADEIA);
-			case CONSTNUMREAL:
-				return new Id(currentTerm.getToken(), VarType.REAL);
-			case CONSTLOGIC:
-				return new Id(currentTerm.getToken(), VarType.LOGICO);
-			case CONSTCHAR:
-				return new Id(currentTerm.getToken(), VarType.CARACTER);
-		}
-		return null;
+		Node id = new Id(currentTerm.getToken(), localSymbolTable.getSymbolType(token.getLexValue()));
+		return id;
 	}
 
 	private Node createConstant(Token token) {
@@ -188,13 +181,14 @@ public class PrecedenceAnalyzer {
 		expStack.push(new FunctionCall(functionName.getToken()));
 	}
 
-	public Exp precedenceAnalysis(Token token) {
+	public Exp precedenceAnalysis(Token token, SymbolTable localSymbolTable) {
 		int tableValue;
 		int tableAux;
 		int count = 1;
 		endOfSentence = null;
 		operatorsStack.removeAllElements();
 		expStack.removeAllElements();
+		this.localSymbolTable = localSymbolTable;
 
 		checkEndOfSentence(token);
 
@@ -277,7 +271,6 @@ public class PrecedenceAnalyzer {
 								expStack.push((Exp)constant);
 							}
 						} else {
-							currentTerm = (Terminal) operatorsStack.pop();
 							if(functionCallFlag) {
 								expStack.peek().addChild(createId(currentTerm.getToken()));
 							} else {
