@@ -1,5 +1,5 @@
 principal () inteiro {
 
-    imprima("Resultado: " ++ (5 + 10 * 2));
+    imprima("Resultado: " ++ (5 + 10 * (2 + 3)));
 
 }

@@ -2,6 +2,7 @@ package semantic.commands.expression;
 
 import analyzer.LLVMConfiguration;
 import lexical.Token;
+import semantic.SemanticAnalyzer;
 import semantic.commands.Node;
 import org.bytedeco.javacpp.*;
 import semantic.commands.Printout;
@@ -24,9 +25,9 @@ public class OpBinaryArithAdit extends OpBinary {
         LLVMValueRef result = null;
 
         if(operator.equals("+")) {
-            result = LLVMBuildAdd(builderRef, left, right, "result");
+            result = LLVMBuildAdd(builderRef, left, right, SemanticAnalyzer.getInstance().tempGenerator());
         } else if(operator.equals("-")) {
-            result = LLVMBuildSub(builderRef, left, right, "result");
+            result = LLVMBuildSub(builderRef, left, right, SemanticAnalyzer.getInstance().tempGenerator());
         }
 
         //TODO Condição que verifica se a flag de imprimir string está habilitada

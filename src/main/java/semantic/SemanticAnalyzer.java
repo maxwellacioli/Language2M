@@ -8,44 +8,46 @@ import static org.bytedeco.javacpp.LLVM.LLVMInitializeNativeTarget;
 
 public class SemanticAnalyzer {
 
-    public SemanticAnalyzer() {
+    private int tempCount;
+    private String tempName;
 
+    private int labelCount;
+    private String labelName;
+
+    private static SemanticAnalyzer semanticAnalyzer;
+
+    private SemanticAnalyzer() {
+        tempCount = 1;
+        labelCount = 1;
+        tempName = "temp";
+        labelName = "label";
     }
 
-    //TODO implementar
-    //Gera um nome de temporario
+    public static SemanticAnalyzer getInstance() {
+        if(semanticAnalyzer == null) {
+            semanticAnalyzer = new SemanticAnalyzer();
+        }
+        return semanticAnalyzer;
+    }
+
     public String tempGenerator() {
-        return "";
+
+        return tempName + String.valueOf(tempCount++);
     }
 
-    //TODO implementar
-    //Gera o nome de um rotulo
-    public void labelGenerator() {
-
+    public String labelGenerator() {
+        return labelName + String.valueOf(labelCount++);
     }
 
-    //TODO implementar
-    //Gera um codigo de tres enderecos quando nao ha o segundo operando
-    public void codGenerator(String op, String optor1, String optor2, String dest) {
 
-    }
-
-    //TODO implementar
-    //Gera um codigo de tres enderecos quando nao ha o segundo operando
-    public void codGenerator(String op, String optor1, String dest) {
-
-    }
-
-    //TODO implementar
-    //
-    public void sendLabel(String label) {
-
-    }
-
-    //TODO implementar
-    public void GTgenerator(String label) {
-
-    }
+//    //
+//    public void sendLabel(String label) {
+//
+//    }
+//
+//    public void GTgenerator(String label) {
+//
+//    }
 
     //TODO implementar
     public VarType checkType(String varName) {

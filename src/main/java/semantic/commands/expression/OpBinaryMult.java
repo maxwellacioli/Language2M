@@ -3,6 +3,7 @@ package semantic.commands.expression;
 import analyzer.LLVMConfiguration;
 import lexical.Token;
 import org.bytedeco.javacpp.LLVM;
+import semantic.SemanticAnalyzer;
 import semantic.commands.Node;
 import semantic.commands.Printout;
 
@@ -24,9 +25,9 @@ public class OpBinaryMult extends OpBinary {
 
         //Verificar tipo da operação para usar UDiv ou FDiv
         if(operator.equals("*")) {
-            result = LLVMBuildMul(builderRef, left, right, "result");
+            result = LLVMBuildMul(builderRef, left, right, SemanticAnalyzer.getInstance().tempGenerator());
         } else if(operator.equals("/")) {
-            result = LLVMBuildSDiv(builderRef, left, right, "result");
+            result = LLVMBuildSDiv(builderRef, left, right, SemanticAnalyzer.getInstance().tempGenerator());
         }
 
         //TODO Condição que verifica se a flag de imprimir string está habilitada
