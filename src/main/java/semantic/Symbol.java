@@ -1,12 +1,24 @@
 package semantic;
 
+import static org.bytedeco.javacpp.LLVM.*;
+
 public class Symbol {
-    public String name;
-    public VarType type;
+    private String name;
+    private VarType type;
+    private LLVMValueRef llvmValueRef;
+
 
     public Symbol(String name, VarType type) {
         this.name = name;
         this.type = type;
+    }
+
+    public LLVMValueRef getLlvmValueRef() {
+        return llvmValueRef;
+    }
+
+    public void setLlvmValueRef(LLVMValueRef llvmValueRef) {
+        this.llvmValueRef = llvmValueRef;
     }
 
     public String getName() {
