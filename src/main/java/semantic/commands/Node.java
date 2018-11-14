@@ -110,6 +110,7 @@ public abstract class Node {
                                        LLVMBuilderRef builderRef);
 
     //A variavel strCode é necessaria para construir a sequencia de strings que serão impressas
+    //Busca em profundidade (pós-ordem)
     public static LLVMValueRef visitor(Node node, LLVMModuleRef moduleRef, LLVMContextRef contextRef,
                                        LLVMBuilderRef builderRef) {
 // TODO Implemntar condição para fazer a chamada quando temos ListCmds
