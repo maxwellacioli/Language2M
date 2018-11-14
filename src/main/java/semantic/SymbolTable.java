@@ -24,7 +24,7 @@ public class SymbolTable {
         VarType type = null;
         for (Symbol symbol :
              symbolTable) {
-            if(symbol.name.equals(symbolName)) {
+            if(symbol.getName().equals(symbolName)) {
                 type = symbol.getType();
             }
         }
@@ -34,7 +34,7 @@ public class SymbolTable {
     //Necessario para verificar tipo de variaveis em expressoes
     public VarType lookType(String name) {
         for (Symbol symbol : symbolTable) {
-            if(symbol.name.equals(name)) {
+            if(symbol.getName().equals(name)) {
                 return symbol.getType();
             }
         }
@@ -43,7 +43,7 @@ public class SymbolTable {
 
     private Boolean alreadyDeclared(String name) {
         for (Symbol inputSymbol : symbolTable) {
-            if(inputSymbol.name.equals(name)) {
+            if(inputSymbol.getName().equals(name)) {
                 return true;
             }
         }
