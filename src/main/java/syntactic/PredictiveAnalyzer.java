@@ -4,14 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-import analyzer.LLVMConfiguration;
 import lexical.TokenCategory;
-import org.bytedeco.javacpp.*;
-import org.bytedeco.javacpp.LLVM.LLVMTypeRef;
-import org.bytedeco.javacpp.LLVM.LLVMValueRef;
 
 //Headers required by LLVM
-import static org.bytedeco.javacpp.LLVM.*;
 
 import semantic.*;
 import semantic.commands.*;
@@ -113,7 +108,7 @@ public class PredictiveAnalyzer {
 		return (type.equals(VarType.INTEIRO.getName()) ||
 				type.equals(VarType.REAL.getName()) ||
 				type.equals(VarType.CARACTER.getName()) ||
-				type.equals(VarType.CADEIA.getName()) ||
+				type.equals(VarType.TEXT.getName()) ||
 				type.equals(VarType.LOGICO.getName())
 				);
 	}
@@ -138,7 +133,7 @@ public class PredictiveAnalyzer {
 		Node id = null;
 		Node ifCmd = null;
 		Node ifElse = null;
-		Node ifElseFat = null;
+		Node elseNode = null;
 		Node iterator = null;
 		Node printout = null;
 		Node readIn = null;
@@ -191,7 +186,6 @@ public class PredictiveAnalyzer {
 				node.removeNode();
 				break;
 			case 20:
-				//TODO settar Id valor léxico
 				id = new Id();
 				exp = new Exp();
 				node = astStack.pop();
@@ -220,12 +214,12 @@ public class PredictiveAnalyzer {
 			case 23:
 				exp = new Exp();
 				escope = new Escope();
-				ifElseFat = new IfElseFat();
+				elseNode = new Else();
 				node = astStack.pop();
 
-				changeNodeReference(node, new IfElse(exp, escope, ifElseFat));
+				changeNodeReference(node, new If(exp, escope, elseNode));
 
-				astStack.push(ifElseFat);
+				astStack.push(elseNode);
 				astStack.push(escope);
 				astStack.push(exp);
 				break;
@@ -238,16 +232,6 @@ public class PredictiveAnalyzer {
 
 				astStack.push(escope);
 				astStack.push(exp);
-				break;
-			case 25:
-				escope = new Escope();
-				exp = new Exp();
-				node = astStack.pop();
-
-				changeNodeReference(node, new Do(escope, exp));
-
-				astStack.push(exp);
-				astStack.push(escope);
 				break;
 			case 26:
 				attribution = new Attribution();
@@ -382,7 +366,7 @@ public class PredictiveAnalyzer {
 							globalTable.insertSymbol(functionSymbol);
 							localSymbolTable = new SymbolTable(token.getLexValue());
 
-							ast = new AST(token.getLexValue());
+							ast = new AST(token.getLexValue(), localSymbolTable);
 							node = new Escope();
 							ast.setRoot(node);
 							astStack.push(node);
@@ -550,6 +534,7 @@ public class PredictiveAnalyzer {
 				}
 			}
 			//Adiciona a ast da funcao "principal"
+			this.ast.setSymbolTable(this.localSymbolTable);
 			programAst.add(ast);
 			//Test to debug
 			System.out.println();

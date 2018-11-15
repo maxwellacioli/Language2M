@@ -19,6 +19,10 @@ public class Token {
 		return "<" + line + "," + column + "> " + category + " = '" + lexValue + "'";
 	}
 
+	public String getLocation() {
+		return "<linha: " + line + ", " + "coluna: "+ column + ">";
+	}
+
 	public String getLexValue() {
 		return lexValue;
 	}

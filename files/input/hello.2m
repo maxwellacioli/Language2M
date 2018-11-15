@@ -1,5 +1,3 @@
 principal () inteiro {
-
-    imprima("Resultado: " ++ (5 + 10 * (7 + 8)/5));
-
+    inteiro a, b;
 }

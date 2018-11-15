@@ -13,7 +13,6 @@ public class LLVMConfiguration {
     private static BytePointer error;
     private static LLVMModuleRef globalMod;
     private static LLVMBuilderRef globalBuilder;
-    private static LLVMContextRef globolContext;
 
     //Configurações do printf
     private static String printStringCode = "";
@@ -24,7 +23,6 @@ public class LLVMConfiguration {
         error = new BytePointer((Pointer) null);
         globalMod = LLVMModuleCreateWithName("globalMod");
         globalBuilder = LLVMCreateBuilder();
-        globolContext = LLVMGetGlobalContext();
         printArgs = new ArrayList<LLVMValueRef>();
     }
 
@@ -40,9 +38,9 @@ public class LLVMConfiguration {
     }
 
     //Adiciona o código da string que será impressa
-    public static void insertStringCode() {
+    public static void insertStringCode(LLVMBuilderRef builder) {
         printStringCode += "\n";
-        LLVMValueRef strCode = LLVMBuildGlobalString(globalBuilder, printStringCode, "strigPrintCode");
+        LLVMValueRef strCode = LLVMBuildGlobalString(builder, printStringCode, "strigPrintCode");
         printArgs.add(0, strCode);
     }
 
@@ -87,8 +85,6 @@ public class LLVMConfiguration {
     public LLVMBuilderRef getGlobalBuilder() {
         return globalBuilder;
     }
-
-    public LLVMContextRef getGlobalContext() { return globolContext; }
 
     public static void runLLVM() {
         LLVMVerifyModule(globalMod, LLVMAbortProcessAction, error);

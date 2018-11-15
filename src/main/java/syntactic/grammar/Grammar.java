@@ -168,7 +168,7 @@ public class Grammar {
 				new Terminal(TokenCategory.SEP2));
 		grammarAddDerivation(derivationAux);
 
-		// se ( EXP ) ESCOPE CMDELSEIF CMDELSE
+		// se ( EXP ) ESCOPE CMDELSE
 		derivationAux.addDerivationSymbols(
 				new Terminal(TokenCategory.PRIF),
 				new Terminal(TokenCategory.PARAMBEGIN),

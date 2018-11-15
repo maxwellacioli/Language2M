@@ -68,7 +68,6 @@ public class LexicalTable {
 
 		// Palavras-reservadas (comandos e operadores)
 
-		keyWordsMap.put("letra", TokenCategory.TCHAR);
 		keyWordsMap.put("texto", TokenCategory.TCCHAR);
 		keyWordsMap.put("real", TokenCategory.TREAL);
 		keyWordsMap.put("inteiro", TokenCategory.TINT);
@@ -76,7 +75,6 @@ public class LexicalTable {
 		keyWordsMap.put("principal", TokenCategory.MAIN);
 		keyWordsMap.put("se", TokenCategory.PRIF);
 		keyWordsMap.put("senao", TokenCategory.PRELSE);
-		keyWordsMap.put("senaose", TokenCategory.PRELSEIF);
 		keyWordsMap.put("repita", TokenCategory.PRITERATOR);
 		keyWordsMap.put("enquanto", TokenCategory.PRWHILE);
 		keyWordsMap.put("faca", TokenCategory.PRDO);

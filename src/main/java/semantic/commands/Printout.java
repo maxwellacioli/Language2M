@@ -17,7 +17,7 @@ public class Printout extends Node {
     @Override
     public LLVMValueRef codeGen(LLVMModuleRef moduleRef, LLVMContextRef contextRef, LLVMBuilderRef builderRef) {
         List<LLVMValueRef> printArgs = LLVMConfiguration.getInstance().getPrintArgs();
-        LLVMConfiguration.insertStringCode();
+        LLVMConfiguration.insertStringCode(builderRef);
 
         //Converter ArrayList para Array
         LLVMValueRef[] args = new LLVMValueRef[printArgs.size()];

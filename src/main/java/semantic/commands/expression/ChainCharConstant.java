@@ -9,7 +9,7 @@ import static org.bytedeco.javacpp.LLVM.*;
 public class ChainCharConstant extends Exp {
 
     public ChainCharConstant(Token token) {
-        super(token, VarType.CADEIA);
+        super(token, VarType.TEXT);
     }
 
     @Override

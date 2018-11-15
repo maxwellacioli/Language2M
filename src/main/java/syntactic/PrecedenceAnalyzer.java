@@ -3,9 +3,7 @@ package syntactic;
 import java.util.ArrayList;
 import java.util.Stack;
 
-import org.bytedeco.javacpp.annotation.Const;
 import semantic.SymbolTable;
-import semantic.VarType;
 import semantic.commands.Node;
 import semantic.commands.expression.*;
 import syntactic.grammar.NonTerminal;
@@ -155,7 +153,7 @@ public class PrecedenceAnalyzer {
 
 	//Olhar na tabela de simbolos a categoria da variável
 	private Node createId(Token token) {
-		Node id = new Id(currentTerm.getToken(), localSymbolTable.getSymbolType(token.getLexValue()));
+		Node id = new Id(currentTerm.getToken(), localSymbolTable.lookType(token.getLexValue()));
 		return id;
 	}
 

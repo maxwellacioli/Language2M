@@ -5,7 +5,7 @@ public enum VarType {
     INTEIRO("inteiro"),
     REAL("real"),
     CARACTER("caracter"),
-    CADEIA("texto"),
+    TEXT("texto"),
     LOGICO("logico");
 
     private String name;
@@ -25,8 +25,8 @@ public enum VarType {
             return REAL;
         } else if(type.equals(CARACTER.getName())) {
             return CARACTER;
-        } else if(type.equals(CADEIA.getName())) {
-            return CADEIA;
+        } else if(type.equals(TEXT.getName())) {
+            return TEXT;
         } else if(type.equals(LOGICO.getName())) {
             return LOGICO;
         }

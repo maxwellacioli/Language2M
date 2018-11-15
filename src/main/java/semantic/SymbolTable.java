@@ -1,53 +1,38 @@
 package semantic;
 
-import java.util.List;
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SymbolTable {
     private String tableName;
-    private List<Symbol> symbolTable;
+    private Map<String, Symbol> localSymbolTable;
 
     public SymbolTable(String name) {
         this.tableName = name;
-        symbolTable = new ArrayList<Symbol>();
+        localSymbolTable = new HashMap<String, Symbol>();
     }
 
     public void insertSymbol(Symbol symbolInput) {
         if(alreadyDeclared(symbolInput.getName())) {
-            //TODO melhorar a forma que o erro e' mostrado!
             throw new RuntimeException("Varia'vel ja' declarada!");
         }
-        symbolTable.add(symbolInput);
+        localSymbolTable.put(symbolInput.getName(), symbolInput);
     }
 
-    public VarType getSymbolType(String symbolName) {
-        VarType type = null;
-        for (Symbol symbol :
-             symbolTable) {
-            if(symbol.getName().equals(symbolName)) {
-                type = symbol.getType();
-            }
-        }
-        return type;
-    }
-
-    //Necessario para verificar tipo de variaveis em expressoes
     public VarType lookType(String name) {
-        for (Symbol symbol : symbolTable) {
-            if(symbol.getName().equals(name)) {
-                return symbol.getType();
-            }
+        Symbol symbol = localSymbolTable.get(name);
+        if(symbol == null) {
+            throw new RuntimeException("Varia'vel nao declarada!");
         }
-        return null;
+        return symbol.getType();
     }
 
     private Boolean alreadyDeclared(String name) {
-        for (Symbol inputSymbol : symbolTable) {
-            if(inputSymbol.getName().equals(name)) {
-                return true;
-            }
-        }
-        return false;
+        return (localSymbolTable.get(name) != null);
+    }
+
+    public Map<String, Symbol> getLocalSymbolTable() {
+        return localSymbolTable;
     }
 
     public String getTableName() {
