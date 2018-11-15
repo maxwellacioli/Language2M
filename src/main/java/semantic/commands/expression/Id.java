@@ -1,8 +1,10 @@
 package semantic.commands.expression;
 
 import lexical.Token;
-import org.bytedeco.javacpp.LLVM;
-import org.bytedeco.javacpp.LLVM.*;
+import org.bytedeco.javacpp.*;
+import static org.bytedeco.javacpp.LLVM.*;
+
+import semantic.SymbolTable;
 import semantic.VarType;
 
 public class Id extends Exp {
@@ -17,4 +19,8 @@ public class Id extends Exp {
         super(token, type);
     }
 
+    @Override
+    public LLVMValueRef codeGen(LLVMModuleRef moduleRef, LLVMContextRef contextRef, LLVMBuilderRef builderRef, SymbolTable symbolTable) {
+        return  null;
+    }
 }

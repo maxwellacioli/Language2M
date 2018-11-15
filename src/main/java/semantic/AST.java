@@ -5,7 +5,6 @@ import static org.bytedeco.javacpp.LLVM.*;
 import semantic.commands.Node;
 
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 @SuppressWarnings("WeakerAccess")
@@ -57,11 +56,16 @@ public class AST {
             Symbol symbol = entry.getValue();
             String symbolName = symbol.getName();
             VarType symbolType = symbol.getType();
-            LLVM.LLVMValueRef value = null;
+            LLVMValueRef value = null;
 
             switch (symbolType) {
                 case INTEIRO:
-//                    value = LLVMBuildAlloca(builder, LLVMInt32Type(), symbolName);
+                    value = LLVMBuildAlloca(builder, LLVMInt32Type(), symbolName);
+                    LLVMBuildStore(builder, LLVMConstInt(LLVMInt32Type(), 0, 1),value);
+                    break;
+                case REAL:
+                    value = LLVMBuildAlloca(builder, LLVMDoubleType(), symbolName);
+                    LLVMBuildStore(builder, LLVMConstReal(LLVMDoubleType(), 0),value);
                     break;
 
             }

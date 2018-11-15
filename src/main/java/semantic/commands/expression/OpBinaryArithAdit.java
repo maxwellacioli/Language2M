@@ -3,6 +3,7 @@ package semantic.commands.expression;
 import analyzer.LLVMConfiguration;
 import lexical.Token;
 import semantic.SemanticAnalyzer;
+import semantic.SymbolTable;
 import semantic.commands.Node;
 import org.bytedeco.javacpp.*;
 import semantic.commands.Printout;
@@ -18,7 +19,7 @@ public class OpBinaryArithAdit extends OpBinary {
 
     //TODO Verificação de compatibilidade de tipos é na análise semântica
     @Override
-    public LLVMValueRef codeGen(LLVM.LLVMModuleRef moduleRef, LLVM.LLVMContextRef contextRef, LLVM.LLVMBuilderRef builderRef) {
+    public LLVMValueRef codeGen(LLVM.LLVMModuleRef moduleRef, LLVM.LLVMContextRef contextRef, LLVM.LLVMBuilderRef builderRef, SymbolTable symbolTable) {
         String operator = getToken().getLexValue();
         LLVMValueRef left = getChildren().get(0).getLlvmValueRef();
         LLVMValueRef right = getChildren().get(1).getLlvmValueRef();

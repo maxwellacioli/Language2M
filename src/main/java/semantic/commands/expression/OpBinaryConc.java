@@ -1,6 +1,7 @@
 package semantic.commands.expression;
 
 import lexical.Token;
+import semantic.SymbolTable;
 import semantic.commands.Node;
 import org.bytedeco.javacpp.*;
 import static org.bytedeco.javacpp.LLVM.*;
@@ -12,7 +13,7 @@ public class OpBinaryConc extends OpBinary {
     }
 
     @Override
-    public LLVMValueRef codeGen(LLVM.LLVMModuleRef moduleRef, LLVM.LLVMContextRef contextRef, LLVM.LLVMBuilderRef builderRef) {
+    public LLVMValueRef codeGen(LLVM.LLVMModuleRef moduleRef, LLVM.LLVMContextRef contextRef, LLVM.LLVMBuilderRef builderRef, SymbolTable symbolTable) {
         return null;
     }
 }

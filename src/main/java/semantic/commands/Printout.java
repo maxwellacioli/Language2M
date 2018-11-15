@@ -2,6 +2,7 @@ package semantic.commands;
 
 import analyzer.LLVMConfiguration;
 import org.bytedeco.javacpp.*;
+import semantic.SymbolTable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,11 +12,12 @@ import static org.bytedeco.javacpp.LLVM.*;
 public class Printout extends Node {
 
     public Printout(Node child) {
+        super(null);
         addChild(child);
     }
 
     @Override
-    public LLVMValueRef codeGen(LLVMModuleRef moduleRef, LLVMContextRef contextRef, LLVMBuilderRef builderRef) {
+    public LLVMValueRef codeGen(LLVMModuleRef moduleRef, LLVMContextRef contextRef, LLVMBuilderRef builderRef, SymbolTable symbolTable) {
         List<LLVMValueRef> printArgs = LLVMConfiguration.getInstance().getPrintArgs();
         LLVMConfiguration.insertStringCode(builderRef);
 

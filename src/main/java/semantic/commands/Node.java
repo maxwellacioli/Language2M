@@ -2,6 +2,7 @@ package semantic.commands;
 
 import analyzer.LLVMConfiguration;
 import org.bytedeco.javacpp.LLVM.*;
+import semantic.SymbolTable;
 import syntactic.grammar.GrammarSymbol;
 import syntactic.grammar.Terminal;
 
@@ -9,30 +10,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Node {
+    private String name;
     private Node parent;
     private List<Node> children;
     private GrammarSymbol grammarSymbol;
     private LLVMValueRef llvmValueRef;
 
-    //TODO
-//    public static int label = 0;
-//    public int newLabel() {
-//        return ++label;
-//    }
-
-    public Node() {
-        this(null, null);
+    public Node(String name) {
+        this(null, null, name);
     }
 
-    public Node(Node parent, GrammarSymbol grammarSymbol) {
+    public Node(Node parent, GrammarSymbol grammarSymbol, String name) {
         children = new ArrayList<Node>();
         this.parent = parent;
         this.grammarSymbol = grammarSymbol;
     }
 
-    public Node(GrammarSymbol grammarSymbol) {
-        this(null, grammarSymbol);
+    public Node(GrammarSymbol grammarSymbol, String name) {
+        this(null, grammarSymbol, name);
         children = new ArrayList<Node>();
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setLlvmValueRef(LLVMValueRef llvmValueRef) {
@@ -107,17 +111,17 @@ public abstract class Node {
 
     //Geração de IR pela LLVM
     public abstract LLVMValueRef codeGen(LLVMModuleRef moduleRef, LLVMContextRef contextRef,
-                                       LLVMBuilderRef builderRef);
+                                       LLVMBuilderRef builderRef, SymbolTable symbolTable);
 
     //A variavel strCode é necessaria para construir a sequencia de strings que serão impressas
     //Busca em profundidade (pós-ordem)
     public static LLVMValueRef visitor(Node node, LLVMModuleRef moduleRef, LLVMContextRef contextRef,
-                                       LLVMBuilderRef builderRef) {
+                                       LLVMBuilderRef builderRef, SymbolTable symbolTable) {
 // TODO Implemntar condição para fazer a chamada quando temos ListCmds
 // TODO pois não pode ser executada a geração de código para este tipo de nó
 
         if(node.children.size() == 0) {
-            return node.codeGen(moduleRef, contextRef, builderRef);
+            return node.codeGen(moduleRef, contextRef, builderRef, symbolTable);
         }
 
         if(node instanceof Printout) {
@@ -126,15 +130,15 @@ public abstract class Node {
 
         for (Node n: node.children) {
             if(n instanceof  ListCmds) {
-                visitor(n,moduleRef, contextRef, builderRef);
+                visitor(n,moduleRef, contextRef, builderRef, symbolTable);
             } else {
-                n.setLlvmValueRef(visitor(n,moduleRef, contextRef, builderRef));
+                n.setLlvmValueRef(visitor(n,moduleRef, contextRef, builderRef, symbolTable));
             }
         }
 
         if(node instanceof  ListCmds) {
             return null;
         }
-        return node.codeGen(moduleRef, contextRef, builderRef);
+        return node.codeGen(moduleRef, contextRef, builderRef, symbolTable);
     }
 }

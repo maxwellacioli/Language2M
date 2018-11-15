@@ -190,7 +190,7 @@ public class PredictiveAnalyzer {
 				exp = new Exp();
 				node = astStack.pop();
 
-				changeNodeReference(node, new Attribution(id, exp));
+				changeNodeReference(node, new Attribution(id, exp, localSymbolTable));
 
 				astStack.push(exp);
 				astStack.push(id);
@@ -234,9 +234,9 @@ public class PredictiveAnalyzer {
 				astStack.push(exp);
 				break;
 			case 26:
-				attribution = new Attribution();
+				attribution = new Attribution(localSymbolTable);
 				exp = new Exp();
-				Exp exp1 = new Exp();
+				Node exp1 = new Exp();
 				escope = new Escope();
 				node = astStack.pop();
 
@@ -332,9 +332,9 @@ public class PredictiveAnalyzer {
 							if(astStack.peek() instanceof Id) {
 //								astStack.pop();
 								//TODO ATualiza token no topo da AST
-								Id id = (Id) astStack.pop();
+								Node id = astStack.pop();
 								if(token.getCategory().equals(TokenCategory.ID)) {
-									id.setToken(token);
+									id.setName(token.getLexValue());
 								}
 							}
 						}

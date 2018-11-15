@@ -2,6 +2,7 @@ package semantic.commands.expression;
 
 import lexical.Token;
 import org.bytedeco.javacpp.LLVM;
+import semantic.SymbolTable;
 import semantic.VarType;
 import semantic.commands.Node;
 
@@ -9,9 +10,12 @@ public class Exp extends Node {
     private Token token;
     private VarType type;
 
-    public Exp() {}
+    public Exp() {
+        super(null);
+    }
 
     public Exp(Token token, VarType type) {
+        super(null);
         this.token = token;
         this.type = type;
     }
@@ -37,7 +41,7 @@ public class Exp extends Node {
     }
 
     @Override
-    public LLVM.LLVMValueRef codeGen(LLVM.LLVMModuleRef moduleRef, LLVM.LLVMContextRef contextRef, LLVM.LLVMBuilderRef builderRef) {
+    public LLVM.LLVMValueRef codeGen(LLVM.LLVMModuleRef moduleRef, LLVM.LLVMContextRef contextRef, LLVM.LLVMBuilderRef builderRef, SymbolTable symbolTable) {
         return null;
     }
 }
