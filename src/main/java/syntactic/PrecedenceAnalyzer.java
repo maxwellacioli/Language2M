@@ -154,6 +154,7 @@ public class PrecedenceAnalyzer {
 	//Olhar na tabela de simbolos a categoria da variável
 	private Node createId(Token token) {
 		Node id = new Id(currentTerm.getToken(), localSymbolTable.lookType(token.getLexValue()));
+		id.setName(token.getLexValue());
 		return id;
 	}
 
