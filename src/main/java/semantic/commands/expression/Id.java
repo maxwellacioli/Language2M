@@ -25,13 +25,23 @@ public class Id extends Exp {
     @Override
     public LLVMValueRef codeGen(LLVMModuleRef moduleRef, LLVMContextRef contextRef, LLVMBuilderRef builderRef, SymbolTable symbolTable) {
         Symbol symbol = symbolTable.getLocalSymbolTable().get(getName());
+
+        if(symbol == null) {
+            throw new RuntimeException("Variavel nao declarada!");
+        }
+
         LLVMValueRef valueRef = symbol.getLlvmValueRef();
         LLVMValueRef value = LLVMBuildLoad(builderRef, valueRef, getName());
 
+        //TODO VERIFICAR TIPO
         if(LLVMConfiguration.getStrCodeFlag() &&
                 (this.getParent() instanceof Printout || this.getParent() instanceof OpBinaryConc)) {
             LLVMConfiguration.getInstance().addPrintArg(value);
-            LLVMConfiguration.getInstance().addStrCode("%d");
+            if(getType().equals(VarType.INTEIRO)) {
+                LLVMConfiguration.getInstance().addStrCode("%d");
+            } else if(getType().equals(VarType.REAL)) {
+                LLVMConfiguration.getInstance().addStrCode("%.2lf");
+            }
         }
 
         return  value;

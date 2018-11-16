@@ -45,9 +45,9 @@ public class PredictiveAnalyzer {
 	//Pilha preditiva
 	private Stack<GrammarSymbol> stack;
 
-	//AST
-	private List<AST> programAst;
-	private AST ast;
+	//FunctionAST
+	private List<FunctionAST> programFunctionAst;
+	private FunctionAST functionAst;
 	private Stack<Node> astStack;
 	private Node node;
 	private boolean semanticActionFlag;
@@ -70,11 +70,11 @@ public class PredictiveAnalyzer {
 		precedenceAnalyzer = new PrecedenceAnalyzer(lexicalAnalyzer);
 		stack = new Stack<GrammarSymbol>();
 
-		//TODO AST
-		programAst = new ArrayList<AST>();
+		//TODO FunctionAST
+		programFunctionAst = new ArrayList<FunctionAST>();
 		astStack = new Stack<Node>();
 		node = null;
-		ast = null;
+		functionAst = null;
 		//desativa a flag quando nao e' para executar acoes semanticas
 		//no caso das derivacoes 19 e 28 da gramatica
 		semanticActionFlag = true;
@@ -82,8 +82,8 @@ public class PredictiveAnalyzer {
 		derivation = new Derivation();
 	}
 
-	public List<AST> getProgramASTList() {
-		return programAst;
+	public List<FunctionAST> getProgramASTList() {
+		return programFunctionAst;
 	}
 
 	private void changeSymbolFlag() {
@@ -147,7 +147,7 @@ public class PredictiveAnalyzer {
 				listCmds = new ListCmds();
 				node = astStack.pop();
 				if(node.isRoot()) {
-					ast.setRoot(listCmds);
+					functionAst.setRoot(listCmds);
 				} else {
 					changeNodeReference(node, listCmds);
 				}
@@ -159,7 +159,7 @@ public class PredictiveAnalyzer {
 				node = astStack.pop();
 
 				if(node.isRoot()) {
-					ast.setRoot(new ListCmds(cmd, cmdsRec));
+					functionAst.setRoot(new ListCmds(cmd, cmdsRec));
 				} else {
 					changeNodeReference(node, new ListCmds(cmd, cmdsRec));
 				}
@@ -173,7 +173,7 @@ public class PredictiveAnalyzer {
 				node = astStack.pop();
 
 				if(node.isRoot()) {
-					ast.setRoot(new ListCmds(cmd, cmdsRec));
+					functionAst.setRoot(new ListCmds(cmd, cmdsRec));
 				} else {
 					changeNodeReference(node, new ListCmds(cmd, cmdsRec));
 				}
@@ -326,12 +326,12 @@ public class PredictiveAnalyzer {
 							}
 						}
 
-						//TODO AST
+						//TODO FunctionAST
 						if(!astStack.isEmpty()) {
 							//Verifica se no topo da pilha e' um id
 							if(astStack.peek() instanceof Id) {
 //								astStack.pop();
-								//TODO ATualiza token no topo da AST
+								//TODO ATualiza token no topo da FunctionAST
 								Node id = astStack.pop();
 								if(token.getCategory().equals(TokenCategory.ID)) {
 									id.setName(token.getLexValue());
@@ -353,39 +353,39 @@ public class PredictiveAnalyzer {
 				} else {
 
 					topNonTerminal = (NonTerminal) topGrammarSymbol;
-					//Cria a ast da funcao que esta sendo analizada
+					//Cria a functionAst da funcao que esta sendo analizada
 					if(topNonTerminal.getName() == NonTerminalName.FUNCTIONSREC) {
 						//se o token atual for "principal" significa que nao temos uma assintura de funcao
 						if(!token.getLexValue().equals("principal")) {
-							//Verifica se a ast foi criada antes de adicionar a lista de asts
-							if(ast != null) {
-								programAst.add(ast);
+							//Verifica se a functionAst foi criada antes de adicionar a lista de asts
+							if(functionAst != null) {
+								programFunctionAst.add(functionAst);
 							}
 
 							functionSymbol = new FunctionSymbol(token.getLexValue(), null);
 							globalTable.insertSymbol(functionSymbol);
 							localSymbolTable = new SymbolTable(token.getLexValue());
 
-							ast = new AST(token.getLexValue(), localSymbolTable);
+							functionAst = new FunctionAST(token.getLexValue(), localSymbolTable);
 							node = new Escope();
-							ast.setRoot(node);
+							functionAst.setRoot(node);
 							astStack.push(node);
 						}
 					}
  						else if (topNonTerminal.getName() == NonTerminalName.MAIN) {
-						//Verifica se a ast foi criada antes de adicionar a lista de asts
-						if(ast != null) {
-							programAst.add(ast);
+						//Verifica se a functionAst foi criada antes de adicionar a lista de asts
+						if(functionAst != null) {
+							programFunctionAst.add(functionAst);
 						}
-						ast = new AST(token.getLexValue());
+						functionAst = new FunctionAST(token.getLexValue());
 						node = new Escope();
-						ast.setRoot(node);
+						functionAst.setRoot(node);
 						astStack.push(node);
 
 						localSymbolTable = new SymbolTable(token.getLexValue());
 					}
 
-					//TODO Adicionar no' a AST quando NT for EXPRESSION
+					//TODO Adicionar no' a FunctionAST quando NT for EXPRESSION
 					if (topNonTerminal.getName() == NonTerminalName.EXP) {
 						if (!OperatorsGrammar.getInstance()
 								.getOperatorsGrammarSymbols()
@@ -394,7 +394,7 @@ public class PredictiveAnalyzer {
 							System.exit(1);
 
 						} else {
-							//TODO AST
+							//TODO FunctionAST
 							Node exp = precedenceAnalyzer.precedenceAnalysis(token, localSymbolTable);
 
 							if (exp != null) {
@@ -430,21 +430,21 @@ public class PredictiveAnalyzer {
 								varType = VarType.getVarType(token.getLexValue());
 							}
 
-							//TODO ############# AST #############
+							//TODO ############# FunctionAST #############
 							//Nao executa acoes semanticas
 							if(derivationNumber == CASTING_DERIVATION ||
 									derivationNumber == DECLARATION_DERIVATION) {
 								changeSemanticActionFlag();
 							}
 
-							//executa acao semantica para construir a ast
+							//executa acao semantica para construir a functionAst
 							if(derivationNumber >= 15 && derivationNumber <= 30) {
 								if(semanticActionFlag) {
 									derivationSemantincAction(derivationNumber);
 								}
 							}
 
-							//TODO AST
+							//TODO FunctionAST
 							//Verifica se a flag de acao semantica esta desativada
 							//e ativa quando desempilhar O NT <CMDREC>, pois nao deve
 							//ser executada acao semantica depois das derivaceos 19 e 28
@@ -533,9 +533,9 @@ public class PredictiveAnalyzer {
 					}
 				}
 			}
-			//Adiciona a ast da funcao "principal"
-			this.ast.setSymbolTable(this.localSymbolTable);
-			programAst.add(ast);
+			//Adiciona a functionAst da funcao "principal"
+			this.functionAst.setSymbolTable(this.localSymbolTable);
+			programFunctionAst.add(functionAst);
 			//Test to debug
 			System.out.println();
 		}

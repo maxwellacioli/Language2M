@@ -13,8 +13,6 @@ import static org.bytedeco.javacpp.LLVM.*;
 public class OpBinaryArithAdit extends OpBinary {
     public OpBinaryArithAdit(Token tk, Node exp1, Node exp2) {
         super(tk, exp1, exp2);
-
-
     }
 
     //TODO Verificação de compatibilidade de tipos é na análise semântica

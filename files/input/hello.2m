@@ -1,7 +1,14 @@
 principal () inteiro {
-    inteiro a;
+    inteiro a, b, c;
+    real d;
+    logico x, y;
 
-    a = 5 + 2;
+    a = 2;
+    b = 3;
 
-    imprima("O valor de a é: " ++ a);
+    c = a + b;
+
+    d = 3.4;
+
+    imprima("O valor da soma é: " ++ 1);
 }

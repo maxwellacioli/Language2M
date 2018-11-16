@@ -8,21 +8,20 @@ import java.util.Iterator;
 import java.util.Map;
 
 @SuppressWarnings("WeakerAccess")
-public class AST {
+public class FunctionAST {
 
     private String name;
     private Node root;
     private SymbolTable symbolTable;
 
-    public AST (String name, SymbolTable symbolTable) {
+    public FunctionAST(String name, SymbolTable symbolTable) {
         this.name = name;
         this.symbolTable = symbolTable;
     }
 
-    public AST (String name) {
+    public FunctionAST(String name) {
         this.name = name;
     }
-
 
     public String getName() {
         return name;

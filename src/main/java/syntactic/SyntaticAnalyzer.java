@@ -1,6 +1,6 @@
 package syntactic;
 
-import semantic.AST;
+import semantic.FunctionAST;
 import semantic.SymbolTable;
 import syntactic.grammar.Grammar;
 import lexical.LexicalAnalyzer;
@@ -49,7 +49,7 @@ public class SyntaticAnalyzer {
 		predictiveAnalyzer.predictiveAnalyze();
 	}
 
-	public List<AST> getASTList() {
+	public List<FunctionAST> getASTList() {
 		return predictiveAnalyzer.getProgramASTList();
 	}
 

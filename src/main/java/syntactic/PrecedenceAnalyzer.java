@@ -26,7 +26,7 @@ public class PrecedenceAnalyzer {
 
 	private SymbolTable localSymbolTable;
 
-	//TODO AST
+	//TODO FunctionAST
 	private Stack<Exp> expStack;
 
 	private Terminal stackTerm;
@@ -98,7 +98,7 @@ public class PrecedenceAnalyzer {
 		System.exit(1);
 	}
 
-	//TODO AST
+	//TODO FunctionAST
 	private void createBinaryNode(Terminal op) {
 		Node right;
 		Node left;
@@ -261,7 +261,7 @@ public class PrecedenceAnalyzer {
 						currentTerm = (Terminal) operatorsStack.pop();
 						operatorsStack.push(new NonTerminal(NonTerminalName.EXP));
 
-						//TODO AST
+						//TODO FunctionAST
 						if(tableValue != PrecedenceTable.R17) {
 							Node constant = createConstant(currentTerm.getToken());
 							if(functionCallFlag) {
@@ -359,7 +359,7 @@ public class PrecedenceAnalyzer {
 									operatorsStack.pop();
 									operatorsStack.push(new NonTerminal(NonTerminalName.EXP));
 
-									//TODO AST
+									//TODO FunctionAST
 									//Se o operador da redução for um ',', então não se cria um nó binario
 									//porque faz parte da redução de parametros de uma chamada de função
 									if(!stackTerm.getToken().getCategory().equals(TokenCategory.SEP1)) {
