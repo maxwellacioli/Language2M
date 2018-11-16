@@ -66,6 +66,10 @@ public class FunctionAST {
                     value = LLVMBuildAlloca(builder, LLVMDoubleType(), symbolName);
                     LLVMBuildStore(builder, LLVMConstReal(LLVMDoubleType(), 0),value);
                     break;
+                case LOGICO:
+                    value = LLVMBuildAlloca(builder, LLVMInt1Type(), symbolName);
+                    LLVMBuildStore(builder, LLVMConstInt(LLVMInt1Type(), 0, 1),value);
+                    break;
 
             }
             symbol.setLlvmValueRef(value);

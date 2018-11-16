@@ -3,6 +3,9 @@ principal () inteiro {
     real d;
     logico x, y;
 
+    x = verdade;
+    y = verdade;
+
     a = 2;
     b = 3;
 
@@ -10,5 +13,5 @@ principal () inteiro {
 
     d = 3.4;
 
-    imprima("O valor da soma é: " ++ 1);
+    imprima("O valor da soma é: " ++ (x e y));
 }
