@@ -1,17 +1,12 @@
 principal () inteiro {
-    inteiro a, b, c;
-    real d;
     logico x, y;
 
     x = verdade;
-    y = verdade;
+    y = falso;
 
-    a = 2;
-    b = 3;
-
-    c = a + b;
-
-    d = 3.4;
-
-    imprima("O valor da soma é: " ++ (x e y));
+    se(x e y) {
+        imprima("falso");
+    } senao {
+        imprima("verdade");
+    };
 }

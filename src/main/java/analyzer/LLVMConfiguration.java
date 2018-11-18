@@ -39,7 +39,6 @@ public class LLVMConfiguration {
 
     //Adiciona o código da string que será impressa
     public static void insertStringCode(LLVMBuilderRef builder) {
-        printStringCode += "\n";
         LLVMValueRef strCode = LLVMBuildGlobalString(builder, printStringCode, "strigPrintCode");
         printArgs.add(0, strCode);
     }

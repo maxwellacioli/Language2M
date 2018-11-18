@@ -437,6 +437,12 @@ public class PredictiveAnalyzer {
 								changeSemanticActionFlag();
 							}
 
+							//TODO TO REMOVE
+							if(derivationNumber == 28) {
+								changeSemanticActionFlag();
+							}
+
+
 							//executa acao semantica para construir a functionAst
 							if(derivationNumber >= 15 && derivationNumber <= 30) {
 								if(semanticActionFlag) {
