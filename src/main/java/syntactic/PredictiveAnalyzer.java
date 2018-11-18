@@ -261,6 +261,11 @@ public class PredictiveAnalyzer {
 
 				changeNodeReference(node, escope);
 
+				Node ie = new IfElse(node.getParent().getChildren().get(0),
+						node.getParent().getChildren().get(1), node.getParent().getChildren().get(2));
+
+				changeNodeReference(node.getParent(), ie);
+
 				astStack.push(escope);
 				break;
 			case 29:
@@ -321,7 +326,8 @@ public class PredictiveAnalyzer {
 							}
 						} else if(functionReturnFlag) {
 							if(!token.getLexValue().equals(")")) {
-								functionSymbol.setType(VarType.getVarType(token.getLexValue()));
+								VarType retType = VarType.getVarType(token.getLexValue());
+								functionSymbol.setType(retType);
 								changeFunctionReturnFlag();
 							}
 						}
@@ -366,7 +372,7 @@ public class PredictiveAnalyzer {
 							globalTable.insertSymbol(functionSymbol);
 							localSymbolTable = new SymbolTable(token.getLexValue());
 
-							functionAst = new FunctionAST(token.getLexValue(), localSymbolTable);
+							functionAst = new FunctionAST(token.getLexValue(), localSymbolTable, functionSymbol);
 							node = new Escope();
 							functionAst.setRoot(node);
 							astStack.push(node);

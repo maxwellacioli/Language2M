@@ -40,22 +40,7 @@ public class Analyzer2M {
 			LLVMBuilderRef builder = LLVMCreateBuilder();
 			LLVMContextRef context = LLVMContextCreate();
 
-			LLVMTypeRef mainType = LLVMFunctionType(LLVMInt32Type(), new PointerPointer((Pointer)null), 0, 0);
-			LLVMValueRef mainFunc = LLVMAddFunction(LLVMConfiguration.getInstance().getGlobalMod(), functionAst.getName(), mainType);
-			LLVMBasicBlockRef entry = LLVMAppendBasicBlock(mainFunc, "entry");
-			LLVMPositionBuilderAtEnd(builder, entry);
-
-			//Alocação das variaveis na memoria
-			functionAst.allocateSymbols(builder);
-
-			Node.visitor(functionAst.getRoot(), LLVMConfiguration.getInstance().getGlobalMod(), context, builder, functionAst.getSymbolTable());
-
-			//FIXME Resolver para retorno de função que não seja a função principal
-
-			if(functionAst.getName().equals("principal")) {
-				LLVMValueRef ret = LLVMConstInt(LLVMInt32Type(), 1, 1);
-				LLVMBuildRet(builder, ret);
-			}
+			functionAst.functionCodeGen(LLVMConfiguration.getInstance().getGlobalMod(), context, builder);
 
 			LLVMDisposeBuilder(builder);
 			LLVMContextDispose(context);
