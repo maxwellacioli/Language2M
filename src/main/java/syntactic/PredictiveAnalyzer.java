@@ -113,6 +113,10 @@ public class PredictiveAnalyzer {
 				);
 	}
 
+	private Boolean isId(Token token) {
+		return (token.getCategory().equals(TokenCategory.ID));
+	}
+
 	private void changeNodeReference(Node node, Node child) {
 		Node parent;
 		parent = node.getParent();
@@ -323,6 +327,8 @@ public class PredictiveAnalyzer {
 							} else if(!token.getLexValue().equals(",") && !isType(token)){
 								Symbol symbol = new Symbol(token.getLexValue(), varType);
 								localSymbolTable.insertSymbol(symbol);
+								//Parametros da funcao
+								functionSymbol.insertFuncParam(token.getLexValue(), varType);
 							}
 						} else if(functionReturnFlag) {
 							if(!token.getLexValue().equals(")")) {

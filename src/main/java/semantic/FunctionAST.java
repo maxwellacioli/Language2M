@@ -53,6 +53,7 @@ public class FunctionAST {
 
             //Alocação das variaveis na memoria
             allocateSymbols(builderRef);
+            loadFuncParams(builderRef, func);
 
             Node.visitor(getRoot(), LLVMConfiguration.getInstance().getGlobalMod(), contextRef, builderRef, symbolTable);
 
@@ -70,6 +71,16 @@ public class FunctionAST {
 
             LLVMValueRef ret = LLVMConstInt(LLVMInt32Type(), 1, 1);
             LLVMBuildRet(builderRef, ret);
+        }
+    }
+
+    private void loadFuncParams(LLVMBuilderRef builderRef, LLVMValueRef function) {
+        int index = 0;
+        for (Param param: functionSymbol.getParamsList()
+             ) {
+            Symbol symbol = symbolTable.getLocalSymbolTable().get(param.getName());
+            LLVMValueRef paramLLvm = symbol.getLlvmValueRef();
+            LLVMBuildStore(builderRef, LLVMGetParam(function, index++), paramLLvm);
         }
     }
 
@@ -109,7 +120,7 @@ public class FunctionAST {
         this.symbolTable = symbolTable;
     }
 
-    public void allocateSymbols(LLVM.LLVMBuilderRef builder) {
+    public void allocateSymbols(LLVMBuilderRef builder) {
         Map<String, Symbol> st = symbolTable.getLocalSymbolTable();
         Iterator<Map.Entry<String, Symbol>> entries = st.entrySet().iterator();
         while (entries.hasNext()) {
