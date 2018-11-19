@@ -49,9 +49,9 @@ public class SyntaticAnalyzer {
 		predictiveAnalyzer.predictiveAnalyze();
 	}
 
-	public List<FunctionAST> getASTList() {
-		return predictiveAnalyzer.getProgramASTList();
-	}
+//	public List<FunctionAST> getASTList() {
+//		return predictiveAnalyzer.getProgramASTList();
+//	}
 
 	public static void printError(Token token) {
 		System.err.println("Erro no token " + token.getCategory() + "("

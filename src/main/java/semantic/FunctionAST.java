@@ -28,6 +28,10 @@ public class FunctionAST {
         this.name = name;
     }
 
+    public FunctionSymbol getFunctionSymbol() {
+        return functionSymbol;
+    }
+
     public void functionCodeGen(LLVMModuleRef moduleRef, LLVMContextRef contextRef, LLVMBuilderRef builderRef) {
         LLVMTypeRef funcType;
         LLVMValueRef func;

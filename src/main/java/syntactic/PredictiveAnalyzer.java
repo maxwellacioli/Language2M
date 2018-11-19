@@ -46,7 +46,7 @@ public class PredictiveAnalyzer {
 	private Stack<GrammarSymbol> stack;
 
 	//FunctionAST
-	private List<FunctionAST> programFunctionAst;
+//	private List<FunctionAST> programFunctionAst;
 	private FunctionAST functionAst;
 	private Stack<Node> astStack;
 	private Node node;
@@ -71,7 +71,7 @@ public class PredictiveAnalyzer {
 		stack = new Stack<GrammarSymbol>();
 
 		//TODO FunctionAST
-		programFunctionAst = new ArrayList<FunctionAST>();
+//		programFunctionAst = new ArrayList<FunctionAST>();
 		astStack = new Stack<Node>();
 		node = null;
 		functionAst = null;
@@ -82,9 +82,9 @@ public class PredictiveAnalyzer {
 		derivation = new Derivation();
 	}
 
-	public List<FunctionAST> getProgramASTList() {
-		return programFunctionAst;
-	}
+//	public List<FunctionAST> getProgramASTList() {
+//		return programFunctionAst;
+//	}
 
 	private void changeSymbolFlag() {
 		symbolFlag = !symbolFlag;
@@ -365,7 +365,8 @@ public class PredictiveAnalyzer {
 						if(!token.getLexValue().equals("principal")) {
 							//Verifica se a functionAst foi criada antes de adicionar a lista de asts
 							if(functionAst != null) {
-								programFunctionAst.add(functionAst);
+								ProgramAST.getInstance().insertAst(functionAst);
+//								programFunctionAst.add(functionAst);
 							}
 
 							functionSymbol = new FunctionSymbol(token.getLexValue(), null);
@@ -381,7 +382,8 @@ public class PredictiveAnalyzer {
  						else if (topNonTerminal.getName() == NonTerminalName.MAIN) {
 						//Verifica se a functionAst foi criada antes de adicionar a lista de asts
 						if(functionAst != null) {
-							programFunctionAst.add(functionAst);
+//							programFunctionAst.add(functionAst);
+							ProgramAST.getInstance().insertAst(functionAst);
 						}
 						functionAst = new FunctionAST(token.getLexValue());
 						node = new Escope();
@@ -547,9 +549,10 @@ public class PredictiveAnalyzer {
 			}
 			//Adiciona a functionAst da funcao "principal"
 			this.functionAst.setSymbolTable(this.localSymbolTable);
-			programFunctionAst.add(functionAst);
+//			programFunctionAst.add(functionAst);
+			ProgramAST.getInstance().insertAst(functionAst);
 			//Test to debug
-			System.out.println();
+//			System.out.println();
 		}
 	}
 }

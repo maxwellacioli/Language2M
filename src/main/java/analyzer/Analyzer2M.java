@@ -2,6 +2,7 @@ package analyzer;
 
 import lexical.LexicalAnalyzer;
 import semantic.FunctionAST;
+import semantic.ProgramAST;
 import semantic.commands.Node;
 import syntactic.SyntaticAnalyzer;
 import org.bytedeco.javacpp.*;
@@ -13,7 +14,7 @@ public class Analyzer2M {
 	private static SyntaticAnalyzer syntaticAnalyzer;
 	//private static SemanticAnalyzer semanticAnalyzer;
 
-	private static String filePath = "files/input/hello.2m";
+	private static String filePath = "files/input/test.2m";
 
 	public Analyzer2M() {
 
@@ -35,7 +36,7 @@ public class Analyzer2M {
 		System.out.println();
 		System.out.println();
 
-		for (FunctionAST functionAst : syntaticAnalyzer.getASTList()
+		for (FunctionAST functionAst : ProgramAST.getInstance().getAstList()
 			 ) {
 			LLVMBuilderRef builder = LLVMCreateBuilder();
 			LLVMContextRef context = LLVMContextCreate();

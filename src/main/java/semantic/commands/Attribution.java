@@ -4,6 +4,7 @@ import org.bytedeco.javacpp.*;
 import semantic.Symbol;
 import semantic.SymbolTable;
 import semantic.commands.expression.Exp;
+import semantic.commands.expression.FunctionCall;
 
 import static org.bytedeco.javacpp.LLVM.*;
 
@@ -32,7 +33,8 @@ public class Attribution extends Node {
         Symbol target = symbolTable.getLocalSymbolTable().get(getChildren().get(0).getName());
         Exp value = (Exp)getChildren().get(1);
 
-        if(target.getType() != value.getType()) {
+
+        if((target.getType() != value.getType()) && !(value instanceof FunctionCall)) {
             throw  new RuntimeException("Tipos Incompatíveis");
         }
 
