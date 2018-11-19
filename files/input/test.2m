@@ -1,17 +1,26 @@
+divisao (inteiro a, inteiro b) inteiro {
+    inteiro c;
+
+    c = a / b;
+
+    retorne c;
+}
+
 soma(inteiro a, inteiro b) inteiro {
     inteiro c;
 
-    c = a + b / 5;
+    c = a + b;
 
     retorne c;
 }
 
 principal () inteiro {
     inteiro x, y, z;
-    x = 10;
-    y = 2;
+    x = 20;
+    y = 10;
 
-    z = soma(5, 10);
+    z = soma(x, y);
+    z = divisao(z, 2);
 
     imprima(z);
 }
