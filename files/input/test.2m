@@ -11,7 +11,7 @@ principal () inteiro {
     x = 10;
     y = 2;
 
-    z = soma(x, y);
+    z = soma(10, 10);
 
     imprima(z);
 }

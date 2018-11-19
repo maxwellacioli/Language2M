@@ -52,6 +52,10 @@ public class FunctionAST {
             LLVMPositionBuilderAtEnd(builderRef, entry);
 
             //Alocação das variaveis na memoria
+            if(checkParamsCount(funcType)) {
+                throw new RuntimeException("A quantidade de parametros passados não é igual ao" +
+                        "numero de parametros que a função aceita!");
+            }
             allocateSymbols(builderRef);
             loadFuncParams(builderRef, func);
 
@@ -82,6 +86,10 @@ public class FunctionAST {
             LLVMValueRef paramLLvm = symbol.getLlvmValueRef();
             LLVMBuildStore(builderRef, LLVMGetParam(function, index++), paramLLvm);
         }
+    }
+
+    private Boolean checkParamsCount(LLVMTypeRef funcParams) {
+        return (functionSymbol.getParamsList().size()!=LLVMCountParamTypes(funcParams));
     }
 
     private LLVMTypeRef getType(VarType type) {
