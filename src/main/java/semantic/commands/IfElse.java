@@ -16,7 +16,7 @@ public class IfElse extends Node {
     @Override
     public LLVMValueRef codeGen(LLVMModuleRef moduleRef, LLVMContextRef contextRef, LLVMBuilderRef builderRef, SymbolTable symbolTable) {
         //TODO verificar se é um inteiro de 1 bit
-        //LLVMValueRef cond = Node.visitor(getChildren().get(0), moduleRef, contextRef, builderRef, symbolTable);
+        //LLVMValueRef cond = Node.visitorExp(getChildren().get(0), moduleRef, contextRef, builderRef, symbolTable);
 
 
         return null;

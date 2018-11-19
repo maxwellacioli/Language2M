@@ -3,6 +3,7 @@ package semantic.commands;
 import analyzer.LLVMConfiguration;
 import org.bytedeco.javacpp.LLVM.*;
 import semantic.SymbolTable;
+import semantic.commands.expression.Exp;
 import syntactic.grammar.GrammarSymbol;
 import syntactic.grammar.Terminal;
 
@@ -113,10 +114,26 @@ public abstract class Node {
     public abstract LLVMValueRef codeGen(LLVMModuleRef moduleRef, LLVMContextRef contextRef,
                                        LLVMBuilderRef builderRef, SymbolTable symbolTable);
 
+    //Percorrer a ast para resolver os nós comandos
+    //TODO verificar se o nó é um comandos
+    public static void VisitCmd(Node node, LLVMModuleRef moduleRef, LLVMContextRef contextRef,
+                                LLVMBuilderRef builderRef, SymbolTable symbolTable) {
+        if(node.children.size() == 0) {
+            return;
+        }
+
+        if(node instanceof Exp) {
+            return;
+        }
+
+        for (Node n: node.children) {
+            VisitCmd(n,moduleRef, contextRef, builderRef, symbolTable);
+        }
+    }
     //A variavel strCode é necessaria para construir a sequencia de strings que serão impressas
     //Busca em profundidade (pós-ordem)
-    public static LLVMValueRef visitor(Node node, LLVMModuleRef moduleRef, LLVMContextRef contextRef,
-                                       LLVMBuilderRef builderRef, SymbolTable symbolTable) {
+    public static LLVMValueRef visitorExp(Node node, LLVMModuleRef moduleRef, LLVMContextRef contextRef,
+                                          LLVMBuilderRef builderRef, SymbolTable symbolTable) {
 // TODO Implemntar condição para fazer a chamada quando temos ListCmds
 // TODO pois não pode ser executada a geração de código para este tipo de nó
 
@@ -130,9 +147,9 @@ public abstract class Node {
 
         for (Node n: node.children) {
             if(n instanceof  ListCmds) {
-                visitor(n,moduleRef, contextRef, builderRef, symbolTable);
+                visitorExp(n,moduleRef, contextRef, builderRef, symbolTable);
             } else {
-                n.setLlvmValueRef(visitor(n,moduleRef, contextRef, builderRef, symbolTable));
+                n.setLlvmValueRef(visitorExp(n,moduleRef, contextRef, builderRef, symbolTable));
             }
         }
 

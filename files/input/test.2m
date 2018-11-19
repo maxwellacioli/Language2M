@@ -1,4 +1,4 @@
-soma(inteiro b, inteiro a) inteiro {
+soma(inteiro a, inteiro b) inteiro {
     inteiro c;
 
     c = a + b / 5;
@@ -11,7 +11,7 @@ principal () inteiro {
     x = 10;
     y = 2;
 
-    z = soma(10, 10);
+    z = soma(5, 10);
 
     imprima(z);
 }
