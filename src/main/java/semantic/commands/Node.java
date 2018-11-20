@@ -118,12 +118,20 @@ public abstract class Node {
     //TODO verificar se o nó é um comandos
     public static void VisitCmd(Node node, LLVMModuleRef moduleRef, LLVMContextRef contextRef,
                                 LLVMBuilderRef builderRef, SymbolTable symbolTable) {
+        if(node instanceof Exp) {
+            return;
+        }
+
         if(node.children.size() == 0) {
             return;
         }
 
-        if(node instanceof Exp) {
-            return;
+        if(node instanceof Printout) {
+            LLVMConfiguration.changeStrCodeFlag();
+        }
+
+        if(!(node instanceof ListCmds)) {
+            node.codeGen(moduleRef, contextRef, builderRef, symbolTable);
         }
 
         for (Node n: node.children) {
@@ -141,21 +149,10 @@ public abstract class Node {
             return node.codeGen(moduleRef, contextRef, builderRef, symbolTable);
         }
 
-        if(node instanceof Printout) {
-            LLVMConfiguration.changeStrCodeFlag();
-        }
-
         for (Node n: node.children) {
-            if(n instanceof  ListCmds) {
-                visitorExp(n,moduleRef, contextRef, builderRef, symbolTable);
-            } else {
-                n.setLlvmValueRef(visitorExp(n,moduleRef, contextRef, builderRef, symbolTable));
-            }
+            n.setLlvmValueRef(visitorExp(n,moduleRef, contextRef, builderRef, symbolTable));
         }
 
-        if(node instanceof  ListCmds) {
-            return null;
-        }
         return node.codeGen(moduleRef, contextRef, builderRef, symbolTable);
     }
 }

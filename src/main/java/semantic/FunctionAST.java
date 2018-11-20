@@ -58,7 +58,8 @@ public class FunctionAST {
             allocateSymbols(builderRef);
             loadFuncParams(builderRef, func);
 
-            Node.visitorExp(getRoot(), LLVMConfiguration.getInstance().getGlobalMod(), contextRef, builderRef, symbolTable);
+//            Node.visitorExp(getRoot(), LLVMConfiguration.getInstance().getGlobalMod(), contextRef, builderRef, symbolTable);
+            Node.VisitCmd(getRoot(),  LLVMConfiguration.getInstance().getGlobalMod(), contextRef, builderRef, symbolTable);
 
             //TODO FECHAR ESCOPO DA FUNÇÃO /\ #########
         } else {
@@ -70,7 +71,7 @@ public class FunctionAST {
             //Alocação das variaveis na memoria
             allocateSymbols(builderRef);
 
-            Node.visitorExp(getRoot(), LLVMConfiguration.getInstance().getGlobalMod(), contextRef, builderRef, symbolTable);
+            Node.VisitCmd(getRoot(), LLVMConfiguration.getInstance().getGlobalMod(), contextRef, builderRef, symbolTable);
 
             LLVMValueRef ret = LLVMConstInt(LLVMInt32Type(), 1, 1);
             LLVMBuildRet(builderRef, ret);

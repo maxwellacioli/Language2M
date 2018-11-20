@@ -1,5 +1,6 @@
 package semantic.commands;
 
+import analyzer.LLVMConfiguration;
 import org.bytedeco.javacpp.*;
 import semantic.Symbol;
 import semantic.SymbolTable;
@@ -31,15 +32,16 @@ public class Attribution extends Node {
     @Override
     public LLVMValueRef codeGen(LLVMModuleRef moduleRef, LLVMContextRef contextRef, LLVMBuilderRef builderRef, SymbolTable symbolTable) {
         Symbol target = symbolTable.getLocalSymbolTable().get(getChildren().get(0).getName());
-        Exp value = (Exp)getChildren().get(1);
+        LLVMValueRef v = Node.visitorExp(getChildren().get(1), LLVMConfiguration.getInstance().getGlobalMod(), contextRef, builderRef, symbolTable);
 
+        Exp value = (Exp)getChildren().get(1);
 
         if((target.getType() != value.getType()) && !(value instanceof FunctionCall)) {
             throw  new RuntimeException("Tipos Incompatíveis");
         }
 
         LLVMValueRef llvmValue = target.getLlvmValueRef();
-        LLVMBuildStore(builderRef, value.getLlvmValueRef(), llvmValue);
+        LLVMBuildStore(builderRef, v, llvmValue);
         return null;
     }
 }

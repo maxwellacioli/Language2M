@@ -1,12 +1,7 @@
 principal () inteiro {
-    logico x, y;
+    inteiro x;
 
-    x = verdade;
-    y = falso;
+    /$x = 3;
 
-    se(x e y) {
-        imprima("falso");
-    } senao {
-        imprima("verdade");
-    };
+    imprima(x + 2);
 }
