@@ -17,7 +17,7 @@ public class RealConstant extends Exp {
     }
 
     @Override
-    public LLVM.LLVMValueRef codeGen(LLVM.LLVMModuleRef moduleRef, LLVM.LLVMContextRef contextRef, LLVM.LLVMBuilderRef builderRef, SymbolTable symbolTable) {
+    public LLVMValueRef codeGen(LLVMModuleRef moduleRef, LLVMContextRef contextRef, LLVMBuilderRef builderRef, SymbolTable symbolTable, LLVMValueRef func) {
         LLVM.LLVMValueRef value = LiteralTable.getInstance().getLiteral(getToken().getLexValue());
         if(value == null) {
             value = LLVMConstReal(LLVMDoubleType(), Double.parseDouble(getToken().getLexValue()));

@@ -13,8 +13,8 @@ public class Return extends Node {
     }
 
     @Override
-    public LLVM.LLVMValueRef codeGen(LLVM.LLVMModuleRef moduleRef, LLVM.LLVMContextRef contextRef, LLVM.LLVMBuilderRef builderRef, SymbolTable symbolTable) {
-        LLVMValueRef ret = Node.visitorExp(getChildren().get(0), LLVMConfiguration.getInstance().getGlobalMod(), contextRef, builderRef, symbolTable);
+    public LLVMValueRef codeGen(LLVMModuleRef moduleRef, LLVMContextRef contextRef, LLVMBuilderRef builderRef, SymbolTable symbolTable, LLVMValueRef func) {
+        LLVMValueRef ret = Node.visitorExp(getChildren().get(0), LLVMConfiguration.getInstance().getGlobalMod(), contextRef, builderRef, symbolTable, func);
 
         return LLVMBuildRet(builderRef, ret);
     }

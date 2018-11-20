@@ -22,7 +22,7 @@ public class LogicConstant extends  Exp {
     }
 
     @Override
-    public LLVMValueRef codeGen(LLVMModuleRef moduleRef, LLVMContextRef contextRef, LLVMBuilderRef builderRef, SymbolTable symbolTable) {
+    public LLVMValueRef codeGen(LLVMModuleRef moduleRef, LLVMContextRef contextRef, LLVMBuilderRef builderRef, SymbolTable symbolTable, LLVMValueRef func) {
         LLVMValueRef value = null;
 
         if(getToken().getLexValue().equals(TRUE)) {

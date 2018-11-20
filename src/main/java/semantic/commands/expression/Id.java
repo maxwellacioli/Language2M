@@ -23,7 +23,7 @@ public class Id extends Exp {
     }
 
     @Override
-    public LLVMValueRef codeGen(LLVMModuleRef moduleRef, LLVMContextRef contextRef, LLVMBuilderRef builderRef, SymbolTable symbolTable) {
+    public LLVMValueRef codeGen(LLVMModuleRef moduleRef, LLVMContextRef contextRef, LLVMBuilderRef builderRef, SymbolTable symbolTable, LLVMValueRef func) {
         Symbol symbol = symbolTable.getLocalSymbolTable().get(getName());
 
         if(symbol == null) {

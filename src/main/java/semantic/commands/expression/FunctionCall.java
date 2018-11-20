@@ -19,7 +19,7 @@ public class FunctionCall extends Exp {
     }
 
     @Override
-    public LLVM.LLVMValueRef codeGen(LLVM.LLVMModuleRef moduleRef, LLVM.LLVMContextRef contextRef, LLVM.LLVMBuilderRef builderRef, SymbolTable symbolTable) {
+    public LLVM.LLVMValueRef codeGen(LLVM.LLVMModuleRef moduleRef, LLVM.LLVMContextRef contextRef, LLVM.LLVMBuilderRef builderRef, SymbolTable symbolTable, LLVMValueRef func) {
 
         ArrayList<LLVMValueRef> funcArgsArray = new ArrayList<LLVMValueRef>();
         for (Node node:

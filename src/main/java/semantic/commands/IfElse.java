@@ -14,10 +14,12 @@ public class IfElse extends Node {
     }
 
     @Override
-    public LLVMValueRef codeGen(LLVMModuleRef moduleRef, LLVMContextRef contextRef, LLVMBuilderRef builderRef, SymbolTable symbolTable) {
+    public LLVMValueRef codeGen(LLVMModuleRef moduleRef, LLVMContextRef contextRef, LLVMBuilderRef builderRef, SymbolTable symbolTable, LLVMValueRef func) {
         //TODO verificar se é um inteiro de 1 bit
-        //LLVMValueRef cond = Node.visitorExp(getChildren().get(0), moduleRef, contextRef, builderRef, symbolTable);
+        LLVMValueRef cond = Node.visitorExp(getChildren().get(0), moduleRef, contextRef, builderRef, symbolTable, func);
 
+//        LLVMBasicBlockRef iftrue = LLVMAppendBasicBlock(fac, "iftrue");
+//        LLVMBasicBlockRef iffalse = LLVMAppendBasicBlock(fac, "iffalse");
 
         return null;
     }

@@ -30,9 +30,9 @@ public class Attribution extends Node {
     }
 
     @Override
-    public LLVMValueRef codeGen(LLVMModuleRef moduleRef, LLVMContextRef contextRef, LLVMBuilderRef builderRef, SymbolTable symbolTable) {
+    public LLVMValueRef codeGen(LLVMModuleRef moduleRef, LLVMContextRef contextRef, LLVMBuilderRef builderRef, SymbolTable symbolTable, LLVMValueRef func) {
         Symbol target = symbolTable.getLocalSymbolTable().get(getChildren().get(0).getName());
-        LLVMValueRef v = Node.visitorExp(getChildren().get(1), LLVMConfiguration.getInstance().getGlobalMod(), contextRef, builderRef, symbolTable);
+        LLVMValueRef v = Node.visitorExp(getChildren().get(1), LLVMConfiguration.getInstance().getGlobalMod(), contextRef, builderRef, symbolTable, func);
 
         Exp value = (Exp)getChildren().get(1);
 

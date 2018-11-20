@@ -17,7 +17,7 @@ public class OpBinaryArithAdit extends OpBinary {
 
     //TODO Verificação de compatibilidade de tipos é na análise semântica
     @Override
-    public LLVMValueRef codeGen(LLVM.LLVMModuleRef moduleRef, LLVM.LLVMContextRef contextRef, LLVM.LLVMBuilderRef builderRef, SymbolTable symbolTable) {
+    public LLVMValueRef codeGen(LLVMModuleRef moduleRef, LLVMContextRef contextRef, LLVMBuilderRef builderRef, SymbolTable symbolTable, LLVMValueRef func) {
         String operator = getToken().getLexValue();
         LLVMValueRef left = getChildren().get(0).getLlvmValueRef();
         LLVMValueRef right = getChildren().get(1).getLlvmValueRef();

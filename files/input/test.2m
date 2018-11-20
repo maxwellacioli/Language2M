@@ -1,9 +1,9 @@
 divisao (inteiro a, inteiro b) inteiro {
-    inteiro c;
+    inteiro x;
 
-    c = a / b;
+    x = a / b;
 
-    retorne c;
+    retorne x;
 }
 
 soma(inteiro a, inteiro b) inteiro {

@@ -18,7 +18,7 @@ public class IntegerConstant extends Exp {
     }
 
     @Override
-    public LLVM.LLVMValueRef codeGen(LLVM.LLVMModuleRef moduleRef, LLVM.LLVMContextRef contextRef, LLVM.LLVMBuilderRef builderRef, SymbolTable symbolTable) {
+    public LLVMValueRef codeGen(LLVMModuleRef moduleRef, LLVMContextRef contextRef, LLVMBuilderRef builderRef, SymbolTable symbolTable, LLVMValueRef func) {
         LLVMValueRef value = LiteralTable.getInstance().getLiteral(getToken().getLexValue());
         if(value == null) {
             value = LLVMConstInt(LLVMInt32Type(), Integer.parseInt(getToken().getLexValue()), 1);

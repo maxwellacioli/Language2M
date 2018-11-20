@@ -112,12 +112,12 @@ public abstract class Node {
 
     //Geração de IR pela LLVM
     public abstract LLVMValueRef codeGen(LLVMModuleRef moduleRef, LLVMContextRef contextRef,
-                                       LLVMBuilderRef builderRef, SymbolTable symbolTable);
+                                       LLVMBuilderRef builderRef, SymbolTable symbolTable, LLVMValueRef func);
 
     //Percorrer a ast para resolver os nós comandos
     //TODO verificar se o nó é um comandos
     public static void VisitCmd(Node node, LLVMModuleRef moduleRef, LLVMContextRef contextRef,
-                                LLVMBuilderRef builderRef, SymbolTable symbolTable) {
+                                LLVMBuilderRef builderRef, SymbolTable symbolTable, LLVMValueRef func) {
         if(node instanceof Exp) {
             return;
         }
@@ -131,28 +131,28 @@ public abstract class Node {
         }
 
         if(!(node instanceof ListCmds)) {
-            node.codeGen(moduleRef, contextRef, builderRef, symbolTable);
+            node.codeGen(moduleRef, contextRef, builderRef, symbolTable, func);
         }
 
         for (Node n: node.children) {
-            VisitCmd(n,moduleRef, contextRef, builderRef, symbolTable);
+            VisitCmd(n,moduleRef, contextRef, builderRef, symbolTable, func);
         }
     }
     //A variavel strCode é necessaria para construir a sequencia de strings que serão impressas
     //Busca em profundidade (pós-ordem)
     public static LLVMValueRef visitorExp(Node node, LLVMModuleRef moduleRef, LLVMContextRef contextRef,
-                                          LLVMBuilderRef builderRef, SymbolTable symbolTable) {
+                                          LLVMBuilderRef builderRef, SymbolTable symbolTable, LLVMValueRef func) {
 // TODO Implemntar condição para fazer a chamada quando temos ListCmds
 // TODO pois não pode ser executada a geração de código para este tipo de nó
 
         if(node.children.size() == 0) {
-            return node.codeGen(moduleRef, contextRef, builderRef, symbolTable);
+            return node.codeGen(moduleRef, contextRef, builderRef, symbolTable, func);
         }
 
         for (Node n: node.children) {
-            n.setLlvmValueRef(visitorExp(n,moduleRef, contextRef, builderRef, symbolTable));
+            n.setLlvmValueRef(visitorExp(n,moduleRef, contextRef, builderRef, symbolTable, func));
         }
 
-        return node.codeGen(moduleRef, contextRef, builderRef, symbolTable);
+        return node.codeGen(moduleRef, contextRef, builderRef, symbolTable, func);
     }
 }

@@ -14,7 +14,7 @@ public class ChainCharConstant extends Exp {
     }
 
     @Override
-    public LLVM.LLVMValueRef codeGen(LLVM.LLVMModuleRef moduleRef, LLVM.LLVMContextRef contextRef, LLVM.LLVMBuilderRef builderRef, SymbolTable symbolTable) {
+    public LLVM.LLVMValueRef codeGen(LLVM.LLVMModuleRef moduleRef, LLVM.LLVMContextRef contextRef, LLVM.LLVMBuilderRef builderRef, SymbolTable symbolTable, LLVMValueRef func) {
         String strValue = getToken().getLexValue();
 
         LLVMValueRef str = LLVMBuildGlobalString(builderRef, strValue, getToken().getLexValue());
