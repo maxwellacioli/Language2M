@@ -4,7 +4,7 @@ principal () inteiro {
     x = verdade;
     y = falso;
 
-    se(y) {
+    se(x ou y) {
         imprima("oi");
     } senao {
         imprima("hello");

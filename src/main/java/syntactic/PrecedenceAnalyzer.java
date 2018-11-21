@@ -228,6 +228,7 @@ public class PrecedenceAnalyzer {
 						stackTerm = (Terminal) operatorsStack.peek();
 					}
 
+
 					tableValue = precedenceTable.getPrecedenceTableList().get(getIndexOfTerminalSymbol(stackTerm))
 							.get(getIndexOfTerminalSymbol(new Terminal(token)));
 

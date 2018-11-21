@@ -274,6 +274,7 @@ public class PrecedenceTable {
 		lineTable.add(ELT);
 		lineTable.add(ELT);
 		lineTable.add(ELT);
+		lineTable.add(ELT);
 		lineTable.add(ERROR);
 		lineTable.add(R1);
 		precedenceTableList.add(lineTable);
