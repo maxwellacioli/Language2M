@@ -135,7 +135,13 @@ public abstract class Node {
         }
 
         for (Node n: node.children) {
-            VisitCmd(n,moduleRef, contextRef, builderRef, symbolTable, func);
+            if(n instanceof ListCmds) {
+                if(node instanceof ListCmds) {
+                    VisitCmd(n, moduleRef, contextRef, builderRef, symbolTable, func);
+                }
+            } else {
+                VisitCmd(n,moduleRef, contextRef, builderRef, symbolTable, func);
+            }
         }
     }
     //A variavel strCode é necessaria para construir a sequencia de strings que serão impressas

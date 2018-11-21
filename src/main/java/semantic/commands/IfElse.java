@@ -1,5 +1,6 @@
 package semantic.commands;
 
+import analyzer.LLVMConfiguration;
 import semantic.SymbolTable;
 import org.bytedeco.javacpp.*;
 import static org.bytedeco.javacpp.LLVM.*;
@@ -18,8 +19,24 @@ public class IfElse extends Node {
         //TODO verificar se é um inteiro de 1 bit
         LLVMValueRef cond = Node.visitorExp(getChildren().get(0), moduleRef, contextRef, builderRef, symbolTable, func);
 
-//        LLVMBasicBlockRef iftrue = LLVMAppendBasicBlock(fac, "iftrue");
-//        LLVMBasicBlockRef iffalse = LLVMAppendBasicBlock(fac, "iffalse");
+        LLVMBasicBlockRef iftrue = LLVMAppendBasicBlock(func, "iftrue");
+        LLVMBasicBlockRef iffalse = LLVMAppendBasicBlock(func, "iffalse");
+        LLVMBasicBlockRef end = LLVMAppendBasicBlock(func, "end");
+
+        LLVMBuildCondBr(builderRef, cond, iftrue, iffalse);
+
+        //TODO verificar elemetos que podem ser adicionados na função Phi
+        LLVMPositionBuilderAtEnd(builderRef, iftrue);
+        Node.VisitCmd(getChildren().get(1),  LLVMConfiguration.getInstance().getGlobalMod(), contextRef, builderRef, symbolTable, func);
+        LLVMBuildBr(builderRef, end);
+
+        //TODO verificar elemetos que podem ser adicionados na função Phi
+        LLVMPositionBuilderAtEnd(builderRef, iffalse);
+        Node.VisitCmd(getChildren().get(2),  LLVMConfiguration.getInstance().getGlobalMod(), contextRef, builderRef, symbolTable, func);
+        LLVMBuildBr(builderRef, end);
+
+        //TODO Adicionar elementos da função Phi
+        LLVMPositionBuilderAtEnd(builderRef, end);
 
         return null;
     }
