@@ -25,11 +25,13 @@ principal () inteiro {
 
     z = divisao(z, 2);
 
+    imprima(z ++ "\n");
+
     se(z == 15) {
         z = 0;
     } senao {
         z = 1;
-    }
+    };
 
     imprima(z);
 }

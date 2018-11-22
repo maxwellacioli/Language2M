@@ -1,19 +1,23 @@
-soma (inteiro a) inteiro {
-    inteiro r;
-    se(a == 0) {
-        r = 1;
+fib (inteiro x) inteiro {
+    inteiro aux1, aux2;
+    inteiro result;
+
+    se((x == 1) ou (x == 2)) {
+        result = 1;
     } senao {
-        r = soma(a - 1);
+        aux1 = fib(x - 1);
+        aux2 = fib(x - 2);
+        result = aux1 + aux2;
     };
-    retorne r;
+
+    retorne result;
 }
 
 principal () inteiro {
     inteiro x, y, z;
-    x = 10;
+    x = 5;
 
-    /$z = fib(10);
-    z = soma(x);
+    z = fib(10);
 
     imprima(z);
- }
+}

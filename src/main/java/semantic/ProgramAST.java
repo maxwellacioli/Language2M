@@ -20,7 +20,21 @@ public class ProgramAST {
     }
 
     public void insertAst(FunctionAST functionAST) {
-        astList.add(functionAST);
+        boolean exists = false;
+        //Verifica se a functionAst foi criada antes de adicionar a lista de asts
+        for (FunctionAST fast:
+             astList) {
+            if(fast.getName().equals(functionAST.getName())) {
+                exists = true;
+                break;
+            }
+        }
+
+        if(exists) {
+           throw  new RuntimeException("Função com nome duplicado!");
+        } else {
+            astList.add(functionAST);
+        }
     }
 
     public FunctionAST getFunctionAst(String name) {

@@ -369,29 +369,20 @@ public class PredictiveAnalyzer {
 					if(topNonTerminal.getName() == NonTerminalName.FUNCTIONSREC) {
 						//se o token atual for "principal" significa que nao temos uma assintura de funcao
 						if(!token.getLexValue().equals("principal")) {
-							//Verifica se a functionAst foi criada antes de adicionar a lista de asts
-							if(functionAst != null) {
-								ProgramAST.getInstance().insertAst(functionAst);
-//								programFunctionAst.add(functionAst);
-							}
-
 							functionSymbol = new FunctionSymbol(token.getLexValue(), null);
 							globalTable.insertSymbol(functionSymbol);
 							localSymbolTable = new SymbolTable(token.getLexValue());
 
 							functionAst = new FunctionAST(token.getLexValue(), localSymbolTable, functionSymbol);
+							ProgramAST.getInstance().insertAst(functionAst);
 							node = new Escope();
 							functionAst.setRoot(node);
 							astStack.push(node);
 						}
 					}
  						else if (topNonTerminal.getName() == NonTerminalName.MAIN) {
-						//Verifica se a functionAst foi criada antes de adicionar a lista de asts
-						if(functionAst != null) {
-//							programFunctionAst.add(functionAst);
-							ProgramAST.getInstance().insertAst(functionAst);
-						}
 						functionAst = new FunctionAST(token.getLexValue());
+						ProgramAST.getInstance().insertAst(functionAst);
 						node = new Escope();
 						functionAst.setRoot(node);
 						astStack.push(node);
@@ -555,8 +546,6 @@ public class PredictiveAnalyzer {
 			}
 			//Adiciona a functionAst da funcao "principal"
 			this.functionAst.setSymbolTable(this.localSymbolTable);
-//			programFunctionAst.add(functionAst);
-			ProgramAST.getInstance().insertAst(functionAst);
 			//Test to debug
 			System.out.println();
 		}
