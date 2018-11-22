@@ -26,7 +26,6 @@ public class ChainCharConstant extends Exp {
 //        test = LLVMBuildAlloca(builderRef, LLVMArrayType(LLVMInt8Type(), 8), "test");
 //        LLVMBuildStore(builderRef, str1, test);
 
-
         LLVMConfiguration.getInstance().addPrintArg(str);
         LLVMConfiguration.getInstance().addStrCode("%s");
 

@@ -558,7 +558,7 @@ public class PredictiveAnalyzer {
 //			programFunctionAst.add(functionAst);
 			ProgramAST.getInstance().insertAst(functionAst);
 			//Test to debug
-//			System.out.println();
+			System.out.println();
 		}
 	}
 }

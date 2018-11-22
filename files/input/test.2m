@@ -20,7 +20,16 @@ principal () inteiro {
     y = 10;
 
     z = soma(x, y);
+
+    imprima(z ++ "\n");
+
     z = divisao(z, 2);
+
+    se(z == 15) {
+        z = 0;
+    } senao {
+        z = 1;
+    }
 
     imprima(z);
 }

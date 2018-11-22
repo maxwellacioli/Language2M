@@ -1,12 +1,19 @@
-principal () inteiro {
-    logico x, y;
-
-    x = verdade;
-    y = falso;
-
-    se(x ou y) {
-        imprima("oi");
+soma (inteiro a) inteiro {
+    inteiro r;
+    se(a == 0) {
+        r = 1;
     } senao {
-        imprima("hello");
+        r = soma(a - 1);
     };
+    retorne r;
 }
+
+principal () inteiro {
+    inteiro x, y, z;
+    x = 10;
+
+    /$z = fib(10);
+    z = soma(x);
+
+    imprima(z);
+ }

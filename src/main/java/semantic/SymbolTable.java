@@ -38,4 +38,8 @@ public class SymbolTable {
     public String getTableName() {
         return tableName;
     }
+
+    public void removeSymbol(String name) {
+        localSymbolTable.remove(name);
+    }
 }
