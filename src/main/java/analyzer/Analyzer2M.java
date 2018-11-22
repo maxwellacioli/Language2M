@@ -14,7 +14,7 @@ public class Analyzer2M {
 	private static SyntaticAnalyzer syntaticAnalyzer;
 	//private static SemanticAnalyzer semanticAnalyzer;
 
-	private static String filePath = "files/input/test.2m";
+	private static String filePath = "files/input/fib.2m";
 
 	public Analyzer2M() {
 

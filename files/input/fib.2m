@@ -1,0 +1,21 @@
+fib (inteiro x) inteiro {
+    inteiro result;
+
+    se((x == 1) ou (x == 2)) {
+        result = 1;
+    } senao {
+        result = fib(x - 1) + fib(x - 2);
+    };
+
+    retorne result;
+}
+
+principal () inteiro {
+    inteiro x, y;
+
+    x = 10;
+
+    y = fib(x);
+
+    imprima("Fibonacci de " ++ x ++ ": " ++ y);
+}
