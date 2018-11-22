@@ -15,9 +15,10 @@ public enum NonTerminalName {
 	CMDSREC(11),
 	CMD(12),
 	IFELSEFAT(13),
-	LISTNAME(14),
-	LISTNAMEREC(15),
-	EXP(16);
+	ATTRIB(14),
+	LISTNAME(15),
+	LISTNAMEREC(16),
+	EXP(17);
 
 	private int value;
 

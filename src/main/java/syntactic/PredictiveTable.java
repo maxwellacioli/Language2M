@@ -131,11 +131,15 @@ public class PredictiveTable {
 		terminaisMap = new HashMap<TokenCategory, Integer>();
 
 		terminaisMap.put(TokenCategory.ID, 30);
+		predectiveTableMap.put(NonTerminalName.ATTRIB, terminaisMap);
+		terminaisMap = new HashMap<TokenCategory, Integer>();
+
+		terminaisMap.put(TokenCategory.ID, 31);
 		predectiveTableMap.put(NonTerminalName.LISTNAME, terminaisMap);
 		terminaisMap = new HashMap<TokenCategory, Integer>();
 
-		terminaisMap.put(TokenCategory.SEP1, 31);
-		terminaisMap.put(TokenCategory.SEP2, 32);
+		terminaisMap.put(TokenCategory.SEP1, 32);
+		terminaisMap.put(TokenCategory.SEP2, 33);
 		predectiveTableMap.put(NonTerminalName.LISTNAMEREC, terminaisMap);
 		terminaisMap = new HashMap<TokenCategory, Integer>();
 

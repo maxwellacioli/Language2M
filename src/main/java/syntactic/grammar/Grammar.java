@@ -100,9 +100,9 @@ public class Grammar {
 		// logico
 		derivationAux.addSymbol(new Terminal(TokenCategory.TLOGIC));		
 		grammarAddDerivation(derivationAux);
-		
+
 		// letra
-		derivationAux.addSymbol(new Terminal(TokenCategory.TCHAR));		
+		derivationAux.addSymbol(new Terminal(TokenCategory.TCHAR));
 		grammarAddDerivation(derivationAux);
 
 		// texto
@@ -142,11 +142,9 @@ public class Grammar {
 				new Terminal(TokenCategory.SEP2));
 		grammarAddDerivation(derivationAux);
 
-		// id = EXP ;
+		// ATTRIB ;
 		derivationAux.addDerivationSymbols(
-				new Terminal(TokenCategory.ID),
-				new Terminal(TokenCategory.OPATRIB),
-				new NonTerminal(NonTerminalName.EXP),
+				new NonTerminal(NonTerminalName.ATTRIB),
 				new Terminal(TokenCategory.SEP2));
 		grammarAddDerivation(derivationAux);
 
@@ -200,17 +198,15 @@ public class Grammar {
 				new Terminal(TokenCategory.SEP2));
 		grammarAddDerivation(derivationAux);
 
-		// repita ( id = EXP ; EXP ; EXP) ESCOPE ;
+		// repita ( ATTRIB ; EXP ; ATTRIB ) ESCOPE ;
 		derivationAux.addDerivationSymbols(
 				new Terminal(TokenCategory.PRITERATOR),
 				new Terminal(TokenCategory.PARAMBEGIN),
-				new Terminal(TokenCategory.ID),
-				new Terminal(TokenCategory.OPATRIB),
-				new NonTerminal(NonTerminalName.EXP),
+				new NonTerminal(NonTerminalName.ATTRIB),
 				new Terminal(TokenCategory.SEP2),
 				new NonTerminal(NonTerminalName.EXP),
 				new Terminal(TokenCategory.SEP2),
-				new NonTerminal(NonTerminalName.EXP),
+				new NonTerminal(NonTerminalName.ATTRIB),
 				new Terminal(TokenCategory.PARAMEND),
 				new NonTerminal(NonTerminalName.ESCOPE),
 				new Terminal(TokenCategory.SEP2));
@@ -231,6 +227,14 @@ public class Grammar {
 
 		// Epsilon
 		grammarAddDerivation(null);
+
+
+		// id = EXP
+		derivationAux.addDerivationSymbols(
+				new Terminal(TokenCategory.ID),
+				new Terminal(TokenCategory.OPATRIB),
+				new NonTerminal(NonTerminalName.EXP));
+		grammarAddDerivation(derivationAux);
 
 		// id LISTNAMEREC
 		derivationAux.addDerivationSymbols(

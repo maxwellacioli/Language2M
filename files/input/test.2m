@@ -1,37 +1,8 @@
-divisao (inteiro a, inteiro b) inteiro {
-    inteiro x;
-
-    x = a / b;
-
-    retorne x;
-}
-
-soma(inteiro a, inteiro b) inteiro {
+principal () inteiro {
     inteiro c;
 
-    c = a + b;
-
-    retorne c;
-}
-
-principal () inteiro {
-    inteiro x, y, z;
-    x = 20;
-    y = 10;
-
-    z = soma(x, y);
-
-    imprima(z ++ "\n");
-
-    z = divisao(z, 2);
-
-    imprima(z ++ "\n");
-
-    se(z == 15) {
-        z = 0;
-    } senao {
-        z = 1;
+    repita(c = 0 ; c < 10 ; c = c + 1) {
+        imprima("oi");
     };
 
-    imprima(z);
 }

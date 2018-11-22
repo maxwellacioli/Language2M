@@ -78,22 +78,12 @@ public class Derivation implements Cloneable {
 	}
 
 	public void addDerivationSymbols(GrammarSymbol symb1, GrammarSymbol symb2, GrammarSymbol symb3,
-                                     GrammarSymbol symb4, GrammarSymbol symb5, GrammarSymbol symb6, GrammarSymbol symb7,
-                                     GrammarSymbol symb8, GrammarSymbol symb9, GrammarSymbol symb10, GrammarSymbol symb11) {
-		addDerivationSymbols(symb1, symb2, symb3, symb4, symb5, symb6, symb7,
-				symb8);
+									 GrammarSymbol symb4, GrammarSymbol symb5, GrammarSymbol symb6, GrammarSymbol symb7,
+									 GrammarSymbol symb8, GrammarSymbol symb9, GrammarSymbol symb10) {
+		addDerivationSymbols(symb1, symb2, symb3, symb4, symb5, symb6, symb7);
+		symbolsList.add(symb8);
 		symbolsList.add(symb9);
 		symbolsList.add(symb10);
-		symbolsList.add(symb11);
-	}
-
-	public void addDerivationSymbols(GrammarSymbol symb1, GrammarSymbol symb2, GrammarSymbol symb3,
-                                     GrammarSymbol symb4, GrammarSymbol symb5, GrammarSymbol symb6, GrammarSymbol symb7,
-                                     GrammarSymbol symb8, GrammarSymbol symb9, GrammarSymbol symb10, GrammarSymbol symb11,
-                                     GrammarSymbol symb12) {
-		addDerivationSymbols(symb1, symb2, symb3, symb4, symb5, symb6, symb7,
-				symb8, symb9, symb10, symb11);
-		symbolsList.add(symb12);
 	}
 
 	public boolean isEmpty() {

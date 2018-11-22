@@ -11,22 +11,14 @@ import static org.bytedeco.javacpp.LLVM.*;
 
 public class Attribution extends Node {
 
-    private SymbolTable symbolTable;
-
-    public Attribution (SymbolTable symbolTable) {
+    public Attribution ( ) {
         super(null);
-        this.symbolTable = symbolTable;
     }
 
-    public Attribution(Node child1, Node child2, SymbolTable symbolTable) {
+    public Attribution(Node child1, Node child2) {
         super(null);
         addChild(child1);
         addChild(child2);
-        this.symbolTable = symbolTable;
-    }
-
-    public void setSymbolTable(SymbolTable symbolTable) {
-        this.symbolTable = symbolTable;
     }
 
     @Override

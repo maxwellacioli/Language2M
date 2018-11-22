@@ -190,14 +190,12 @@ public class PredictiveAnalyzer {
 				node.removeNode();
 				break;
 			case 20:
-				id = new Id();
-				exp = new Exp();
+				attribution = new Attribution();
 				node = astStack.pop();
 
-				changeNodeReference(node, new Attribution(id, exp, localSymbolTable));
+				changeNodeReference(node, attribution);
 
-				astStack.push(exp);
-				astStack.push(id);
+				astStack.push(attribution);
 				break;
 			case 21:
 				exp = new Exp();
@@ -238,16 +236,16 @@ public class PredictiveAnalyzer {
 				astStack.push(exp);
 				break;
 			case 26:
-				attribution = new Attribution(localSymbolTable);
+				attribution = new Attribution();
 				exp = new Exp();
-				Node exp1 = new Exp();
+				Node attribution1 = new Attribution();
 				escope = new Escope();
 				node = astStack.pop();
 
-				changeNodeReference(node, new Iterator(attribution, exp, exp1, escope));
+				changeNodeReference(node, new Iterator(attribution, exp, attribution1, escope));
 
 				astStack.push(escope);
-				astStack.push(exp1);
+				astStack.push(attribution1);
 				astStack.push(exp);
 				astStack.push(attribution);
 				break;
@@ -276,6 +274,16 @@ public class PredictiveAnalyzer {
 				node = astStack.pop();
 				node.removeNode();
 				break;
+
+			case 30:
+				id = new Id();
+				exp = new Exp();
+				node = astStack.pop();
+
+				changeNodeReference(node, new Attribution(id, exp));
+
+				astStack.push(exp);
+				astStack.push(id);
 		}
 	}
 
@@ -303,6 +311,10 @@ public class PredictiveAnalyzer {
 			prodCount.push(1);
 
 			while (!stack.isEmpty()) {
+
+//				if(token.getLexValue().equals("repita")){
+//					System.out.println("test");
+//				}
 
 				topGrammarSymbol = stack.peek();
 
@@ -418,6 +430,10 @@ public class PredictiveAnalyzer {
 						}
 					} else {
 						derivation = null;
+
+						if(topNonTerminal.getName().equals(NonTerminalName.LISTNAME)) {
+							System.out.println();
+						}
 
 						derivationNumber = predictiveTable
 								.getDerivationNumber(
