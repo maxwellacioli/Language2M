@@ -31,23 +31,22 @@ public class Analyzer2M {
 		syntaticAnalyzer = new SyntaticAnalyzer(lexicalAnalyzer);
 		syntaticAnalyzer.analyze();
 
-//		System.out.println("################# FunctionAST #################");
 		System.out.println("##################################");
 		System.out.println();
 		System.out.println();
 
-//		for (FunctionAST functionAst : ProgramAST.getInstance().getAstList()
-//			 ) {
-//			LLVMBuilderRef builder = LLVMCreateBuilder();
-//			LLVMContextRef context = LLVMContextCreate();
-//
-//			functionAst.functionCodeGen(LLVMConfiguration.getInstance().getGlobalMod(), context, builder);
-//
-//			LLVMDisposeBuilder(builder);
-//			LLVMContextDispose(context);
-//		}
-//
-//		//Inicia a pilha de execução do LLVM
-//		LLVMConfiguration.getInstance().runLLVM();
+		for (FunctionAST functionAst : ProgramAST.getInstance().getAstList()
+			 ) {
+			LLVMBuilderRef builder = LLVMCreateBuilder();
+			LLVMContextRef context = LLVMContextCreate();
+
+			functionAst.functionCodeGen(LLVMConfiguration.getInstance().getGlobalMod(), context, builder);
+
+			LLVMDisposeBuilder(builder);
+			LLVMContextDispose(context);
+		}
+
+		//Inicia a pilha de execução do LLVM
+		LLVMConfiguration.getInstance().runLLVM();
 	}
 }

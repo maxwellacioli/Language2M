@@ -1,8 +1,13 @@
 principal () inteiro {
     inteiro c;
 
-    repita(c = 0 ; c < 10 ; c = c + 1) {
-        imprima("oi");
+    repita(c = 1 ; c <= 55 ; c = c + 1) {
+
+        imprima(c ++ "\n");
+
+        enquanto( c < 50 ) {
+            c = c + 10;
+        };
     };
 
 }
