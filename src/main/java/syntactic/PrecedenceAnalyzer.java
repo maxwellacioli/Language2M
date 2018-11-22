@@ -98,6 +98,26 @@ public class PrecedenceAnalyzer {
 		System.exit(1);
 	}
 
+	private void createUnaryNode(Terminal op) {
+		Node child;
+
+		if(!functionCallFlag) {
+			child = expStack.pop();
+		} else {
+			int size = expStack.peek().getChildren().size();
+			child = expStack.peek().getChildren().remove(size - 1);
+		}
+
+		switch (op.getCategory()) {
+			case OPNEGUN:
+				expStack.push(new OpUnaryNeg(op.getToken(), child));
+				break;
+			case OPNEGLOGIC:
+				expStack.push(new OpUnaryNegLogic(op.getToken(), child));
+				break;
+		}
+	}
+
 	//TODO FunctionAST
 	private void createBinaryNode(Terminal op) {
 		Node right;
@@ -285,6 +305,8 @@ public class PrecedenceAnalyzer {
 								operatorsStack.pop();
 								operatorsStack.pop();
 								operatorsStack.push(new NonTerminal(NonTerminalName.EXP));
+
+								createUnaryNode(stackTerm);
 							} else {
 								handlerError();
 							}
