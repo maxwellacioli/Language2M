@@ -1,7 +1,8 @@
 principal () inteiro {
     inteiro a;
+    real b;
 
-    a = 5 ^ 0;
+    leia(b);
 
-    imprima(a);
+    imprima("O número lido foi: " ++ b);
 }

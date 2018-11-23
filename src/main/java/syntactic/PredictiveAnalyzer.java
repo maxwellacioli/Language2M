@@ -308,13 +308,14 @@ public class PredictiveAnalyzer {
 			stack.push(program);
 
 
+
 			prodCount.push(1);
 
 			while (!stack.isEmpty()) {
 
-//				if(token.getLexValue().equals("repita")){
-//					System.out.println("test");
-//				}
+				if(token.getLexValue().equals("leia")){
+					System.out.println("test");
+				}
 
 				topGrammarSymbol = stack.peek();
 
@@ -354,10 +355,9 @@ public class PredictiveAnalyzer {
 						if(!astStack.isEmpty()) {
 							//Verifica se no topo da pilha e' um id
 							if(astStack.peek() instanceof Id) {
-//								astStack.pop();
 								//TODO ATualiza token no topo da FunctionAST
-								Node id = astStack.pop();
 								if(token.getCategory().equals(TokenCategory.ID)) {
+									Node id = astStack.pop();
 									id.setName(token.getLexValue());
 								}
 							}

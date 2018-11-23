@@ -128,11 +128,18 @@ public class LLVMConfiguration {
 
         //Adiciona a função printf no módulo principal
         insertPrintfFunction();
+        insertScanfFunction();
     }
 
     private static void insertPrintfFunction() {
         LLVMTypeRef[] printfParams = { LLVMPointerType(LLVMInt8Type(), 0) };
         LLVMTypeRef llvmPrintfType = LLVMFunctionType(LLVMInt32Type(), new PointerPointer(printfParams), 0, 1);
         LLVMAddFunction(globalMod, "printf", llvmPrintfType);
+    }
+
+    private static void insertScanfFunction() {
+        LLVMTypeRef[] scanfParams = { LLVMPointerType(LLVMInt8Type(), 0) };
+        LLVMTypeRef llvmScanffType = LLVMFunctionType(LLVMInt32Type(), new PointerPointer(scanfParams), 0, 1);
+        LLVMAddFunction(globalMod, "scanf", llvmScanffType);
     }
 }
