@@ -6,6 +6,7 @@ import org.bytedeco.javacpp.LLVM;
 import semantic.*;
 import org.bytedeco.javacpp.*;
 import semantic.commands.Node;
+import semantic.commands.Printout;
 
 import static org.bytedeco.javacpp.LLVM.*;
 
@@ -34,6 +35,13 @@ public class FunctionCall extends Exp {
         LLVMValueRef function = LLVMGetNamedFunction(LLVMConfiguration.getInstance().getGlobalMod(), getToken().getLexValue());
         LLVMValueRef functionResult = LLVMBuildCall(builderRef, function, new PointerPointer<LLVMValueRef>(funcArgs), funcArgs.length,
                 SemanticAnalyzer.getInstance().tempGenerator());
+
+        if(LLVMConfiguration.getStrCodeFlag() &&
+                (this.getParent() instanceof Printout || this.getParent() instanceof OpBinaryConc)) {
+            LLVMConfiguration.getInstance().addPrintArg(functionResult);
+            LLVMConfiguration.getInstance().addStrCode("%d");
+        }
+
         return  functionResult;
     }
 }

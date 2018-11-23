@@ -3,12 +3,11 @@ mult(inteiro a, inteiro b) inteiro {
 }
 
 principal () inteiro {
-    inteiro x, y, z;
+    inteiro x, y;
 
     repita( x = 1 ; x <= 10 ; x = x + 1 ) {
         repita( y = 1 ; y <= 10 ; y = y + 1 ) {
-            z = mult(x, y);
-            imprima( x ++ " x " ++ y ++ " = " ++ z ++ "\n");
+            imprima( x ++ " x " ++ y ++ " = " ++ mult(x, y) ++ "\n");
         };
         imprima("\n");
     };
