@@ -21,17 +21,10 @@ principal () inteiro {
 
     z = soma(x, y);
 
-    imprima(z ++ "\n");
+    imprima("A soma de x e y é: " ++ z ++ "\n");
 
-    z = divisao(z, 2);
+    z = divisao(x, y);
 
-    imprima(z ++ "\n");
+    imprima("A divisão de x por y é: " ++ z ++ "\n");
 
-    se(z == 15) {
-        z = 0;
-    } senao {
-        z = 1;
-    };
-
-    imprima(z);
 }

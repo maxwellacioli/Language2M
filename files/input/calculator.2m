@@ -1,0 +1,15 @@
+mult(inteiro a, inteiro b) inteiro {
+    retorne a * b;
+}
+
+principal () inteiro {
+    inteiro x, y, z;
+
+    repita( x = 1 ; x <= 10 ; x = x + 1 ) {
+        repita( y = 1 ; y <= 10 ; y = y + 1 ) {
+            z = mult(x, y);
+            imprima( x ++ " x " ++ y ++ " = " ++ z ++ "\n");
+        };
+        imprima("\n");
+    };
+}
