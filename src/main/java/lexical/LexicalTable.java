@@ -35,7 +35,7 @@ public class LexicalTable {
 		operatorsMap.put("-", TokenCategory.OPARITADIT);
 		operatorsMap.put("*", TokenCategory.OPARITMULT);
 		operatorsMap.put("/", TokenCategory.OPARITMULT);
-		operatorsMap.put("^", TokenCategory.OPARITEXP);
+//		operatorsMap.put("^", TokenCategory.OPARITEXP);
 
 		operatorsMap.put("<", TokenCategory.OPREL1);
 		operatorsMap.put(">", TokenCategory.OPREL1);
@@ -95,7 +95,7 @@ public class LexicalTable {
 		symbolList.add('+');
 		symbolList.add('-');
 		symbolList.add('*');
-		symbolList.add('^');
+//		symbolList.add('^');
 		symbolList.add('\\');
 		symbolList.add('/');
 		symbolList.add('#');

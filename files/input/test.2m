@@ -1,13 +1,7 @@
 principal () inteiro {
-    inteiro a, b;
-    a = -5;
-    b = 10;
+    inteiro a;
 
-    se(no(a > b)) {
-        imprima("entrou\n");
-    } senao {
-        imprima("nao entrou\n");
-    };
+    a = 5 ^ 0;
 
-    imprima(-a);
+    imprima(a);
 }
