@@ -2,7 +2,10 @@ principal () inteiro {
     inteiro a;
     real b;
 
-    leia(b);
+    a = 11;
 
-    imprima("O número lido foi: " ++ b);
+    se(a == 10) {
+        a = 20;
+    };
+    imprima(a);
 }
