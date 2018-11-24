@@ -1,0 +1,30 @@
+modulo(inteiro a, inteiro b) inteiro {
+    inteiro temp1;
+
+    se( a > b ){
+        temp1 = a / b;
+        temp1 = temp1 * b;
+        temp1 = a - temp1;
+    } senao {
+        temp1 = a;
+    };
+
+    retorne temp1;
+}
+
+principal () inteiro {
+    inteiro ano;
+    inteiro t1, t2, t3;
+
+    leia(ano);
+
+    t1 = modulo(ano, 400);
+    t2 = modulo(ano, 4);
+    t3 = modulo(ano, 100);
+
+    se((t1 == 0) ou ((t2 == 0) e (t3 ~= 0))) {
+        imprima("É bissexto");
+    } senao {
+        imprima("Não é bissexto");
+    };
+}

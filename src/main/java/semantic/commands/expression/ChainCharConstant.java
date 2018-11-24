@@ -19,8 +19,6 @@ public class ChainCharConstant extends Exp {
 
         LLVMValueRef str = LLVMBuildGlobalString(builderRef, strValue, getToken().getLexValue());
 
-        String test = LLVMGetAsString(str, new SizeTPointer(0)).getString();
-        System.out.println("OPAAAAAAAAAAAA ===>>> " + test);
 //        String strValue1 = "Maxwell";
 //        LLVMValueRef str1 = LLVMConstString(strValue1, strValue1.length()+1, 1);
 //        LLVMValueRef test = LLVMBuildAlloca(builderRef, LLVMArrayType(LLVMInt8Type(), 3), "test");
