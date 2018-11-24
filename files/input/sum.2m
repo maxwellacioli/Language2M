@@ -1,0 +1,13 @@
+soma(inteiro a, inteiro b) inteiro {
+    retorne a + b;
+}
+
+principal () inteiro {
+    inteiro x, y;
+
+    leia(x);
+    leia(y);
+
+    imprima("A soma de " ++ x ++ " com " ++ y ++
+        " é: " ++ soma(x, y));
+}
