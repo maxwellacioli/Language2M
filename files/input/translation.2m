@@ -1,0 +1,11 @@
+principal () inteiro {
+    texto palavra1, palavra2, palavra3, traducao;
+
+    palavra1 = "I LOVE YOU";
+    palavra2 = " = ";
+    palavra3 = "EU AMO VC";
+
+    traducao = palavra1 ++ palavra2 ++ palavra3;
+
+    imprima(traducao);
+}

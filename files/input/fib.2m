@@ -13,7 +13,7 @@ fib (inteiro x) inteiro {
 principal () inteiro {
     inteiro x, y;
 
-    x = 10;
+    leia(x);
 
     y = fib(x);
 
