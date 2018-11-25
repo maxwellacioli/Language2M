@@ -4,7 +4,7 @@ principal () inteiro {
 
     a = "Maxwell ";
     b = "Acioli";
-    c = a ++ b;
+    c = "I" ++ " LOVE " ++ "YOU";
 
-    imprima(c);
+    imprima(c ++ " = EU AMO VC");
 }
