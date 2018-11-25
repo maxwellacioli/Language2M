@@ -4,6 +4,7 @@ import analyzer.LLVMConfiguration;
 import org.bytedeco.javacpp.*;
 import semantic.Symbol;
 import semantic.SymbolTable;
+import semantic.VarType;
 import semantic.commands.expression.Exp;
 import semantic.commands.expression.FunctionCall;
 
@@ -27,13 +28,21 @@ public class Attribution extends Node {
         LLVMValueRef v = Node.visitorExp(getChildren().get(1), LLVMConfiguration.getInstance().getGlobalMod(), contextRef, builderRef, symbolTable, func);
 
         Exp value = (Exp)getChildren().get(1);
-
         if((target.getType() != value.getType()) && !(value instanceof FunctionCall)) {
             throw  new RuntimeException("Tipos Incompatíveis");
         }
 
-        LLVMValueRef llvmValue = target.getLlvmValueRef();
-        LLVMBuildStore(builderRef, v, llvmValue);
+        LLVMValueRef llvmTargetValue = target.getLlvmValueRef();
+
+        if(target.getType().equals(VarType.TEXT)) {
+            LLVMTypeRef rightType = LLVMTypeOf(v);
+            int rightLength = LLVMGetArrayLength(rightType);
+
+//            llvmTargetValue = LLVMBuildAlloca(builderRef, LLVMArrayType(LLVMInt8Type(), rightLength), getChildren().get(0).getName());
+        }
+//
+        LLVMBuildStore(builderRef, v, llvmTargetValue);
+
         return null;
     }
 }

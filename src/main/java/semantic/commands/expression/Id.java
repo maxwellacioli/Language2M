@@ -27,7 +27,8 @@ public class Id extends Exp {
         Symbol symbol = symbolTable.getLocalSymbolTable().get(getName());
 
         if(symbol == null) {
-            throw new RuntimeException("Variavel nao declarada!");
+            System.err.println("Varíavel não declarada!");
+            System.exit(1);
         }
 
         LLVMValueRef valueRef = symbol.getLlvmValueRef();
@@ -42,6 +43,9 @@ public class Id extends Exp {
             } else if(getType().equals(VarType.REAL)) {
                 LLVMConfiguration.getInstance().addStrCode("%.2lf");
             }
+//            else if(getType().equals(VarType.TEXT)) {
+//                LLVMConfiguration.getInstance().addStrCode("%s");
+//            }
         }
 
         return  value;

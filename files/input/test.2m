@@ -1,0 +1,9 @@
+principal () inteiro {
+    inteiro a;
+
+    a = 10;
+
+    /$a = "casa" ++ "teste";
+
+    imprima(a ++ a);
+}

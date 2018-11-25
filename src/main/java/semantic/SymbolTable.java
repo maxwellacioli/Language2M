@@ -14,7 +14,8 @@ public class SymbolTable {
 
     public void insertSymbol(Symbol symbolInput) {
         if(alreadyDeclared(symbolInput.getName())) {
-            throw new RuntimeException("Varia'vel ja' declarada!");
+            System.err.println("Varíavel não declarada!");
+            System.exit(1);
         }
         localSymbolTable.put(symbolInput.getName(), symbolInput);
     }
@@ -22,7 +23,8 @@ public class SymbolTable {
     public VarType lookType(String name) {
         Symbol symbol = localSymbolTable.get(name);
         if(symbol == null) {
-            throw new RuntimeException("Varia'vel nao declarada!");
+            System.err.println("Varíavel não declarada!");
+            System.exit(1);
         }
         return symbol.getType();
     }
