@@ -2,10 +2,9 @@ principal () inteiro {
 
     texto a, b, c;
 
-    a = "Maxwell & ";
-    b = "Maria";
-    /$c = a ++ b;
-    c = "123" ++ "456" ++ "789";
+    a = "Maxwell ";
+    b = "Acioli";
+    c = a ++ b;
 
-    imprima(c ++ " = 10");
+    imprima(c);
 }

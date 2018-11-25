@@ -17,12 +17,11 @@ public class ChainCharConstant extends Exp {
     public LLVM.LLVMValueRef codeGen(LLVM.LLVMModuleRef moduleRef, LLVM.LLVMContextRef contextRef, LLVM.LLVMBuilderRef builderRef, SymbolTable symbolTable, LLVMValueRef func) {
         String strValue = getToken().getLexValue();
 
-        LLVMValueRef str = LLVMBuildGlobalString(builderRef, strValue, getToken().getLexValue());
-
         int length = getToken().getLexValue().length() + 1;
         LLVMValueRef str1 = LLVMConstString(getToken().getLexValue(), length, 1);
 
         if(LLVMConfiguration.getStrCodeFlag()){
+            LLVMValueRef str = LLVMBuildGlobalString(builderRef, strValue, getToken().getLexValue());
             LLVMConfiguration.getInstance().addPrintArg(str);
             LLVMConfiguration.getInstance().addStrCode("%s");
         }

@@ -32,7 +32,11 @@ public class Id extends Exp {
         }
 
         LLVMValueRef valueRef = symbol.getLlvmValueRef();
-        LLVMValueRef value = LLVMBuildLoad(builderRef, valueRef, getName());
+        LLVMValueRef value = null;
+
+        if(! getType().equals(VarType.TEXT)) {
+           value = LLVMBuildLoad(builderRef, valueRef, getName());
+        }
 
         //TODO VERIFICAR TIPO
         if(LLVMConfiguration.getStrCodeFlag() &&
@@ -45,11 +49,30 @@ public class Id extends Exp {
                 LLVMConfiguration.getInstance().addStrCode("%.2lf");
             }
             else if(getType().equals(VarType.TEXT)) {
-                LLVMConfiguration.getInstance().addPrintArg(valueRef);
+                LLVMTypeRef stringType = LLVMTypeOf(valueRef);
+                int stringLength = LLVMGetArrayLength(stringType);
+                int typeKind = LLVMGetTypeKind(stringType);
+
+                LLVMValueRef strValue;
+
+                if(typeKind == LLVMArrayTypeKind) {
+                    strValue = LLVMBuildAlloca(builderRef, LLVMArrayType(LLVMInt8Type(), stringLength), "strValue");
+                } else {
+                    strValue = LLVMBuildAlloca(builderRef, LLVMVectorType(LLVMInt8Type(), stringLength), "strValue");
+                }
+
+                LLVMBuildStore(builderRef, valueRef, strValue);
+
+                LLVMConfiguration.getInstance().addPrintArg(strValue);
                 LLVMConfiguration.getInstance().addStrCode("%s");
             }
         }
 
+        if(getType().equals(VarType.TEXT)) {
+            return valueRef;
+        }
+
         return  value;
+
     }
 }

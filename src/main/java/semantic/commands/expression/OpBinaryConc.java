@@ -3,6 +3,8 @@ package semantic.commands.expression;
 import analyzer.LLVMConfiguration;
 import lexical.Token;
 import org.bytedeco.javacpp.PointerPointer;
+import org.bytedeco.javacpp.SizeTPointer;
+import semantic.Symbol;
 import semantic.SymbolTable;
 import semantic.commands.Node;
 import semantic.commands.Printout;
