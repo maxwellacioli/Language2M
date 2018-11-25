@@ -37,15 +37,17 @@ public class Id extends Exp {
         //TODO VERIFICAR TIPO
         if(LLVMConfiguration.getStrCodeFlag() &&
                 (this.getParent() instanceof Printout || this.getParent() instanceof OpBinaryConc)) {
-            LLVMConfiguration.getInstance().addPrintArg(value);
             if(getType().equals(VarType.INTEIRO)) {
+                LLVMConfiguration.getInstance().addPrintArg(value);
                 LLVMConfiguration.getInstance().addStrCode("%d");
             } else if(getType().equals(VarType.REAL)) {
+                LLVMConfiguration.getInstance().addPrintArg(value);
                 LLVMConfiguration.getInstance().addStrCode("%.2lf");
             }
-//            else if(getType().equals(VarType.TEXT)) {
-//                LLVMConfiguration.getInstance().addStrCode("%s");
-//            }
+            else if(getType().equals(VarType.TEXT)) {
+                LLVMConfiguration.getInstance().addPrintArg(valueRef);
+                LLVMConfiguration.getInstance().addStrCode("%s");
+            }
         }
 
         return  value;

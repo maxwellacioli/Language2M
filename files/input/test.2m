@@ -1,9 +1,11 @@
 principal () inteiro {
-    inteiro a;
 
-    a = 10;
+    texto a, b, c;
 
-    /$a = "casa" ++ "teste";
+    a = "Maxwell & ";
+    b = "Maria";
+    /$c = a ++ b;
+    c = "123" ++ "456" ++ "789";
 
-    imprima(a ++ a);
+    imprima(c ++ " = 10");
 }

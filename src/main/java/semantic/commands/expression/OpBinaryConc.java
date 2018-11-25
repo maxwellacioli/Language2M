@@ -35,8 +35,6 @@ public class OpBinaryConc extends OpBinary {
             //TODO VERIFICAR SE SÃO STRINGS
 
             List<LLVMValueRef> maskElemList = new ArrayList<LLVMValueRef>();
-            LLVMValueRef tempVector;
-            LLVMValueRef tempArray;
             LLVMValueRef appendedVectors;
 
             if (leftLength >= rightLength) {
@@ -49,18 +47,12 @@ public class OpBinaryConc extends OpBinary {
                     maskElemList.add(LLVMConstInt(LLVMInt32Type(), i, 0));
                 }
 
-
-
                 LLVMValueRef[] maskElemArray = new LLVMValueRef[maskElemList.size()];
                 maskElemList.toArray(maskElemArray);
 
                 LLVMValueRef mask = LLVMConstVector(new PointerPointer(maskElemArray), maskElemArray.length);
 
                 appendedVectors = LLVMBuildShuffleVector(builderRef, left, right, mask, "appendedVectors");
-
-                tempArray = LLVMConstArray(LLVMInt8Type(), appendedVectors , maskElemArray.length);
-    //            tempVector = LLVMBuildAlloca(builderRef, LLVMVectorType(LLVMInt8Type(), maskElemArray.length), "tempVector");
-    //            LLVMBuildStore(builderRef, appendedVectors, tempVector);
 
             } else {
                 for(int i = 0 ; i < leftLength-1 ; i++) {
@@ -77,14 +69,9 @@ public class OpBinaryConc extends OpBinary {
                 LLVMValueRef mask = LLVMConstVector(new PointerPointer(maskElemArray), maskElemArray.length);
 
                 appendedVectors = LLVMBuildShuffleVector(builderRef, right, left, mask, "appendedVectors");
-
-                tempArray = LLVMConstArray(LLVMInt8Type(), appendedVectors , maskElemArray.length);
-    //            tempVector = LLVMBuildAlloca(builderRef, LLVMVectorType(LLVMInt8Type(), maskElemArray.length), "tempVector");
-    //            LLVMBuildStore(builderRef, appendedVectors, tempVector);
             }
-            return  tempArray;
+            return  appendedVectors;
         }
-
         return  null;
     }
 }

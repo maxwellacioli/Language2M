@@ -32,16 +32,24 @@ public class Attribution extends Node {
             throw  new RuntimeException("Tipos Incompatíveis");
         }
 
-        LLVMValueRef llvmTargetValue = target.getLlvmValueRef();
-
         if(target.getType().equals(VarType.TEXT)) {
             LLVMTypeRef rightType = LLVMTypeOf(v);
             int rightLength = LLVMGetArrayLength(rightType);
+            int typeKind = LLVMGetTypeKind(rightType);
 
-//            llvmTargetValue = LLVMBuildAlloca(builderRef, LLVMArrayType(LLVMInt8Type(), rightLength), getChildren().get(0).getName());
+            //Verifica se o pai do nó da direita é uma atribuição ou uma concatenação
+            //se for uma atribuição, então teremos um array de inteiro, caso contrário, teremos um vetor de inteiro
+            LLVMValueRef llvmTargetValue;
+            if(typeKind == LLVMArrayTypeKind) {
+                llvmTargetValue = LLVMBuildAlloca(builderRef, LLVMArrayType(LLVMInt8Type(), rightLength), getChildren().get(0).getName());
+            } else {
+                llvmTargetValue = LLVMBuildAlloca(builderRef, LLVMVectorType(LLVMInt8Type(), rightLength), getChildren().get(0).getName());
+            }
+            target.setLlvmValueRef(llvmTargetValue);
         }
-//
-        LLVMBuildStore(builderRef, v, llvmTargetValue);
+
+        LLVMValueRef targetPtr = target.getLlvmValueRef();
+        LLVMBuildStore(builderRef, v, targetPtr);
 
         return null;
     }
