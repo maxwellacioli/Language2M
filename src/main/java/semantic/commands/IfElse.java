@@ -25,12 +25,12 @@ public class IfElse extends Node {
 
         LLVMBuildCondBr(builderRef, cond, iftrue, iffalse);
 
-        //TODO verificar elemetos que podem ser adicionados na função Phi
+        //TODO verificar elementos que podem ser adicionados na função Phi
         LLVMPositionBuilderAtEnd(builderRef, iftrue);
         Node.VisitCmd(getChildren().get(1),  LLVMConfiguration.getInstance().getGlobalMod(), contextRef, builderRef, symbolTable, func);
         LLVMBuildBr(builderRef, end);
 
-        //TODO verificar elemetos que podem ser adicionados na função Phi
+        //TODO verificar elementos que podem ser adicionados na função Phi
         LLVMPositionBuilderAtEnd(builderRef, iffalse);
         Node.VisitCmd(getChildren().get(2),  LLVMConfiguration.getInstance().getGlobalMod(), contextRef, builderRef, symbolTable, func);
         LLVMBuildBr(builderRef, end);

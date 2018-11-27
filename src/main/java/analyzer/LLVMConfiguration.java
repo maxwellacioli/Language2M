@@ -129,6 +129,7 @@ public class LLVMConfiguration {
         //Adiciona a função printf no módulo principal
         insertPrintfFunction();
         insertScanfFunction();
+//        insertFflushFunction();
     }
 
     private static void insertPrintfFunction() {
@@ -142,4 +143,10 @@ public class LLVMConfiguration {
         LLVMTypeRef llvmScanffType = LLVMFunctionType(LLVMInt32Type(), new PointerPointer(scanfParams), 0, 1);
         LLVMAddFunction(globalMod, "scanf", llvmScanffType);
     }
+
+//    private static void insertFflushFunction() {
+//        LLVMTypeRef[] fflushParam = { LLVMPointerType(LLVMStructType(LLVMInt8Type(), 0, 0), 0) };
+//        LLVMTypeRef llvmFflushfType = LLVMFunctionType(LLVMInt32Type(), new PointerPointer(fflushParam), 1, 0);
+//        LLVMAddFunction(globalMod, "fflush", llvmFflushfType);
+//    }
 }

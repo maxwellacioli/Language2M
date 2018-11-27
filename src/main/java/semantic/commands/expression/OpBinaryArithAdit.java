@@ -4,6 +4,7 @@ import analyzer.LLVMConfiguration;
 import lexical.Token;
 import semantic.SemanticAnalyzer;
 import semantic.SymbolTable;
+import semantic.VarType;
 import semantic.commands.Node;
 import org.bytedeco.javacpp.*;
 import semantic.commands.Printout;
@@ -23,17 +24,29 @@ public class OpBinaryArithAdit extends OpBinary {
         LLVMValueRef right = getChildren().get(1).getLlvmValueRef();
         LLVMValueRef result = null;
 
-        if(operator.equals("+")) {
-            result = LLVMBuildAdd(builderRef, left, right, SemanticAnalyzer.getInstance().tempGenerator());
-        } else if(operator.equals("-")) {
-            result = LLVMBuildSub(builderRef, left, right, SemanticAnalyzer.getInstance().tempGenerator());
+        if(getType().equals(VarType.INTEIRO)) {
+            if(operator.equals("+")) {
+                result = LLVMBuildAdd(builderRef, left, right, SemanticAnalyzer.getInstance().tempGenerator());
+            } else if(operator.equals("-")) {
+                result = LLVMBuildSub(builderRef, left, right, SemanticAnalyzer.getInstance().tempGenerator());
+            }
+        }else if(getType().equals(VarType.REAL)) {
+            if(operator.equals("+")) {
+                result = LLVMBuildFAdd(builderRef, left, right, SemanticAnalyzer.getInstance().tempGenerator());
+            } else if(operator.equals("-")) {
+                result = LLVMBuildFSub(builderRef, left, right, SemanticAnalyzer.getInstance().tempGenerator());
+            }
         }
 
-        //TODO Condição que verifica se a flag de imprimir string está habilitada
+        //Condição que verifica se a flag de imprimir string está habilitada
         if(LLVMConfiguration.getStrCodeFlag() &&
                 (this.getParent() instanceof Printout || this.getParent() instanceof OpBinaryConc)) {
             LLVMConfiguration.getInstance().addPrintArg(result);
-            LLVMConfiguration.getInstance().addStrCode("%d");
+            if(getType().equals(VarType.INTEIRO)) {
+                LLVMConfiguration.getInstance().addStrCode("%d");
+            } else if(getType().equals(VarType.REAL)) {
+                LLVMConfiguration.getInstance().addStrCode("%.2lf");
+            }
         }
         return result;
     }

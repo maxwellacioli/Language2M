@@ -1,3 +1,5 @@
+/$ MUDAR NOME DO ARQUIVO
+
 mult(inteiro a, inteiro b) inteiro {
     retorne a * b;
 }
