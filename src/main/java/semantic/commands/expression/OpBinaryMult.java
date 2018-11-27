@@ -26,7 +26,13 @@ public class OpBinaryMult extends OpBinary {
         LLVM.LLVMValueRef result = null;
 
         //Verificar tipo da operação para usar UDiv ou FDiv
+        Exp leftChild = (Exp)getChildren().get(0);
+        Exp rightChild = (Exp)getChildren().get(1);
 
+        if(!leftChild.getType().equals(rightChild.getType())) {
+            System.err.println("Tipos dos operandos são incompatíveis!");
+            System.exit(1);
+        }
 
         if(getType().equals(VarType.INTEIRO)) {
             if(operator.equals("*")) {
