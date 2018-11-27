@@ -18,6 +18,8 @@ public class OpBinaryRel1 extends OpBinary {
 
     @Override
     public LLVM.LLVMValueRef codeGen(LLVM.LLVMModuleRef moduleRef, LLVM.LLVMContextRef contextRef, LLVM.LLVMBuilderRef builderRef, SymbolTable symbolTable, LLVM.LLVMValueRef func) {
+        checkOperandsType();
+
         String operator = getToken().getLexValue();
         LLVM.LLVMValueRef left = getChildren().get(0).getLlvmValueRef();
         LLVM.LLVMValueRef right = getChildren().get(1).getLlvmValueRef();

@@ -15,4 +15,14 @@ public class OpBinary extends Exp {
         Exp lo = (Exp) lefOperand;
         setType(lo.getType());
     }
+
+    public void checkOperandsType() {
+        Exp leftChild = (Exp)getChildren().get(0);
+        Exp rightChild = (Exp)getChildren().get(1);
+
+        if(!leftChild.getType().equals(rightChild.getType())) {
+            System.err.println("Tipos dos operandos são incompatíveis!");
+            System.exit(1);
+        }
+    }
 }

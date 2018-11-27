@@ -18,6 +18,8 @@ public class OpBinaryOr extends OpBinary {
 
     @Override
     public LLVM.LLVMValueRef codeGen(LLVM.LLVMModuleRef moduleRef, LLVM.LLVMContextRef contextRef, LLVM.LLVMBuilderRef builderRef, SymbolTable symbolTable, LLVM.LLVMValueRef func) {
+        checkOperandsType();
+
         LLVM.LLVMValueRef left = getChildren().get(0).getLlvmValueRef();
         LLVM.LLVMValueRef right = getChildren().get(1).getLlvmValueRef();
 

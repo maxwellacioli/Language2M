@@ -19,18 +19,12 @@ public class OpBinaryArithAdit extends OpBinary {
     //TODO Verificação de compatibilidade de tipos é na análise semântica
     @Override
     public LLVMValueRef codeGen(LLVMModuleRef moduleRef, LLVMContextRef contextRef, LLVMBuilderRef builderRef, SymbolTable symbolTable, LLVMValueRef func) {
+        checkOperandsType();
+
         String operator = getToken().getLexValue();
         LLVMValueRef left = getChildren().get(0).getLlvmValueRef();
         LLVMValueRef right = getChildren().get(1).getLlvmValueRef();
         LLVMValueRef result = null;
-
-        Exp leftChild = (Exp)getChildren().get(0);
-        Exp rightChild = (Exp)getChildren().get(1);
-
-        if(!leftChild.getType().equals(rightChild.getType())) {
-            System.err.println("Tipos dos operandos são incompatíveis!");
-            System.exit(1);
-        }
 
         if(getType().equals(VarType.INTEIRO)) {
             if(operator.equals("+")) {

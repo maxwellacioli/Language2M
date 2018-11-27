@@ -20,6 +20,8 @@ public class OpBinaryAnd extends OpBinary {
     //TODO Verificar tipos
     @Override
     public LLVMValueRef codeGen(LLVMModuleRef moduleRef, LLVMContextRef contextRef, LLVMBuilderRef builderRef, SymbolTable symbolTable, LLVMValueRef func) {
+        checkOperandsType();
+
         LLVMValueRef left = getChildren().get(0).getLlvmValueRef();
         LLVMValueRef right = getChildren().get(1).getLlvmValueRef();
 

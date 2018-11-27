@@ -24,6 +24,8 @@ public class OpBinaryConc extends OpBinary {
     public LLVMValueRef codeGen(LLVMModuleRef moduleRef, LLVMContextRef contextRef, LLVMBuilderRef builderRef, SymbolTable symbolTable, LLVMValueRef func) {
         if(!LLVMConfiguration.getStrCodeFlag()) {
 
+            checkOperandsType();
+
             LLVMValueRef left = getChildren().get(0).getLlvmValueRef();
             LLVMValueRef right = getChildren().get(1).getLlvmValueRef();
 
