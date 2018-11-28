@@ -93,7 +93,9 @@ public class PrecedenceAnalyzer {
 	}
 
 	private void handlerError() {
-		System.out.println("Handler inválido para redução!");
+		Token token = LexicalAnalyzer.getInstance().getCurrentToken();
+
+		System.err.println("Handler inválido para redução! " + token.toString());
 		System.exit(1);
 	}
 

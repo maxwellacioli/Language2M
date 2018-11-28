@@ -14,9 +14,31 @@ public class LexicalAnalyzer {
 
 	private final char LINE_BREAK = '\n';
 
-	public LexicalAnalyzer(String filePath) {
+	private Token currentToken;
+
+	private static LexicalAnalyzer lexicalAnalyzer;
+
+	private LexicalAnalyzer() {
 		linesList = new ArrayList<String>();
+	}
+
+	public void setFilePath(String filePath) {
 		this.filePath = filePath;
+	}
+
+	public Token getCurrentToken() {
+		return currentToken;
+	}
+
+	private void setCurrentToken(Token currentToken) {
+		this.currentToken = currentToken;
+	}
+
+	public static LexicalAnalyzer getInstance() {
+		if(lexicalAnalyzer == null) {
+			lexicalAnalyzer = new LexicalAnalyzer();
+		}
+		return  lexicalAnalyzer;
 	}
 
 	public void readFile() {
@@ -112,17 +134,17 @@ public class LexicalAnalyzer {
 				}
 			}
 
-			if (currentChar != ' ') {
-				while (!LexicalTable.getSymbolList().contains(currentChar)) {
-					tkValue += currentChar;
-
-					// Vai para o proximo
-					currentChar = nextChar();
-					if (currentChar == LINE_BREAK) {
-						break;
-					}
-				}
-			}
+//			if (currentChar != ' ') {
+//				while (!LexicalTable.getSymbolList().contains(currentChar)) {
+//					tkValue += currentChar;
+//
+//					// Vai para o proximo
+//					currentChar = nextChar();
+//					if (currentChar == LINE_BREAK) {
+//						break;
+//					}
+//				}
+//			}
 		} else {
 
 			// Enquanto nao for encontrado um simbolo especial, os
@@ -246,8 +268,8 @@ public class LexicalAnalyzer {
 		token = new Token();
 
 		token.setLexValue(tkValue);
-		token.setLine(tkBeginLine);
-		token.setColumn(tkBeginColumn);
+		token.setLine(tkBeginLine+1);
+		token.setColumn(tkBeginColumn+1);
 		token.setCategory(analyzeCategory(tkValue));
 
 		//Atualiza o valor da cadeia de caracteres ou caracter
@@ -261,6 +283,8 @@ public class LexicalAnalyzer {
 				return nextToken();
 			}
 		}
+
+		setCurrentToken(token);
 		return token;
 
 	}

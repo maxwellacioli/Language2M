@@ -1,7 +1,8 @@
-soma(inteiro a, inteiro b) inteiro {
-    retorne a + b;
-}
-
 principal () inteiro {
-    imprima(14%3*3);
+    inteiro a;
+    real b;
+
+    b = b + 2.0 + 2.5;
+
+    imprima(b);
 }

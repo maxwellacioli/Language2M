@@ -16,24 +16,25 @@ public class SyntaticAnalyzer {
 	private SymbolTable globalSymbolTable;
 	private List<SymbolTable> symbolTables;
 
-	public SyntaticAnalyzer(LexicalAnalyzer lexicalAnalyzer) {
+	public SyntaticAnalyzer() {
 
 		grammar = Grammar.getInstance();
 		predictiveTable = new PredictiveTable();
-		predictiveAnalyzer = new PredictiveAnalyzer(grammar, predictiveTable,
-				lexicalAnalyzer);
+		predictiveAnalyzer = new PredictiveAnalyzer(grammar, predictiveTable);
 
 		//Tabela de simbolo global
 		symbolTables = new ArrayList<SymbolTable>();
 		globalSymbolTable = new SymbolTable("global");
 		symbolTables.add(globalSymbolTable);
 		// TEST
-//		 printTokens(lexicalAnalyzer);
+//		 printTokens();
 
 	}
 
 	// TEST
-	private void printTokens(LexicalAnalyzer lexicalAnalyzer) {
+	private void printTokens() {
+		LexicalAnalyzer lexicalAnalyzer = LexicalAnalyzer.getInstance();
+
 		Token token;
 		while (lexicalAnalyzer.hasMoreTokens()) {
 			token = lexicalAnalyzer.nextToken();
@@ -48,13 +49,7 @@ public class SyntaticAnalyzer {
 		predictiveAnalyzer.predictiveAnalyze();
 	}
 
-//	public List<FunctionAST> getASTList() {
-//		return predictiveAnalyzer.getProgramASTList();
-//	}
-
 	public static void printError(Token token) {
-		System.err.println("Erro no token " + token.getCategory() + "("
-				+ token.getLexValue() + ")," + " na linha " + token.getLine()
-				+ " e coluna " + token.getColumn() + ".");
+		System.err.println("Erro sintático, " + token.toString() + "!");
 	}
 }

@@ -49,12 +49,11 @@ public class PredictiveAnalyzer {
 	//Variavel derivacao auxiliar
 	private Derivation derivation;
 
-	public PredictiveAnalyzer(Grammar grammar, PredictiveTable predictiveTable,
-							  LexicalAnalyzer lexicalAnalyzer) {
+	public PredictiveAnalyzer(Grammar grammar, PredictiveTable predictiveTable) {
 
 		this.grammar = grammar;
 		this.predictiveTable = predictiveTable;
-		this.lexicalAnalyzer = lexicalAnalyzer;
+		this.lexicalAnalyzer = LexicalAnalyzer.getInstance();
 
 		globalTable = new SymbolTable("Global");
 		symbolFlag = false;
