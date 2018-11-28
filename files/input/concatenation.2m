@@ -1,5 +1,3 @@
-/$ MUDAR NOME DO ARQUIVO
-
 principal () inteiro {
     texto palavra1, palavra2, palavra3, traducao;
 
