@@ -113,7 +113,7 @@ public class PrecedenceTable {
 		lineTable.add(R7);
 		lineTable.add(R7);
 		lineTable.add(R7);
-		lineTable.add(ELT);
+		lineTable.add(R7);
 		lineTable.add(ELT);
 		lineTable.add(ELT);
 		lineTable.add(ELT);
@@ -136,7 +136,7 @@ public class PrecedenceTable {
 		lineTable.add(R8);
 		lineTable.add(R8);
 		lineTable.add(R8);
-		lineTable.add(ELT);
+		lineTable.add(R8);
 		lineTable.add(R8);
 		lineTable.add(R8);
 		lineTable.add(ELT);
@@ -159,7 +159,7 @@ public class PrecedenceTable {
 		lineTable.add(R9);
 		lineTable.add(R9);
 		lineTable.add(R9);
-		lineTable.add(ELT);
+		lineTable.add(R9);
 		lineTable.add(ELT);
 		lineTable.add(ELT);
 		lineTable.add(ELT);
@@ -182,7 +182,7 @@ public class PrecedenceTable {
 		lineTable.add(R10);
 		lineTable.add(R10);
 		lineTable.add(R10);
-		lineTable.add(ELT);
+		lineTable.add(R10);
 		lineTable.add(ELT);
 		lineTable.add(ELT);
 		lineTable.add(ELT);

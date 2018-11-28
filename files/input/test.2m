@@ -3,5 +3,5 @@ soma(inteiro a, inteiro b) inteiro {
 }
 
 principal () inteiro {
-    imprima(soma(4, 3));
+    imprima((14 % 3 % 3));
 }
