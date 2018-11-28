@@ -25,7 +25,7 @@ public class OperatorsGrammar {
 		operatorsGrammarSymbols.add(TokenCategory.OPARITADIT);// 0
 		operatorsGrammarSymbols.add(TokenCategory.OPCONC);// 1
 		operatorsGrammarSymbols.add(TokenCategory.OPARITMULT);// 2
-		operatorsGrammarSymbols.add(TokenCategory.OPARITEXP);// 3
+		operatorsGrammarSymbols.add(TokenCategory.OPARITMOD);// 3
 		operatorsGrammarSymbols.add(TokenCategory.OPNEGUN);// 4
 		operatorsGrammarSymbols.add(TokenCategory.OPNEGLOGIC);// 5
 		operatorsGrammarSymbols.add(TokenCategory.PARAMBEGIN);// 6
@@ -37,10 +37,9 @@ public class OperatorsGrammar {
 		operatorsGrammarSymbols.add(TokenCategory.CONSTNUMINT);// 12
 		operatorsGrammarSymbols.add(TokenCategory.CONSTNUMREAL);// 13
 		operatorsGrammarSymbols.add(TokenCategory.CONSTLOGIC);// 14
-		operatorsGrammarSymbols.add(TokenCategory.CONSTCHAR);// 15
-		operatorsGrammarSymbols.add(TokenCategory.CONSTCCHAR);// 16
-		operatorsGrammarSymbols.add(TokenCategory.ID);// 17
-		operatorsGrammarSymbols.add(TokenCategory.SEP1);// 18
+		operatorsGrammarSymbols.add(TokenCategory.CONSTCCHAR);// 15
+		operatorsGrammarSymbols.add(TokenCategory.ID);// 16
+		operatorsGrammarSymbols.add(TokenCategory.SEP1);// 17
 	}
 
 	public static OperatorsGrammar getInstance() {
@@ -120,25 +119,25 @@ public class OperatorsGrammar {
 				.addSymbol(new NonTerminal(NonTerminalName.EXP));
 		operatorGrammarArray.add(operatorDerivation);
 
-		// (7)EXP = EXP OPNEGUN EXP
+		// (7)EXP = EXP OPARITMOD EXP
+		operatorDerivation = new Derivation();
+		operatorDerivation
+				.addSymbol(new NonTerminal(NonTerminalName.EXP));
+		operatorDerivation.addSymbol(new Terminal(TokenCategory.OPARITMOD));
+		operatorDerivation
+				.addSymbol(new NonTerminal(NonTerminalName.EXP));
+		operatorGrammarArray.add(operatorDerivation);
+
+		// (8)EXP = EXP OPNEGUN
 		operatorDerivation = new Derivation();
 		operatorDerivation.addSymbol(new Terminal(TokenCategory.OPNEGUN));
 		operatorDerivation
 				.addSymbol(new NonTerminal(NonTerminalName.EXP));
 		operatorGrammarArray.add(operatorDerivation);
 
-		// (8)EXP = EXP OPNEGLOGIC EXP
+		// (9)EXP = EXP OPNEGLOGIC
 		operatorDerivation = new Derivation();
 		operatorDerivation.addSymbol(new Terminal(TokenCategory.OPNEGLOGIC));
-		operatorDerivation
-				.addSymbol(new NonTerminal(NonTerminalName.EXP));
-		operatorGrammarArray.add(operatorDerivation);
-
-		// (9)EXP = EXP OPARITEXP EXP
-		operatorDerivation = new Derivation();
-		operatorDerivation
-				.addSymbol(new NonTerminal(NonTerminalName.EXP));
-		operatorDerivation.addSymbol(new Terminal(TokenCategory.OPARITEXP));
 		operatorDerivation
 				.addSymbol(new NonTerminal(NonTerminalName.EXP));
 		operatorGrammarArray.add(operatorDerivation);
@@ -166,22 +165,17 @@ public class OperatorsGrammar {
 		operatorDerivation.addSymbol(new Terminal(TokenCategory.CONSTLOGIC));
 		operatorGrammarArray.add(operatorDerivation);
 
-		// (14)EXP = CONSTCHAR
-		operatorDerivation = new Derivation();
-		operatorDerivation.addSymbol(new Terminal(TokenCategory.CONSTCHAR));
-		operatorGrammarArray.add(operatorDerivation);
-
-		// (15)EXP = CONSTCCHAR
+		// (14)EXP = CONSTCCHAR
 		operatorDerivation = new Derivation();
 		operatorDerivation.addSymbol(new Terminal(TokenCategory.CONSTCCHAR));
 		operatorGrammarArray.add(operatorDerivation);
 
-		// (16)EXP = ID
+		// (15)EXP = ID
 		operatorDerivation = new Derivation();
 		operatorDerivation.addSymbol(new Terminal(TokenCategory.ID));
 		operatorGrammarArray.add(operatorDerivation);
 
-		// (17)EXP = ID PARAMBEGIN EXP PARAMEND
+		// (16)EXP = ID PARAMBEGIN EXP PARAMEND
 		operatorDerivation = new Derivation();
 		operatorDerivation.addSymbol(new Terminal(TokenCategory.ID));
 		operatorDerivation.addSymbol(new Terminal(TokenCategory.PARAMBEGIN));
@@ -190,7 +184,7 @@ public class OperatorsGrammar {
 		operatorDerivation.addSymbol(new Terminal(TokenCategory.PARAMEND));
 		operatorGrammarArray.add(operatorDerivation);
 
-		// (18)EXP = EXP SEP1 EXP
+		// (17)EXP = EXP SEP1 EXP
 		operatorDerivation = new Derivation();
 		operatorDerivation
 				.addSymbol(new NonTerminal(NonTerminalName.EXP));

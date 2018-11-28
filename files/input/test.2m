@@ -1,3 +1,7 @@
+soma(inteiro a, inteiro b) inteiro {
+    retorne a + b;
+}
+
 principal () inteiro {
-    imprima(10 / 2);
+    imprima(soma(4, 3));
 }

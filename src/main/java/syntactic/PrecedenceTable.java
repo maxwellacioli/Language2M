@@ -35,8 +35,7 @@ public class PrecedenceTable {
 	public static final int R16 = 16;
 	public static final int R17 = 17;
 	public static final int R18 = 18;
-	public static final int R19 = 19;
-	
+
 	
 
 	private PrecedenceTable() {
@@ -82,7 +81,6 @@ public class PrecedenceTable {
 		lineTable.add(ELT);
 		lineTable.add(ELT);
 		lineTable.add(ELT);
-		lineTable.add(ELT);
 		lineTable.add(R6);
 		lineTable.add(R6);
 		precedenceTableList.add(lineTable);
@@ -101,7 +99,6 @@ public class PrecedenceTable {
 		lineTable.add(R5);
 		lineTable.add(R5);
 		lineTable.add(R5);
-		lineTable.add(ELT);
 		lineTable.add(ELT);
 		lineTable.add(ELT);
 		lineTable.add(ELT);
@@ -130,86 +127,81 @@ public class PrecedenceTable {
 		lineTable.add(ELT);
 		lineTable.add(ELT);
 		lineTable.add(ELT);
-		lineTable.add(ELT);
 		lineTable.add(R7);
 		lineTable.add(R7);
 		precedenceTableList.add(lineTable);
 		lineTable = new ArrayList<Integer>();
 
-		// 'oparitexp' x (todos)
-		lineTable.add(R10);
-		lineTable.add(R10);
-		lineTable.add(R10);
+		// 'oparitmod' x (todos)
+		lineTable.add(R8);
+		lineTable.add(R8);
+		lineTable.add(R8);
 		lineTable.add(ELT);
-		lineTable.add(R10);
-		lineTable.add(R10);
+		lineTable.add(R8);
+		lineTable.add(R8);
 		lineTable.add(ELT);
-		lineTable.add(R10);
-		lineTable.add(R10);
-		lineTable.add(R10);
-		lineTable.add(R10);
-		lineTable.add(R10);
-		lineTable.add(ELT);
-		lineTable.add(ELT);
+		lineTable.add(R8);
+		lineTable.add(R8);
+		lineTable.add(R8);
+		lineTable.add(R8);
+		lineTable.add(R8);
 		lineTable.add(ELT);
 		lineTable.add(ELT);
 		lineTable.add(ELT);
 		lineTable.add(ELT);
-		lineTable.add(R10);
-		lineTable.add(R10);
+		lineTable.add(ELT);
+		lineTable.add(R8);
+		lineTable.add(R8);
 		precedenceTableList.add(lineTable);
 		lineTable = new ArrayList<Integer>();
 
 		// 'opnegun' x (todos)
-		lineTable.add(R8);
-		lineTable.add(R8);
-		lineTable.add(R8);
+		lineTable.add(R9);
+		lineTable.add(R9);
+		lineTable.add(R9);
 		lineTable.add(ELT);
 		lineTable.add(ELT);
 		lineTable.add(ELT);
 		lineTable.add(ELT);
-		lineTable.add(R8);
-		lineTable.add(R8);
-		lineTable.add(R8);
-		lineTable.add(R8);
-		lineTable.add(R8);
+		lineTable.add(R9);
+		lineTable.add(R9);
+		lineTable.add(R9);
+		lineTable.add(R9);
+		lineTable.add(R9);
 		lineTable.add(ELT);
 		lineTable.add(ELT);
 		lineTable.add(ELT);
 		lineTable.add(ELT);
 		lineTable.add(ELT);
-		lineTable.add(ELT);
-		lineTable.add(R8);
-		lineTable.add(R8);
+		lineTable.add(R9);
+		lineTable.add(R9);
 		precedenceTableList.add(lineTable);
 		lineTable = new ArrayList<Integer>();
 
 		// 'opneglogic' x (todos os terminais)
-		lineTable.add(R9);
-		lineTable.add(R9);
-		lineTable.add(R9);
+		lineTable.add(R10);
+		lineTable.add(R10);
+		lineTable.add(R10);
 		lineTable.add(ELT);
 		lineTable.add(ELT);
 		lineTable.add(ELT);
 		lineTable.add(ELT);
-		lineTable.add(R9);
-		lineTable.add(R9);
-		lineTable.add(R9);
-		lineTable.add(R9);
-		lineTable.add(R9);
+		lineTable.add(R10);
+		lineTable.add(R10);
+		lineTable.add(R10);
+		lineTable.add(R10);
+		lineTable.add(R10);
 		lineTable.add(ELT);
 		lineTable.add(ELT);
 		lineTable.add(ELT);
 		lineTable.add(ELT);
 		lineTable.add(ELT);
-		lineTable.add(ELT);
-		lineTable.add(R9);
-		lineTable.add(R9);
+		lineTable.add(R10);
+		lineTable.add(R10);
 		precedenceTableList.add(lineTable);
 		lineTable = new ArrayList<Integer>();
 
 		// 'parambegin' x (todos)
-		lineTable.add(ELT);
 		lineTable.add(ELT);
 		lineTable.add(ELT);
 		lineTable.add(ELT);
@@ -251,7 +243,6 @@ public class PrecedenceTable {
 		lineTable.add(ERROR);
 		lineTable.add(ERROR);
 		lineTable.add(ERROR);
-		lineTable.add(ERROR);
 		lineTable.add(R11);
 		precedenceTableList.add(lineTable);
 		lineTable = new ArrayList<Integer>();
@@ -266,7 +257,6 @@ public class PrecedenceTable {
 		lineTable.add(ELT);
 		lineTable.add(R1);
 		lineTable.add(R1);
-		lineTable.add(ELT);
 		lineTable.add(ELT);
 		lineTable.add(ELT);
 		lineTable.add(ELT);
@@ -298,7 +288,6 @@ public class PrecedenceTable {
 		lineTable.add(ELT);
 		lineTable.add(ELT);
 		lineTable.add(ELT);
-		lineTable.add(ELT);
 		lineTable.add(R2);
 		lineTable.add(R2);
 		precedenceTableList.add(lineTable);
@@ -317,7 +306,6 @@ public class PrecedenceTable {
 		lineTable.add(R4);
 		lineTable.add(R4);
 		lineTable.add(R4);
-		lineTable.add(ELT);
 		lineTable.add(ELT);
 		lineTable.add(ELT);
 		lineTable.add(ELT);
@@ -346,7 +334,6 @@ public class PrecedenceTable {
 		lineTable.add(ELT);
 		lineTable.add(ELT);
 		lineTable.add(ELT);
-		lineTable.add(ELT);
 		lineTable.add(R3);
 		lineTable.add(R3);
 		precedenceTableList.add(lineTable);
@@ -365,7 +352,6 @@ public class PrecedenceTable {
 		lineTable.add(R12);
 		lineTable.add(R12);
 		lineTable.add(R12);
-		lineTable.add(ERROR);
 		lineTable.add(ERROR);
 		lineTable.add(ERROR);
 		lineTable.add(ERROR);
@@ -394,7 +380,6 @@ public class PrecedenceTable {
 		lineTable.add(ERROR);
 		lineTable.add(ERROR);
 		lineTable.add(ERROR);
-		lineTable.add(ERROR);
 		lineTable.add(R13);
 		lineTable.add(R13);
 		precedenceTableList.add(lineTable);
@@ -418,13 +403,12 @@ public class PrecedenceTable {
 		lineTable.add(ERROR);
 		lineTable.add(ERROR);
 		lineTable.add(ERROR);
-		lineTable.add(ERROR);
 		lineTable.add(R14);
 		lineTable.add(R14);
 		precedenceTableList.add(lineTable);
 		lineTable = new ArrayList<Integer>();
 
-		//'constchar' x (todos)
+		//'constcchar' x (todos)
 		lineTable.add(R15);
 		lineTable.add(R15);
 		lineTable.add(R15);
@@ -442,57 +426,31 @@ public class PrecedenceTable {
 		lineTable.add(ERROR);
 		lineTable.add(ERROR);
 		lineTable.add(ERROR);
-		lineTable.add(ERROR);
 		lineTable.add(R15);
 		lineTable.add(R15);
-		precedenceTableList.add(lineTable);
-		lineTable = new ArrayList<Integer>();
-
-		// 'constcchar' x (todos)
-		lineTable.add(R16);
-		lineTable.add(R16);
-		lineTable.add(R16);
-		lineTable.add(R16);
-		lineTable.add(R16);
-		lineTable.add(R16);
-		lineTable.add(ERROR);
-		lineTable.add(R16);
-		lineTable.add(R16);
-		lineTable.add(R16);
-		lineTable.add(R16);
-		lineTable.add(R16);
-		lineTable.add(ERROR);
-		lineTable.add(ERROR);
-		lineTable.add(ERROR);
-		lineTable.add(ERROR);
-		lineTable.add(ERROR);
-		lineTable.add(ERROR);
-		lineTable.add(R16);
-		lineTable.add(R16);
 		precedenceTableList.add(lineTable);
 		lineTable = new ArrayList<Integer>();
 
 		// 'id' x (todos)
-		lineTable.add(R17);
-		lineTable.add(R17);
-		lineTable.add(R17);
-		lineTable.add(R17);
-		lineTable.add(R17);
-		lineTable.add(R17);
+		lineTable.add(R16);
+		lineTable.add(R16);
+		lineTable.add(R16);
+		lineTable.add(R16);
+		lineTable.add(R16);
+		lineTable.add(R16);
 		lineTable.add(ELT);
-		lineTable.add(R17);
-		lineTable.add(R17);
-		lineTable.add(R17);
-		lineTable.add(R17);
-		lineTable.add(R17);
+		lineTable.add(R16);
+		lineTable.add(R16);
+		lineTable.add(R16);
+		lineTable.add(R16);
+		lineTable.add(R16);
 		lineTable.add(ERROR);
 		lineTable.add(ERROR);
 		lineTable.add(ERROR);
 		lineTable.add(ERROR);
 		lineTable.add(ERROR);
-		lineTable.add(ERROR);
-		lineTable.add(R17);
-		lineTable.add(R17);
+		lineTable.add(R16);
+		lineTable.add(R16);
 		precedenceTableList.add(lineTable);
 		lineTable = new ArrayList<Integer>();
 
@@ -504,7 +462,7 @@ public class PrecedenceTable {
 		lineTable.add(ELT);
 		lineTable.add(ELT);
 		lineTable.add(ELT);
-		lineTable.add(R19);
+		lineTable.add(R18);
 		lineTable.add(ELT);
 		lineTable.add(ELT);
 		lineTable.add(ELT);
@@ -514,8 +472,7 @@ public class PrecedenceTable {
 		lineTable.add(ELT);
 		lineTable.add(ELT);
 		lineTable.add(ELT);
-		lineTable.add(ELT);
-		lineTable.add(R19);
+		lineTable.add(R18);
 		lineTable.add(ERROR);
 		precedenceTableList.add(lineTable);
 		lineTable = new ArrayList<Integer>();
@@ -529,7 +486,6 @@ public class PrecedenceTable {
 		lineTable.add(ELT);
 		lineTable.add(ELT);
 		lineTable.add(ERROR);
-		lineTable.add(ELT);
 		lineTable.add(ELT);
 		lineTable.add(ELT);
 		lineTable.add(ELT);

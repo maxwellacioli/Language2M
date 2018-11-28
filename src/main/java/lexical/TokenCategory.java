@@ -44,7 +44,8 @@ public enum TokenCategory {
 	OPREL2(null, 40),
 	OPATRIB("=", 41),
 	OPCONC("++", 42),
-	UNKNOWN(null, 43);
+	OPARITMOD(null, 43),
+	UNKNOWN(null, 44);
 
 	private String name;
 	private int value;

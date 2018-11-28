@@ -18,11 +18,11 @@ principal () inteiro {
 
     leia(ano);
 
-    t1 = modulo(ano, 400);
-    t2 = modulo(ano, 4);
-    t3 = modulo(ano, 100);
+    /$t1 = modulo(ano, 400);
+    /$2 = modulo(ano, 4);
+    /$t3 = modulo(ano, 100);
 
-    se((t1 == 0) ou ((t2 == 0) e (t3 ~= 0))) {
+    se((ano % 400 == 0) ou ((ano % 4 == 0) e (ano % 100 ~= 0))) {
         imprima("É bissexto");
     } senao {
         imprima("Não é bissexto");

@@ -313,10 +313,6 @@ public class PredictiveAnalyzer {
 
 			while (!stack.isEmpty()) {
 
-				if(token.getLexValue().equals("leia")){
-					System.out.println("test");
-				}
-
 				topGrammarSymbol = stack.peek();
 
 				if (topGrammarSymbol.isTerminal()) {

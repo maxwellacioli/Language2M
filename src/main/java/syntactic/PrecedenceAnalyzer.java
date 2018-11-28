@@ -93,8 +93,7 @@ public class PrecedenceAnalyzer {
 	}
 
 	private void handlerError() {
-//		throw new RuntimeException("Handler invalido para reducao!");
-		System.out.println("Error");
+		System.out.println("Handler inválido para redução!");
 		System.exit(1);
 	}
 
@@ -155,17 +154,18 @@ public class PrecedenceAnalyzer {
 				}
 				break;
 			case OPARITMULT:
+				System.out.println();
 				if(functionCallFlag) {
 					expStack.peek().addChild(new OpBinaryMult(op.getToken(), left, right));
 				} else {
 					expStack.push(new OpBinaryMult(op.getToken(), left, right));
 				}
 				break;
-			case OPARITEXP:
+			case OPARITMOD:
 				if(functionCallFlag) {
-					expStack.peek().addChild(new OpBinaryExp(op.getToken(), left, right));
+					expStack.peek().addChild(new OpBinaryMod(op.getToken(), left, right));
 				} else {
-					expStack.push(new OpBinaryExp(op.getToken(), left, right));
+					expStack.push(new OpBinaryMod(op.getToken(), left, right));
 				}
 				break;
 		}
@@ -188,8 +188,6 @@ public class PrecedenceAnalyzer {
 				return new RealConstant(currentTerm.getToken());
 			case CONSTLOGIC:
 				return new LogicConstant(currentTerm.getToken());
-			case CONSTCHAR:
-				return new CharConstant(currentTerm.getToken());
 		}
 		return null;
 	}
@@ -251,7 +249,6 @@ public class PrecedenceAnalyzer {
 
 					tableValue = precedenceTable.getPrecedenceTableList().get(getIndexOfTerminalSymbol(stackTerm))
 							.get(getIndexOfTerminalSymbol(new Terminal(token)));
-
 				}
 
 				// Verificacao da acao
@@ -278,12 +275,11 @@ public class PrecedenceAnalyzer {
 					// tirar o '(' e ')'
 					// referente a producao EXP = ( EXP )
 
-					if (tableValue >= PrecedenceTable.R12 && tableValue <= PrecedenceTable.R17) {
+					if (tableValue >= PrecedenceTable.R12 && tableValue <= PrecedenceTable.R16) {
 						currentTerm = (Terminal) operatorsStack.pop();
 						operatorsStack.push(new NonTerminal(NonTerminalName.EXP));
 
-						//TODO FunctionAST
-						if(tableValue != PrecedenceTable.R17) {
+						if(tableValue != PrecedenceTable.R16) {
 							Node constant = createConstant(currentTerm.getToken());
 							if(functionCallFlag) {
 								expStack.peek().addChild(constant);
@@ -299,7 +295,7 @@ public class PrecedenceAnalyzer {
 						}
 
 						//reducoes com operadores unarios
-					} else if (tableValue == PrecedenceTable.R8 || tableValue == PrecedenceTable.R9) {
+					} else if (tableValue == PrecedenceTable.R9 || tableValue == PrecedenceTable.R10) {
 						if (!operatorsStack.peek().isTerminal()) {
 							if (operatorsStack.elementAt(operatorsStack.size() - 2).isTerminal()) {
 								operatorsStack.pop();
@@ -313,7 +309,7 @@ public class PrecedenceAnalyzer {
 						}
 					}
 					//reducao da producao E = id ( E )
-					else if (tableValue == PrecedenceTable.R18) {
+					else if (tableValue == PrecedenceTable.R17) {
 						if (operatorsStack.peek().isTerminal()) {
 							if (!operatorsStack.elementAt(operatorsStack.size() - 2).isTerminal()) {
 								if (operatorsStack.elementAt(operatorsStack.size() - 3).isTerminal()) {
@@ -341,7 +337,7 @@ public class PrecedenceAnalyzer {
 							Terminal termAux = (Terminal) operatorsStack.elementAt(operatorsStack.size() - 4);
 
 							if (termAux.getCategory() == TokenCategory.ID) {
-								tableValue = PrecedenceTable.R18;
+								tableValue = PrecedenceTable.R17;
 							}
 						}
 						if (operatorsStack.peek().isTerminal()) {
@@ -353,7 +349,7 @@ public class PrecedenceAnalyzer {
 
 									// Caso seja R18 desempilha o id no indice
 									// topo -4
-									if (tableValue == PrecedenceTable.R18) {
+									if (tableValue == PrecedenceTable.R17) {
 										currentTerm = ((Terminal) operatorsStack.pop());
 
 										//Desativa a adição de parametros na chamada de função
