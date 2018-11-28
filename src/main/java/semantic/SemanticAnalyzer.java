@@ -1,11 +1,5 @@
 package semantic;
 
-import org.bytedeco.javacpp.BytePointer;
-import org.bytedeco.javacpp.Pointer;
-
-import static org.bytedeco.javacpp.LLVM.*;
-import static org.bytedeco.javacpp.LLVM.LLVMInitializeNativeTarget;
-
 public class SemanticAnalyzer {
 
     private int tempCount;
@@ -39,18 +33,4 @@ public class SemanticAnalyzer {
         return labelName + String.valueOf(labelCount++);
     }
 
-
-//    public void sendLabel(String label) {
-//
-//    }
-//
-//    public void GTgenerator(String label) {
-//
-//    }
-
-    //TODO implementar
-    public VarType checkType(String varName) {
-
-        return null;
-    }
 }

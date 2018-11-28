@@ -1,13 +1,7 @@
 package syntactic;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Stack;
-
 import lexical.TokenCategory;
-
-//Headers required by LLVM
-
 import semantic.*;
 import semantic.commands.*;
 import semantic.commands.expression.Exp;

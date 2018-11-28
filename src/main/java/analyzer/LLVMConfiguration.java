@@ -1,7 +1,6 @@
 package analyzer;
 
 import org.bytedeco.javacpp.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -128,6 +127,7 @@ public class LLVMConfiguration {
 
         //Adiciona a função printf no módulo principal
         insertPrintfFunction();
+        //Adiciona a função scanf no módulo principal
         insertScanfFunction();
 //        insertFflushFunction();
     }

@@ -12,7 +12,6 @@ import static org.bytedeco.javacpp.LLVM.*;
 public class Analyzer2M {
 	private static LexicalAnalyzer lexicalAnalyzer;
 	private static SyntaticAnalyzer syntaticAnalyzer;
-	//private static SemanticAnalyzer semanticAnalyzer;
 
 	private static String filePath = "files/input/test.2m";
 

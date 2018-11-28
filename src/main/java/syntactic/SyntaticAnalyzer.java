@@ -1,6 +1,5 @@
 package syntactic;
 
-import semantic.FunctionAST;
 import semantic.SymbolTable;
 import syntactic.grammar.Grammar;
 import lexical.LexicalAnalyzer;
