@@ -36,8 +36,8 @@ public class Exp extends Node {
         return type;
     }
 
-    public Exp reduce() {
-        return this;
+    public boolean isNumeric() {
+        return (type.equals(VarType.INTEIRO) || type.equals(VarType.REAL));
     }
 
     @Override

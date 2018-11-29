@@ -2,7 +2,13 @@ principal () inteiro {
     inteiro a;
     real b;
 
+    a = 5;
     b = b + 2.0 + 2.5;
 
-    imprima(b);
+    se ( b < 1.0 ) {
+        imprima("maior");
+    } senao {
+        imprima(b);
+    };
+
 }

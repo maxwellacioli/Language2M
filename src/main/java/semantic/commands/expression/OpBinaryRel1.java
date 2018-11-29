@@ -4,6 +4,7 @@ import analyzer.LLVMConfiguration;
 import lexical.Token;
 import semantic.SemanticAnalyzer;
 import semantic.SymbolTable;
+import semantic.VarType;
 import semantic.commands.Node;
 import semantic.commands.Printout;
 
@@ -25,14 +26,26 @@ public class OpBinaryRel1 extends OpBinary {
         LLVM.LLVMValueRef right = getChildren().get(1).getLlvmValueRef();
         LLVM.LLVMValueRef result = null;
 
-        if(operator.equals(">")) {
-            result = LLVMBuildICmp(builderRef, LLVMIntSGT, left, right, SemanticAnalyzer.getInstance().tempGenerator());
-        } else if(operator.equals("<")) {
-            result = LLVMBuildICmp(builderRef, LLVMIntSLT, left, right, SemanticAnalyzer.getInstance().tempGenerator());
-        } else if(operator.equals(">=")) {
-            result = LLVMBuildICmp(builderRef, LLVMIntSGE, left, right, SemanticAnalyzer.getInstance().tempGenerator());
-        } else if(operator.equals("<=")) {
-            result = LLVMBuildICmp(builderRef, LLVMIntSLE, left, right, SemanticAnalyzer.getInstance().tempGenerator());
+        if(getType().equals(VarType.INTEIRO)) {
+            if (operator.equals(">")) {
+                result = LLVMBuildICmp(builderRef, LLVMIntSGT, left, right, SemanticAnalyzer.getInstance().tempGenerator());
+            } else if (operator.equals("<")) {
+                result = LLVMBuildICmp(builderRef, LLVMIntSLT, left, right, SemanticAnalyzer.getInstance().tempGenerator());
+            } else if (operator.equals(">=")) {
+                result = LLVMBuildICmp(builderRef, LLVMIntSGE, left, right, SemanticAnalyzer.getInstance().tempGenerator());
+            } else if (operator.equals("<=")) {
+                result = LLVMBuildICmp(builderRef, LLVMIntSLE, left, right, SemanticAnalyzer.getInstance().tempGenerator());
+            }
+        } else if(getType().equals(VarType.REAL)) {
+            if (operator.equals(">")) {
+                result = LLVMBuildFCmp(builderRef, LLVMRealOGT, left, right, SemanticAnalyzer.getInstance().tempGenerator());
+            } else if (operator.equals("<")) {
+                result = LLVMBuildFCmp(builderRef, LLVMRealOLT, left, right, SemanticAnalyzer.getInstance().tempGenerator());
+            } else if (operator.equals(">=")) {
+                result = LLVMBuildICmp(builderRef, LLVMRealOGE, left, right, SemanticAnalyzer.getInstance().tempGenerator());
+            } else if (operator.equals("<=")) {
+                result = LLVMBuildICmp(builderRef, LLVMRealOLE, left, right, SemanticAnalyzer.getInstance().tempGenerator());
+            }
         }
 
         //TODO Condição que verifica se a flag de imprimir string está habilitada
