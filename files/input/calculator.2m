@@ -1,0 +1,45 @@
+soma(inteiro a, inteiro b) inteiro {
+    retorne a + b;
+}
+
+sub(inteiro a, inteiro b) inteiro {
+    retorne a - b;
+}
+
+mult(inteiro a, inteiro b) inteiro {
+    retorne a * b;
+}
+
+div(inteiro a, inteiro b) inteiro {
+    retorne a / b;
+}
+
+principal() inteiro {
+    inteiro x, y, op, result;
+
+    /$ 1o operando
+    leia(x);
+    /$ 2o operando
+    leia(y);
+
+    /$ 1 = soma, 2 = subt, 3 = mult, 4 = div
+    leia(op);
+
+    se(op == 1) {
+        result = soma(x, y);
+        imprima(x ++ " + " ++ y ++ " = " ++ result);
+    };
+    se(op == 2) {
+        result = sub(x, y);
+        imprima(x ++ " - " ++ y ++ " = " ++ result);
+    };
+    se(op == 3) {
+        result = mult(x, y);
+        imprima(x ++ " * " ++ y ++ " = " ++ result);
+    };
+    se(op == 4) {
+        result = div(x, y);
+        imprima(x ++ " / " ++ y ++ " = " ++ result);
+    };
+}
+
