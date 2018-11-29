@@ -12,7 +12,7 @@ import static org.bytedeco.javacpp.LLVM.*;
 public class Analyzer2M {
 	private static SyntaticAnalyzer syntaticAnalyzer;
 
-	private static String filePath = "files/input/calculator.2m";
+	private static String filePath = "files/input/less.2m";
 
 	public Analyzer2M() { }
 

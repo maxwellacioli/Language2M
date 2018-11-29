@@ -1,0 +1,19 @@
+principal() inteiro {
+    inteiro a, b, menor;
+
+    leia(a);
+    leia(b);
+
+    se(a < b) {
+        menor = a;
+    };
+    se(b < a) {
+        menor = b;
+    };
+
+    se(menor ~= 0) {
+        imprima("O menor número é: " ++ menor);
+    } senao {
+        imprima("Números iguais.");
+    };
+}
