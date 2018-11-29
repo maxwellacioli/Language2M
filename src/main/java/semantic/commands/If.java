@@ -19,11 +19,14 @@ public class If extends Node {
 
     @Override
     public LLVM.LLVMValueRef codeGen(LLVM.LLVMModuleRef moduleRef, LLVM.LLVMContextRef contextRef, LLVM.LLVMBuilderRef builderRef, SymbolTable symbolTable, LLVM.LLVMValueRef func) {
+        //analisa a expressao de condição
         LLVM.LLVMValueRef cond = Node.visitorExp(getChildren().get(0), moduleRef, contextRef, builderRef, symbolTable, func);
 
+        //cria os labels para condição verdadeira e fim do comando
         LLVM.LLVMBasicBlockRef iftrue = LLVMAppendBasicBlock(func, "iftrue");
         LLVM.LLVMBasicBlockRef end = LLVMAppendBasicBlock(func, "end");
 
+        //verifica a condição e faz o desvio de flixo
         LLVMBuildCondBr(builderRef, cond, iftrue, end);
 
         LLVMPositionBuilderAtEnd(builderRef, iftrue);

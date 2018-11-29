@@ -340,11 +340,9 @@ public class PredictiveAnalyzer {
 							}
 						}
 
-						//TODO FunctionAST
 						if(!astStack.isEmpty()) {
 							//Verifica se no topo da pilha e' um id
 							if(astStack.peek() instanceof Id) {
-								//TODO ATualiza token no topo da FunctionAST
 								if(token.getCategory().equals(TokenCategory.ID)) {
 									Node id = astStack.pop();
 									id.setName(token.getLexValue());
@@ -391,7 +389,6 @@ public class PredictiveAnalyzer {
 						localSymbolTable = new SymbolTable(token.getLexValue());
 					}
 
-					//TODO Adicionar no' a FunctionAST quando NT for EXPRESSION
 					if (topNonTerminal.getName() == NonTerminalName.EXP) {
 						if (!OperatorsGrammar.getInstance()
 								.getOperatorsGrammarSymbols()
@@ -411,7 +408,6 @@ public class PredictiveAnalyzer {
 								terminal = new Terminal(
 										precedenceAnalyzer.getEndOfSentence());
 
-								//FIXME Fazer acoes semanticas para estes NT
 								if(astStack.peek() instanceof Exp) {
 									changeNodeReference(astStack.pop(), exp);
 								}
@@ -440,14 +436,13 @@ public class PredictiveAnalyzer {
 								varType = VarType.getVarType(token.getLexValue());
 							}
 
-							//TODO ############# FunctionAST #############
+							// ############# FunctionAST #############
 							//Nao executa acoes semanticas
 							if(derivationNumber == CASTING_DERIVATION ||
 									derivationNumber == DECLARATION_DERIVATION) {
 								changeSemanticActionFlag();
 							}
 
-							//TODO TO REMOVE
 							if(derivationNumber == 28) {
 								changeSemanticActionFlag();
 							}
@@ -460,7 +455,6 @@ public class PredictiveAnalyzer {
 								}
 							}
 
-							//TODO FunctionAST
 							//Verifica se a flag de acao semantica esta desativada
 							//e ativa quando desempilhar O NT <CMDREC>, pois nao deve
 							//ser executada acao semantica depois das derivaceos 19 e 28
@@ -473,7 +467,6 @@ public class PredictiveAnalyzer {
 							leftCount = prodCount.pop();
 							rightCountAux = rightCount;
 
-							//FIXME Copiar por valor e nao por referencia (clonagem) <-------------
 							if (grammar.getGrammarMap().get(derivationNumber) != null) {
 								derivation = (Derivation) grammar.getGrammarMap().get(
 										derivationNumber).clone();

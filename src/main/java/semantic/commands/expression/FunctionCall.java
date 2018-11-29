@@ -14,7 +14,6 @@ import java.util.ArrayList;
 
 public class FunctionCall extends Exp {
 
-    //TODO Implementar verificação de tipo da função na sua chamada
     public FunctionCall(Token tk) {
         super(tk, ProgramAST.getInstance().getFunctionAst(tk.getLexValue()).getFunctionSymbol().getType());
     }
@@ -22,17 +21,21 @@ public class FunctionCall extends Exp {
     @Override
     public LLVM.LLVMValueRef codeGen(LLVM.LLVMModuleRef moduleRef, LLVM.LLVMContextRef contextRef, LLVM.LLVMBuilderRef builderRef, SymbolTable symbolTable, LLVMValueRef func) {
 
+        //array list com os argumentos da função
         ArrayList<LLVMValueRef> funcArgsArray = new ArrayList<LLVMValueRef>();
         for (Node node:
                 getChildren()) {
             funcArgsArray.add(node.getLlvmValueRef());
         }
 
+        //cria um array com os argumentos da função
         LLVMValueRef[] funcArgs = new LLVMValueRef[funcArgsArray.size()];
+        //converte o arraylist em array
         funcArgsArray.toArray(funcArgs);
 
-        //pegar nome da função
+        //nome da função
         LLVMValueRef function = LLVMGetNamedFunction(LLVMConfiguration.getInstance().getGlobalMod(), getToken().getLexValue());
+        //realiza a chamada da função
         LLVMValueRef functionResult = LLVMBuildCall(builderRef, function, new PointerPointer<LLVMValueRef>(funcArgs), funcArgs.length,
                 SemanticAnalyzer.getInstance().tempGenerator());
 

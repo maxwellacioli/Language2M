@@ -273,8 +273,7 @@ public class LexicalAnalyzer {
 		token.setCategory(analyzeCategory(tkValue));
 
 		//Atualiza o valor da cadeia de caracteres ou caracter
-		if(token.getCategory().equals(TokenCategory.CONSTCCHAR) ||
-				token.getCategory().equals(TokenCategory.CONSTCHAR)) {
+		if(token.getCategory().equals(TokenCategory.CONSTTEXT)) {
 			token.setLexValue(tkValue.substring(1, tkValue.length()-1).replace("\\n", "\n"));
 		}
 
@@ -304,10 +303,7 @@ public class LexicalAnalyzer {
 			return LexicalTable.getOperatorsMap().get(tkValue);
 
 		} else if (isCchar(tkValue)) {
-			return TokenCategory.CONSTCCHAR;
-
-		} else if (isChar(tkValue)) {
-			return TokenCategory.CONSTCHAR;
+			return TokenCategory.CONSTTEXT;
 
 		} else if (isConstInt(tkValue)) {
 			return TokenCategory.CONSTNUMINT;

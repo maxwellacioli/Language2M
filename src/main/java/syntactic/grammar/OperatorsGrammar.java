@@ -37,7 +37,7 @@ public class OperatorsGrammar {
 		operatorsGrammarSymbols.add(TokenCategory.CONSTNUMINT);// 12
 		operatorsGrammarSymbols.add(TokenCategory.CONSTNUMREAL);// 13
 		operatorsGrammarSymbols.add(TokenCategory.CONSTLOGIC);// 14
-		operatorsGrammarSymbols.add(TokenCategory.CONSTCCHAR);// 15
+		operatorsGrammarSymbols.add(TokenCategory.CONSTTEXT);// 15
 		operatorsGrammarSymbols.add(TokenCategory.ID);// 16
 		operatorsGrammarSymbols.add(TokenCategory.SEP1);// 17
 	}
@@ -165,9 +165,9 @@ public class OperatorsGrammar {
 		operatorDerivation.addSymbol(new Terminal(TokenCategory.CONSTLOGIC));
 		operatorGrammarArray.add(operatorDerivation);
 
-		// (14)EXP = CONSTCCHAR
+		// (14)EXP = CONSTTEXT
 		operatorDerivation = new Derivation();
-		operatorDerivation.addSymbol(new Terminal(TokenCategory.CONSTCCHAR));
+		operatorDerivation.addSymbol(new Terminal(TokenCategory.CONSTTEXT));
 		operatorGrammarArray.add(operatorDerivation);
 
 		// (15)EXP = ID

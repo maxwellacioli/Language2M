@@ -73,7 +73,7 @@ public class PrecedenceAnalyzer {
 			if (grammarSymbol.isTerminal()) {
 				term = ((Terminal) grammarSymbol).getCategory();
 				if (term.getCategoryValue() >= TokenCategory.CONSTNUMINT.getCategoryValue()
-						&& term.getCategoryValue() <= TokenCategory.CONSTCCHAR.getCategoryValue()
+						&& term.getCategoryValue() <= TokenCategory.CONSTTEXT.getCategoryValue()
 						|| term.equals(TokenCategory.ID)) {
 					System.out.print(term + "(" + "\"" + currentTerm.getTerminalValue() + "\"" + ")" + " ");
 				} else {
@@ -95,7 +95,7 @@ public class PrecedenceAnalyzer {
 	private void handlerError() {
 		Token token = LexicalAnalyzer.getInstance().getCurrentToken();
 
-		System.err.println("Handler inválido para redução! " + token.toString());
+		System.err.println("Erro sintático no token " + "<'" + token.getLexValue() + "'> | " + token.getLocation());
 		System.exit(1);
 	}
 
@@ -184,8 +184,8 @@ public class PrecedenceAnalyzer {
 		switch (token.getCategory()) {
 			case CONSTNUMINT:
 				return new IntegerConstant(currentTerm.getToken());
-			case CONSTCCHAR:
-				return new ChainCharConstant(currentTerm.getToken());
+			case CONSTTEXT:
+				return new TextConstant(currentTerm.getToken());
 			case CONSTNUMREAL:
 				return new RealConstant(currentTerm.getToken());
 			case CONSTLOGIC:
@@ -408,7 +408,7 @@ public class PrecedenceAnalyzer {
 						if (grammarSymbol.isTerminal()) {
 							term = ((Terminal) grammarSymbol).getCategory();
 							if (term.getValue() >= TokenCategory.CONSTNUMINT.getValue()
-									&& term.getValue() <= TokenCategory.CONSTCCHAR.getValue()
+									&& term.getValue() <= TokenCategory.CONSTTEXT.getValue()
 									|| term.equals(TokenCategory.ID)) {
 								System.out.print(term + "(" + "\"" + currentTerm.getTerminalValue() + "\"" + ")" + " ");
 							} else {

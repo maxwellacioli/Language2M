@@ -16,7 +16,6 @@ public class OpBinaryArithAdit extends OpBinary {
         super(tk, exp1, exp2);
     }
 
-    //TODO Verificação de compatibilidade de tipos é na análise semântica
     @Override
     public LLVMValueRef codeGen(LLVMModuleRef moduleRef, LLVMContextRef contextRef, LLVMBuilderRef builderRef, SymbolTable symbolTable, LLVMValueRef func) {
         checkOperandsType();

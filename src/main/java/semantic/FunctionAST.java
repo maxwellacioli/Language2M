@@ -52,16 +52,14 @@ public class FunctionAST {
 
             //Alocação das variaveis na memoria
             if(checkParamsCount(funcType)) {
-                throw new RuntimeException("A quantidade de parametros passados não é igual ao" +
+                System.err.println("A quantidade de parametros passados não é igual ao" +
                         "numero de parametros que a função aceita!");
+                System.exit(1);
             }
             allocateSymbols(builderRef);
             loadFuncParams(builderRef, func);
 
-//            Node.visitorExp(getRoot(), LLVMConfiguration.getInstance().getGlobalMod(), contextRef, builderRef, symbolTable);
             Node.VisitCmd(getRoot(),  LLVMConfiguration.getInstance().getGlobalMod(), contextRef, builderRef, symbolTable, func);
-
-            //TODO FECHAR ESCOPO DA FUNÇÃO /\ #########
         } else {
             funcType = LLVMFunctionType(LLVMInt32Type(), new PointerPointer((Pointer)null), 0, 0);
             func = LLVMAddFunction(moduleRef, name, funcType);

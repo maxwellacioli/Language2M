@@ -6,6 +6,7 @@ import org.bytedeco.javacpp.PointerPointer;
 import org.bytedeco.javacpp.SizeTPointer;
 import semantic.Symbol;
 import semantic.SymbolTable;
+import semantic.VarType;
 import semantic.commands.Node;
 import semantic.commands.Printout;
 
@@ -23,8 +24,11 @@ public class OpBinaryConc extends OpBinary {
     @Override
     public LLVMValueRef codeGen(LLVMModuleRef moduleRef, LLVMContextRef contextRef, LLVMBuilderRef builderRef, SymbolTable symbolTable, LLVMValueRef func) {
         if(!LLVMConfiguration.getStrCodeFlag()) {
-
-            checkOperandsType();
+            //Verifica se os operandos são do tipo text, caso um não seja a analise e' encerrada
+            if(checkTextType(getChildren().get(0), getChildren().get(1))) {
+                System.err.println("Tipos dos operandos do operador " + "<'" + getToken().getLexValue() + "'> são incompatíveis | " + getToken().getLocation());
+                System.exit(1);
+            }
 
             LLVMValueRef left = getChildren().get(0).getLlvmValueRef();
             LLVMValueRef right = getChildren().get(1).getLlvmValueRef();
@@ -32,11 +36,10 @@ public class OpBinaryConc extends OpBinary {
             LLVMTypeRef leftType = LLVMTypeOf(left);
             LLVMTypeRef rightType = LLVMTypeOf(right);
 
-            //pega o tamanho das strings
+            //recebe o tamanho das strings
             int leftLength = LLVMGetArrayLength(leftType);
             int rightLength = LLVMGetArrayLength(rightType);
 
-            //TODO VERIFICAR SE SÃO STRINGS
 
             List<LLVMValueRef> maskElemList = new ArrayList<LLVMValueRef>();
             LLVMValueRef appendedVectors;
@@ -77,5 +80,16 @@ public class OpBinaryConc extends OpBinary {
             return  appendedVectors;
         }
         return  null;
+    }
+
+    private boolean checkTextType(Node left, Node right) {
+        Exp leftOperand = (Exp)left;
+        Exp rightOperand = (Exp)right;
+
+        if(!leftOperand.getType().equals(VarType.TEXT) || !rightOperand.getType().equals(VarType.TEXT)) {
+            return true;
+        }
+
+        return false;
     }
 }

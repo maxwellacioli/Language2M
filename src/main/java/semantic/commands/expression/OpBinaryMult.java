@@ -27,8 +27,8 @@ public class OpBinaryMult extends OpBinary {
         LLVM.LLVMValueRef right = getChildren().get(1).getLlvmValueRef();
         LLVM.LLVMValueRef result = null;
 
-        //Verificar tipo da operação para usar UDiv ou FDiv
-
+        //verifica se o tipo do operador é um inteiro ou real,
+        //caso seja inteiro usa-se a funcao mul, caso contrario usa-se a funcao fmul
         if(getType().equals(VarType.INTEIRO)) {
             if(operator.equals("*")) {
                 result = LLVMBuildMul(builderRef, left, right, SemanticAnalyzer.getInstance().tempGenerator());

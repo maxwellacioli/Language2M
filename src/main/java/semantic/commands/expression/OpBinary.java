@@ -16,12 +16,13 @@ public class OpBinary extends Exp {
         setType(lo.getType());
     }
 
+    //Verifica se os tipos dos operandos são iguais
     public void checkOperandsType() {
         Exp leftChild = (Exp)getChildren().get(0);
         Exp rightChild = (Exp)getChildren().get(1);
 
         if(!leftChild.getType().equals(rightChild.getType())) {
-            System.err.println("Tipos dos operandos são incompatíveis!");
+            System.err.println("Tipos dos operandos do operador " + "<'" + getToken().getLexValue() + "'> são incompatíveis | " + getToken().getLocation());
             System.exit(1);
         }
     }

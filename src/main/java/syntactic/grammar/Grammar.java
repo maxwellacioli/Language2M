@@ -101,12 +101,12 @@ public class Grammar {
 		derivationAux.addSymbol(new Terminal(TokenCategory.TLOGIC));		
 		grammarAddDerivation(derivationAux);
 
-		// letra
-		derivationAux.addSymbol(new Terminal(TokenCategory.TCHAR));
+		// texto
+		derivationAux.addSymbol(new Terminal(TokenCategory.TTEXT));
 		grammarAddDerivation(derivationAux);
 
 		// texto
-		derivationAux.addSymbol(new Terminal(TokenCategory.TCCHAR));		
+		derivationAux.addSymbol(new Terminal(TokenCategory.TTEXT));
 		grammarAddDerivation(derivationAux);
 
 		// real
@@ -187,14 +187,13 @@ public class Grammar {
 				new Terminal(TokenCategory.SEP2));
 		grammarAddDerivation(derivationAux);
 
-		// faca ESCOPE enquanto ( EXP ) ;
+		// enquanto ( EXP ) ESCOPE ;
 		derivationAux.addDerivationSymbols(
-				new Terminal(TokenCategory.PRDO),
-				new NonTerminal(NonTerminalName.ESCOPE),
 				new Terminal(TokenCategory.PRWHILE),
 				new Terminal(TokenCategory.PARAMBEGIN),
 				new NonTerminal(NonTerminalName.EXP),
 				new Terminal(TokenCategory.PARAMEND),
+				new NonTerminal(NonTerminalName.ESCOPE),
 				new Terminal(TokenCategory.SEP2));
 		grammarAddDerivation(derivationAux);
 

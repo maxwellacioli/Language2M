@@ -31,7 +31,8 @@ public class ProgramAST {
         }
 
         if(exists) {
-           throw  new RuntimeException("Função com nome duplicado!");
+           System.err.println("Função com nome duplicado!");
+           System.exit(1);
         } else {
             astList.add(functionAST);
         }

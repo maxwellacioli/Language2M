@@ -55,8 +55,6 @@ public class LexicalTable {
 		lexemMap.put(")", TokenCategory.PARAMEND);
 		lexemMap.put("{", TokenCategory.ESCBEGIN);
 		lexemMap.put("}", TokenCategory.ESCEND);
-		lexemMap.put("[", TokenCategory.ARRAYBEGIN);
-		lexemMap.put("]", TokenCategory.ARRAYEND);
 		lexemMap.put("/$", TokenCategory.COMMENT);
 
 //		// Terminador
@@ -70,7 +68,7 @@ public class LexicalTable {
 
 		// Palavras-reservadas (comandos e operadores)
 
-		keyWordsMap.put("texto", TokenCategory.TCCHAR);
+		keyWordsMap.put("texto", TokenCategory.TTEXT);
 		keyWordsMap.put("real", TokenCategory.TREAL);
 		keyWordsMap.put("inteiro", TokenCategory.TINT);
 		keyWordsMap.put("logico", TokenCategory.TLOGIC);
@@ -79,13 +77,11 @@ public class LexicalTable {
 		keyWordsMap.put("senao", TokenCategory.PRELSE);
 		keyWordsMap.put("repita", TokenCategory.PRITERATOR);
 		keyWordsMap.put("enquanto", TokenCategory.PRWHILE);
-		keyWordsMap.put("faca", TokenCategory.PRDO);
 		keyWordsMap.put("verdade", TokenCategory.CONSTLOGIC);
 		keyWordsMap.put("falso", TokenCategory.CONSTLOGIC);
 		keyWordsMap.put("no", TokenCategory.OPNEGLOGIC);
 		keyWordsMap.put("e", TokenCategory.OPLOGICAND);
 		keyWordsMap.put("ou", TokenCategory.OPLOGICOR);
-		keyWordsMap.put("vazio", TokenCategory.TEMPTY);
 		keyWordsMap.put("imprima", TokenCategory.PRPRINTOUT);
 		keyWordsMap.put("leia", TokenCategory.PRREADIN);
 		keyWordsMap.put("retorne", TokenCategory.PRRETURN);
@@ -109,8 +105,6 @@ public class LexicalTable {
 		symbolList.add('~');
 		symbolList.add('(');
 		symbolList.add(')');
-		symbolList.add('[');
-		symbolList.add(']');
 		symbolList.add('{');
 		symbolList.add('}');
 		symbolList.add('\'');

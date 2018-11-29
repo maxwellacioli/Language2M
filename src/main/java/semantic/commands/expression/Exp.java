@@ -36,6 +36,7 @@ public class Exp extends Node {
         return type;
     }
 
+    //verifica se a exp é do tipo númerico: real ou inteiro
     public boolean isNumeric() {
         return (type.equals(VarType.INTEIRO) || type.equals(VarType.REAL));
     }

@@ -2,6 +2,7 @@ package semantic;
 
 import static org.bytedeco.javacpp.LLVM.*;
 
+//Classe que representa uma variável
 public class Symbol {
     private String name;
     private VarType type;

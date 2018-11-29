@@ -15,6 +15,7 @@ public class Iterator extends Node {
         addChild(child4);
     }
 
+    //iterator = atrib0 | exp | atrib1 | listCommands
     @Override
     public LLVM.LLVMValueRef codeGen(LLVM.LLVMModuleRef moduleRef, LLVM.LLVMContextRef contextRef, LLVM.LLVMBuilderRef builderRef, SymbolTable symbolTable, LLVM.LLVMValueRef func) {
         LLVMValueRef cond;
@@ -33,8 +34,11 @@ public class Iterator extends Node {
         LLVMBuildCondBr(builderRef, cond, condTrue, condFalse);
 
         LLVMPositionBuilderAtEnd(builderRef, condTrue);
+        //Executa o codeGen da lista de comandos
         Node.VisitCmd(getChildren().get(3),  moduleRef, contextRef, builderRef, symbolTable, func);
+        //Executa o codeGen da atrib1
         Node.VisitCmd(getChildren().get(2),  moduleRef, contextRef, builderRef, symbolTable, func);
+        //desvia o fluxo para o inicio do loop
         LLVMBuildBr(builderRef, iteratorLoop);
 
         LLVMPositionBuilderAtEnd(builderRef, condFalse);

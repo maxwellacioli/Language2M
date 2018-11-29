@@ -26,19 +26,23 @@ public class Id extends Exp {
     public LLVMValueRef codeGen(LLVMModuleRef moduleRef, LLVMContextRef contextRef, LLVMBuilderRef builderRef, SymbolTable symbolTable, LLVMValueRef func) {
         Symbol symbol = symbolTable.getLocalSymbolTable().get(getName());
 
+        //verifica se a variavél existe na tabela de simbolos local
         if(symbol == null) {
-            System.err.println("Varíavel não declarada!");
+            System.err.println("Varíavel " + "<" + getName() + ">" + " não declarada!");
             System.exit(1);
         }
 
         LLVMValueRef valueRef = symbol.getLlvmValueRef();
         LLVMValueRef value = null;
 
-        if(! getType().equals(VarType.TEXT)) {
+        //verifica se o tipo é texto, caso seja, não precisa carregar o array da memória, pois já temos
+        //o array e não um ponteiro para o mesmo
+        if(!getType().equals(VarType.TEXT)) {
            value = LLVMBuildLoad(builderRef, valueRef, getName());
         }
 
-        //TODO VERIFICAR TIPO
+        //verifica se a flag de impressao está ativa, caso esteja, é adicionado na string base do comando printf, o
+        //respectivo código da variável que será impressa na tela
         if(LLVMConfiguration.getStrCodeFlag() &&
                 (this.getParent() instanceof Printout || this.getParent() instanceof OpBinaryConc)) {
             if(getType().equals(VarType.INTEIRO)) {
@@ -48,6 +52,8 @@ public class Id extends Exp {
                 LLVMConfiguration.getInstance().addPrintArg(value);
                 LLVMConfiguration.getInstance().addStrCode("%.2lf");
             }
+            //caso o tipo seja texto, é alocado espaço na memória para o respcetivo array, e passado seu ponteiro
+            //como parametro nos argumentos do printf
             else if(getType().equals(VarType.TEXT)) {
                 LLVMTypeRef stringType = LLVMTypeOf(valueRef);
                 int stringLength = LLVMGetArrayLength(stringType);
@@ -68,6 +74,8 @@ public class Id extends Exp {
             }
         }
 
+        //caso o tipo seja texto é retornado o próprimo array, caso não, é retornado o ponteiro para o id, que é feito pelo
+        //próximo comando
         if(getType().equals(VarType.TEXT)) {
             return valueRef;
         }

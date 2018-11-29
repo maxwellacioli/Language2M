@@ -21,7 +21,8 @@ public class ReadIn extends Node {
         Symbol symbol = symbolTable.getLocalSymbolTable().get(getChildren().get(0).getName());
 
         if(symbol == null) {
-            throw new RuntimeException("Variavel nao declarada!");
+            System.err.println("Variável " + "<'" + getChildren().get(0).getName()  + "'> não declarada.");
+            System.exit(1);;
         }
 
         LLVMValueRef str = null;

@@ -7,9 +7,9 @@ import semantic.VarType;
 import org.bytedeco.javacpp.*;
 import static org.bytedeco.javacpp.LLVM.*;
 
-public class ChainCharConstant extends Exp {
+public class TextConstant extends Exp {
 
-    public ChainCharConstant(Token token) {
+    public TextConstant(Token token) {
         super(token, VarType.TEXT);
     }
 

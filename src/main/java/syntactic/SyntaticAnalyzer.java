@@ -50,6 +50,6 @@ public class SyntaticAnalyzer {
 	}
 
 	public static void printError(Token token) {
-		System.err.println("Erro sintático, " + token.toString() + "!");
+		System.err.println("Erro sintático no token " + "<'" + token.getLexValue() + "'> | " + token.getLocation());
 	}
 }

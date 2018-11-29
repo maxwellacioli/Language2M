@@ -3,6 +3,7 @@ package semantic;
 import java.util.ArrayList;
 import java.util.List;
 
+//Classe que contém os tipos e nomes dos argumentos das funções declaradas
 public class FunctionSymbol extends Symbol {
     private List<VarType> paramsType;
     private List<Param> paramsList;

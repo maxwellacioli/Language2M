@@ -21,9 +21,9 @@ public class LiteralTable {
         return literalTableInstance;
     }
 
-    public Map<String, LLVMValueRef> getLiteralTable() {
-        return literalTable;
-    }
+//    public Map<String, LLVMValueRef> getLiteralTable() {
+//        return literalTable;
+//    }
 
     public void insertLiteral(String name, LLVMValueRef llvmValueRef) {
         LLVMValueRef value = literalTable.get(name);

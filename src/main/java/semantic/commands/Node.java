@@ -148,9 +148,6 @@ public abstract class Node {
     //Busca em profundidade (pós-ordem)
     public static LLVMValueRef visitorExp(Node node, LLVMModuleRef moduleRef, LLVMContextRef contextRef,
                                           LLVMBuilderRef builderRef, SymbolTable symbolTable, LLVMValueRef func) {
-// TODO Implemntar condição para fazer a chamada quando temos ListCmds
-// TODO pois não pode ser executada a geração de código para este tipo de nó
-
         if(node.children.size() == 0) {
             return node.codeGen(moduleRef, contextRef, builderRef, symbolTable, func);
         }

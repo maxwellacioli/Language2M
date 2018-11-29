@@ -32,7 +32,8 @@ public class Attribution extends Node {
 
         Exp value = (Exp)getChildren().get(1);
         if((target.getType() != value.getType()) && !(value instanceof FunctionCall)) {
-            throw  new RuntimeException("Tipos Incompatíveis");
+            System.err.println("Atribuição com tipos incompatíveis");
+            System.exit(1);
         }
 
         if(target.getType().equals(VarType.TEXT)) {
