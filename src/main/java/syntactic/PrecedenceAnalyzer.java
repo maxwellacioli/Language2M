@@ -3,6 +3,8 @@ package syntactic;
 import java.util.ArrayList;
 import java.util.Stack;
 
+import semantic.FunctionAST;
+import semantic.ProgramAST;
 import semantic.SymbolTable;
 import semantic.commands.Node;
 import semantic.commands.expression.*;
@@ -194,9 +196,14 @@ public class PrecedenceAnalyzer {
 		return null;
 	}
 
-
-
 	private void createFunctionCallNode(Terminal functionName) {
+		//verifica se função já foi declarada antes de criar o nó
+		FunctionAST fast = ProgramAST.getInstance().getFunctionAst(functionName.getTerminalValue());
+
+		if(fast == null) {
+			System.err.println("Função " + "<'" + functionName.getTerminalValue() + "'>" + " não declarada. | " + functionName.getToken() );
+			System.exit(1);
+		}
 		expStack.push(new FunctionCall(functionName.getToken()));
 	}
 

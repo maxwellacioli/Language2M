@@ -19,7 +19,7 @@ principal () inteiro {
     x = 20;
     y = 10;
 
-    z = soma(x, y);
+    z = soma(x, 5.0);
 
     imprima("A soma de x e y é: " ++ z ++ "\n");
 

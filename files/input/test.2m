@@ -7,7 +7,6 @@ principal () inteiro {
 
     a = 4 + 4;
 
-    a = 5;
     b = 2.0 + 2.5;
 
     se ( b < 10.0 ) {
