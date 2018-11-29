@@ -416,10 +416,6 @@ public class PredictiveAnalyzer {
 					} else {
 						derivation = null;
 
-						if(topNonTerminal.getName().equals(NonTerminalName.LISTNAME)) {
-							System.out.println();
-						}
-
 						derivationNumber = predictiveTable
 								.getDerivationNumber(
 										topNonTerminal.getName(),
@@ -476,8 +472,9 @@ public class PredictiveAnalyzer {
 							}
 
 							if (derivation != null) {
-								System.out.print(topNonTerminal.getName() + "("
-										+ leftCount + ")" + " = ");
+								//IMPRIMIR ARVORE DE DERIVAÇÃO
+//								System.out.print(topNonTerminal.getName() + "("
+//										+ leftCount + ")" + " = ");
 								stack.pop();
 
 								//A partir daqui eh feito o empilhamento na pilha preditiva
@@ -501,32 +498,36 @@ public class PredictiveAnalyzer {
 									symb = derivation.getSymbolsList().get(i);
 									if (symb.isTerminal()) {
 										term = (Terminal) symb;
-										System.out.print("'"
-												+ term.getCategory().toString()
-												.toLowerCase() + "'"
-												+ " ");
+										//IMPRIMIR ARVORE DE DERIVAÇÃO
+//										System.out.print("'"
+//												+ term.getCategory().toString()
+//												.toLowerCase() + "'"
+//												+ " ");
 									} else {
 										nonTerm = (NonTerminal) symb;
 										if (!nonTerm.getName().equals(
 												NonTerminalName.EXP)) {
-											System.out.print(nonTerm.getName()
-													+ "(" + ++rightCount + ")"
-													+ " ");
+											int rc = ++rightCount;
+											//IMPRIMIR ARVORE DE DERIVAÇÃO
+//											System.out.print(nonTerm.getName()
+//													+ "(" + rc + ")"
+//													+ " ");
 										} else {
-
-											System.out.print(nonTerm.getName()
-													+ " ");
+											//IMPRIMIR ARVORE DE DERIVAÇÃO
+//											System.out.print(nonTerm.getName()
+//													+ " ");
 										}
 									}
 								}
 
 							} else {
-								System.out.println(topNonTerminal.getName()
-										+ "(" + leftCount + ")" + " = epsilon");
+								//IMPRIMIR ARVORE DE DERIVAÇÃO
+//								System.out.println(topNonTerminal.getName()
+//										+ "(" + leftCount + ")" + " = epsilon");
 								stack.pop();
 							}
-
-							System.out.println();
+							//IMPRIMIR ARVORE DE DERIVAÇÃO
+//							System.out.println();
 							if (rightCount > rightCountAux) {
 								int aux = rightCount;
 								while (aux > rightCountAux) {
@@ -545,7 +546,7 @@ public class PredictiveAnalyzer {
 			//Adiciona a functionAst da funcao "principal"
 			this.functionAst.setSymbolTable(this.localSymbolTable);
 			//Test to debug
-			System.out.println();
+//			System.out.println();
 		}
 	}
 }

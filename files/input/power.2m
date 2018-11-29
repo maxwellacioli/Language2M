@@ -1,12 +1,14 @@
 principal () inteiro {
     inteiro a, b, temp, cont;
-    a = 5;
-    b = 3;
+
+    leia(a);
+    leia(b);
+
     temp = a;
 
     repita( cont = 1 ; cont < b ; cont = cont + 1 ) {
         temp = temp * a;
     };
 
-    imprima("5^3 é: " ++ temp);
+    imprima(a ++ "^" ++ b ++ " = " ++ temp);
 }

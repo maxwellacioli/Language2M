@@ -1,18 +1,15 @@
 principal () inteiro {
-    inteiro a;
-    real b;
-    texto c, d;
+    inteiro a, b;
 
-    c = "casa" ++ "oi";
+    a = 10;
+    b = 5;
 
-    a = 4 + 4;
-
-    b = 2.0 + 2.5;
-
-    se ( b < 10.0 ) {
-        imprima("maior");
+    se(a == b) {
+        a = 5;
     } senao {
-        imprima(b);
+        b = 10;
     };
 
+    imprima(a ++ "\n");
+    imprima(b);
 }

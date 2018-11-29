@@ -40,8 +40,7 @@ public class SyntaticAnalyzer {
 			token = lexicalAnalyzer.nextToken();
 			System.out.println(token.toString());
 		}
-		System.out.println();
-		System.out.println();
+		System.out.println("<<<<<<<<<>>>>>>>>>");
 		lexicalAnalyzer.readFile();
 	}
 

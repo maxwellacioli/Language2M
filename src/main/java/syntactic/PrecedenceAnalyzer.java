@@ -158,7 +158,6 @@ public class PrecedenceAnalyzer {
 				}
 				break;
 			case OPARITMULT:
-				System.out.println();
 				if(functionCallFlag) {
 					expStack.peek().addChild(new OpBinaryMult(op.getToken(), left, right));
 				} else {
@@ -221,7 +220,6 @@ public class PrecedenceAnalyzer {
 		while (true) {
 			// Se pv e eof no cabecote => Aceita!
 			if ((operatorsStack.size() == 1) && !operatorsStack.peek().isTerminal() && (endOfSentence != null)) {
-				System.out.println();
 				return expStack.peek();
 			} else {
 				if (((operatorsStack.size() == 1) && !operatorsStack.peek().isTerminal()) || (endOfSentence != null)
@@ -409,7 +407,9 @@ public class PrecedenceAnalyzer {
 					TokenCategory term;
 					NonTerminal nonTerm;
 
-					System.out.print(NonTerminalName.EXP + "(" + count++ + ")" + " = ");
+					int countAux = count++;
+					//IMPRIMIR ARVORE DE DERIVAÇÃO
+//					System.out.print(NonTerminalName.EXP + "(" + countAux + ")" + " = ");
 
 					for (GrammarSymbol grammarSymbol : derivation) {
 						if (grammarSymbol.isTerminal()) {
@@ -417,17 +417,20 @@ public class PrecedenceAnalyzer {
 							if (term.getValue() >= TokenCategory.CONSTNUMINT.getValue()
 									&& term.getValue() <= TokenCategory.CONSTTEXT.getValue()
 									|| term.equals(TokenCategory.ID)) {
-								System.out.print(term + "(" + "\"" + currentTerm.getTerminalValue() + "\"" + ")" + " ");
+								//IMPRIMIR ARVORE DE DERIVAÇÃO
+//								System.out.print(term + "(" + "\"" + currentTerm.getTerminalValue() + "\"" + ")" + " ");
 							} else {
-
-								System.out.print(term + " ");
+								//IMPRIMIR ARVORE DE DERIVAÇÃO
+//								System.out.print(term + " ");
 							}
 						} else {
 							nonTerm = (NonTerminal) grammarSymbol;
-							System.out.print(nonTerm.getName() + " ");
+							//IMPRIMIR ARVORE DE DERIVAÇÃO
+//							System.out.print(nonTerm.getName() + " ");
 						}
 					}
-					System.out.println();
+					//IMPRIMIR ARVORE DE DERIVAÇÃO
+//					System.out.println();
 
 				} else { // Acao ERRO
 					SyntaticAnalyzer.printError(token);

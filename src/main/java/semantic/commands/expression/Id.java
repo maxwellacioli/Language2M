@@ -28,7 +28,7 @@ public class Id extends Exp {
 
         //verifica se a variavél existe na tabela de simbolos local
         if(symbol == null) {
-            System.err.println("Varíavel " + "<" + getName() + ">" + " não declarada!");
+            System.err.println("Variável " + "<'" + getName() + "'>" + " não declarada.");
             System.exit(1);
         }
 
