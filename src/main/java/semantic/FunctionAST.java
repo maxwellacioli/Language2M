@@ -151,14 +151,11 @@ public class FunctionAST {
                     break;
                 case TEXT:
                     String init = "";
-                    LLVMValueRef stringInitPtr = LLVMConstString(init, init.length() + 1, 1);
-                    symbol.setLlvmValueRef(stringInitPtr);
+                    value= LLVMConstString(init, init.length() + 1, 1);
                     break;
 
             }
-            if(symbolType != VarType.TEXT) {
-                symbol.setLlvmValueRef(value);
-            }
+            symbol.setLlvmValueRef(value);
         }
     }
 }
