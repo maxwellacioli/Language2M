@@ -1,19 +1,25 @@
 principal() inteiro {
-    inteiro a, b, menor;
+    inteiro a, b, menor, flag;
 
     leia(a);
     leia(b);
 
     se(a < b) {
         menor = a;
+        flag = 1;
     };
     se(b < a) {
         menor = b;
+        flag = 1;
     };
 
     se(menor ~= 0) {
         imprima("O menor número é: " ++ menor);
     } senao {
-        imprima("Números iguais.");
+        se(flag == 0) {
+            imprima("Números iguais.");
+        } senao {
+            imprima("O menor número é: " ++ menor);
+        };
     };
 }
