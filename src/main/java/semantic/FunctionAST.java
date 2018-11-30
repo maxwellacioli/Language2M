@@ -152,12 +152,13 @@ public class FunctionAST {
                 case TEXT:
                     String init = "";
                     LLVMValueRef stringInitPtr = LLVMConstString(init, init.length() + 1, 1);
-                    value = LLVMBuildAlloca(builder, LLVMArrayType(LLVMInt8Type(), init.length() + 1), symbolName);
-                    LLVMBuildStore(builder, stringInitPtr, value);
+                    symbol.setLlvmValueRef(stringInitPtr);
                     break;
 
             }
-            symbol.setLlvmValueRef(value);
+            if(symbolType != VarType.TEXT) {
+                symbol.setLlvmValueRef(value);
+            }
         }
     }
 }
