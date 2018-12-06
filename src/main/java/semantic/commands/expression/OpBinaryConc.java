@@ -20,11 +20,11 @@ public class OpBinaryConc extends OpBinary {
     public OpBinaryConc(Token tk, Node exp1, Node exp2) {
         super(tk, exp1, exp2);
     }
-
+ 
     @Override
     public LLVMValueRef codeGen(LLVMModuleRef moduleRef, LLVMContextRef contextRef, LLVMBuilderRef builderRef, SymbolTable symbolTable, LLVMValueRef func) {
         if(!LLVMConfiguration.getStrCodeFlag()) {
-            //Verifica se os operandos são do tipo text, caso um não seja a analise e' encerrada
+            //Verifica se os operandos são do tipo text, caso um não seja, a analise é encerrada
             if(checkTextType(getChildren().get(0), getChildren().get(1))) {
                 System.err.println("Tipos dos operandos do operador " + "<'" + getToken().getLexValue() + "'> são incompatíveis | " + getToken().getLocation());
                 System.exit(1);
@@ -77,6 +77,7 @@ public class OpBinaryConc extends OpBinary {
 
                 appendedVectors = LLVMBuildShuffleVector(builderRef, right, left, mask, "appendedVectors");
             }
+            System.out.println(">>>>>>>>> "+ LLVMPrintValueToString(appendedVectors).getString());
             return  appendedVectors;
         }
         return  null;

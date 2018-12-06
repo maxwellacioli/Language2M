@@ -13,6 +13,8 @@ fib (inteiro x) inteiro {
 principal () inteiro {
     inteiro x, y;
 
+	imprima("Digite o numero: \n");
+
     leia(x);
 
     y = fib(x);

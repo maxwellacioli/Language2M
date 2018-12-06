@@ -23,7 +23,7 @@ public class PredictiveAnalyzer {
 	private LexicalAnalyzer lexicalAnalyzer;
 	private PrecedenceAnalyzer precedenceAnalyzer;
 
-	//Tabela de Simbolos
+	//Tabela de Simbolos 
 	private SymbolTable globalTable;
 	private FunctionSymbol functionSymbol;
 	private SymbolTable localSymbolTable;

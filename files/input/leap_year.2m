@@ -16,11 +16,9 @@ principal () inteiro {
     inteiro ano;
     inteiro t1, t2, t3;
 
+	/$imprima("Insira o ano: \n");
+	
     leia(ano);
-
-    /$t1 = modulo(ano, 400);
-    /$2 = modulo(ano, 4);
-    /$t3 = modulo(ano, 100);
 
     se((ano % 400 == 0) ou ((ano % 4 == 0) e (ano % 100 ~= 0))) {
         imprima("É bissexto");

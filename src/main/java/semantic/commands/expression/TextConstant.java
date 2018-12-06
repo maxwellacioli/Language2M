@@ -12,7 +12,7 @@ public class TextConstant extends Exp {
     public TextConstant(Token token) {
         super(token, VarType.TEXT);
     }
-
+ 
     @Override
     public LLVM.LLVMValueRef codeGen(LLVM.LLVMModuleRef moduleRef, LLVM.LLVMContextRef contextRef, LLVM.LLVMBuilderRef builderRef, SymbolTable symbolTable, LLVMValueRef func) {
         String strValue = getToken().getLexValue();

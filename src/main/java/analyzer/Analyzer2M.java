@@ -6,27 +6,25 @@ import semantic.ProgramAST;
 import semantic.commands.Node;
 import syntactic.SyntaticAnalyzer;
 import org.bytedeco.javacpp.*;
+import org.bytedeco.javacpp.clang.IndexerCallbacks.StartedTranslationUnit_CXClientData_Pointer;
+
+import gui.MainGUI;
+
 import static org.bytedeco.javacpp.LLVM.*;
+
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 
 public class Analyzer2M {
-	private static SyntaticAnalyzer syntaticAnalyzer;
 
-	private static String filePath = "files/input/test.2m";
 
 	public Analyzer2M() { }
-
-	public static void main(String[] args) {
-
-		//Seta o path do arquivo de entrada
-		LexicalAnalyzer.getInstance().setFilePath(filePath);
-		//Lê o arquivo de entrada
-		LexicalAnalyzer.getInstance().readFile();
-
-		//Inicializa o LLVM
+	
+	public void start() {
 		LLVMConfiguration.getInstance().initLLVM();
 
-		syntaticAnalyzer = new SyntaticAnalyzer();
+		SyntaticAnalyzer syntaticAnalyzer = new SyntaticAnalyzer();
 		syntaticAnalyzer.analyze();
 
 		System.out.println("##################################");
@@ -44,7 +42,7 @@ public class Analyzer2M {
 			LLVMContextDispose(context);
 		}
 
-		//Inicia a pilha de execução do LLVM
+		//Inicia a pilha de execucao do LLVM
 		LLVMConfiguration.getInstance().runLLVM();
 	}
 }

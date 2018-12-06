@@ -36,3 +36,4 @@ public class LogicConstant extends  Exp {
         return value;
     }
 }
+ 

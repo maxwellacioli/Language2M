@@ -1,6 +1,10 @@
 package analyzer;
 
 import org.bytedeco.javacpp.*;
+import org.bytedeco.javacpp.LLVM.LLVMBasicBlockRef;
+import org.bytedeco.javacpp.LLVM.LLVMTypeRef;
+import org.bytedeco.javacpp.LLVM.LLVMValueRef;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +17,7 @@ public class LLVMConfiguration {
     private static LLVMModuleRef globalMod;
     private static LLVMBuilderRef globalBuilder;
 
-    //Configurações do printf
+    //Configuracoes do printf
     private static String printStringCode = "";
     private static boolean strCodeFlag = false;
     private static List<LLVMValueRef> printArgs;
@@ -36,7 +40,7 @@ public class LLVMConfiguration {
         printArgs.add(arg);
     }
 
-    //Adiciona o código da string que será impressa
+    //Adiciona o codigo da string que sera impressa
     public static void insertStringCode(LLVMBuilderRef builder) {
         LLVMValueRef strCode = LLVMBuildGlobalString(builder, printStringCode, "strigPrintCode");
         printArgs.add(0, strCode);
@@ -131,6 +135,8 @@ public class LLVMConfiguration {
         //Adiciona a função scanf no módulo principal
         insertScanfFunction();
 //        insertFflushFunction();
+        //Adiciona a função strlen no módulo principal
+        insertStrlenFunction();
     }
 
     private static void insertPrintfFunction() {
@@ -146,8 +152,74 @@ public class LLVMConfiguration {
     }
 
 //    private static void insertFflushFunction() {
-//        LLVMTypeRef[] fflushParam = { LLVMPointerType(LLVMStructType(LLVMInt8Type(), 0, 0), 0) };
+//        LLVMTypeRef[] fflushParam = { LLVMPointerType(LLVMInt8Type(), 0) };
 //        LLVMTypeRef llvmFflushfType = LLVMFunctionType(LLVMInt32Type(), new PointerPointer(fflushParam), 1, 0);
 //        LLVMAddFunction(globalMod, "fflush", llvmFflushfType);
 //    }
+    
+    private static void insertStrlenFunction() {
+    	
+    	
+    	LLVMTypeRef strlenParamType[] = { LLVMPointerType(LLVMInt8Type(), 0) };
+		LLVMTypeRef strlenType = LLVMFunctionType(LLVMInt32Type(), new PointerPointer(strlenParamType), 1, 0);
+		LLVMValueRef strlenFunction = LLVMAddFunction(globalMod, "strlenFunction", strlenType);
+		LLVMValueRef s = LLVMGetParam(strlenFunction, 0);
+		
+		LLVMBasicBlockRef InitBasicBlock = LLVMAppendBasicBlock(strlenFunction, "init");
+	    LLVMBasicBlockRef CheckBasicBlock = LLVMAppendBasicBlock(strlenFunction, "check");
+	    LLVMBasicBlockRef BodyBasicBlock = LLVMAppendBasicBlock(strlenFunction, "body");
+	    LLVMBasicBlockRef EndBasicBlock = LLVMAppendBasicBlock(strlenFunction, "end");
+		
+	    LLVMValueRef Zero8 = LLVMConstInt(LLVMInt8Type(), 0, 0);
+	    LLVMValueRef Zero32 = LLVMConstInt(LLVMInt32Type(), 0, 0);
+	    LLVMValueRef One32 = LLVMConstInt(LLVMInt32Type(), 1, 0);
+
+	    LLVMPositionBuilderAtEnd(globalBuilder, InitBasicBlock);
+		
+	    LLVMValueRef i = LLVMBuildAlloca(globalBuilder, LLVMInt32Type(), "i");
+	    LLVMBuildStore(globalBuilder, Zero32, i);
+	    
+	    LLVMBuildBr(globalBuilder, CheckBasicBlock);
+	    
+	    LLVMPositionBuilderAtEnd(globalBuilder, CheckBasicBlock);
+	    
+	    LLVMValueRef id_if[] = { LLVMBuildLoad(globalBuilder, i, "") };
+	    LLVMValueRef If = LLVMBuildICmp(
+	    		globalBuilder,
+	        LLVMIntNE,
+	        Zero8,
+	        LLVMBuildLoad(
+	        		globalBuilder,
+	            LLVMBuildGEP(globalBuilder, s, new PointerPointer(id_if), 1, ""),
+	            ""
+	        ),
+	        ""
+	    );
+	    
+	    LLVMBuildCondBr(globalBuilder, If, BodyBasicBlock, EndBasicBlock);
+	    
+	    LLVMPositionBuilderAtEnd(globalBuilder, BodyBasicBlock);
+	    
+	    LLVMValueRef id_i[] = { Zero32 };
+	    LLVMBuildStore(
+	    		globalBuilder,
+	        LLVMBuildAdd(
+	        		globalBuilder,
+	            LLVMBuildLoad(
+	            		globalBuilder,
+	                i,
+	                ""
+	            ),
+	            One32,
+	            ""
+	        ),
+	        i
+	    );
+	    
+	    LLVMBuildBr(globalBuilder, CheckBasicBlock);
+	    
+	    LLVMPositionBuilderAtEnd(globalBuilder, EndBasicBlock);
+		
+	    LLVMBuildRet(globalBuilder, LLVMBuildLoad(globalBuilder, i, ""));
+    }
 }

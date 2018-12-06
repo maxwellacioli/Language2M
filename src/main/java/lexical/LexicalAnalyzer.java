@@ -41,23 +41,8 @@ public class LexicalAnalyzer {
 		return  lexicalAnalyzer;
 	}
 
-	public void readFile() {
-
-		BufferedReader br;
-
-		try {
-			br = new BufferedReader(new FileReader(filePath));
-
-			String brLine = br.readLine();
-
-			while (brLine != null) {
-				linesList.add(brLine);
-				brLine = br.readLine();
-			}
-			br.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public void readFile(List<String> linesList) {
+		this.linesList = linesList;
 	}
 
 	public boolean hasMoreTokens() {

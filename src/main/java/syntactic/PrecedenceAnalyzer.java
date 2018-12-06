@@ -30,7 +30,7 @@ public class PrecedenceAnalyzer {
 
 	//TODO FunctionAST
 	private Stack<Exp> expStack;
-
+ 
 	private Terminal stackTerm;
 	private Terminal tapeTerm;
 

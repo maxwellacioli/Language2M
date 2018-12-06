@@ -1,4 +1,4 @@
-package syntactic;
+package syntactic; 
 
 import semantic.SymbolTable;
 import syntactic.grammar.Grammar;
@@ -32,17 +32,17 @@ public class SyntaticAnalyzer {
 	}
 
 	// TEST
-	private void printTokens() {
-		LexicalAnalyzer lexicalAnalyzer = LexicalAnalyzer.getInstance();
-
-		Token token;
-		while (lexicalAnalyzer.hasMoreTokens()) {
-			token = lexicalAnalyzer.nextToken();
-			System.out.println(token.toString());
-		}
-		System.out.println("<<<<<<<<<>>>>>>>>>");
-		lexicalAnalyzer.readFile();
-	}
+//	private void printTokens() {
+//		LexicalAnalyzer lexicalAnalyzer = LexicalAnalyzer.getInstance();
+//
+//		Token token;
+//		while (lexicalAnalyzer.hasMoreTokens()) {
+//			token = lexicalAnalyzer.nextToken();
+//			System.out.println(token.toString());
+//		}
+//		System.out.println("<<<<<<<<<>>>>>>>>>");
+//		lexicalAnalyzer.readFile();
+//	}
 
 	public void analyze() {
 		predictiveAnalyzer.predictiveAnalyze();

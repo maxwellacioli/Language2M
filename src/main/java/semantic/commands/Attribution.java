@@ -1,4 +1,4 @@
-package semantic.commands;
+package semantic.commands;   
 
 import analyzer.LLVMConfiguration;
 import org.bytedeco.javacpp.*;

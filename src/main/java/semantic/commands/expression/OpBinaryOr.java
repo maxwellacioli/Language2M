@@ -15,7 +15,7 @@ public class OpBinaryOr extends OpBinary {
     public OpBinaryOr(Token tk, Node exp1, Node exp2) {
         super(tk, exp1, exp2);
     }
-
+ 
     @Override
     public LLVM.LLVMValueRef codeGen(LLVM.LLVMModuleRef moduleRef, LLVM.LLVMContextRef contextRef, LLVM.LLVMBuilderRef builderRef, SymbolTable symbolTable, LLVM.LLVMValueRef func) {
         checkOperandsType();

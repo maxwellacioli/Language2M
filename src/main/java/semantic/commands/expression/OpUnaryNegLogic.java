@@ -16,7 +16,7 @@ public class OpUnaryNegLogic extends OpUnary{
     public OpUnaryNegLogic(Token token, Node exp) {
         super(token, exp);
     }
-
+ 
     @Override
     public LLVMValueRef codeGen(LLVMModuleRef moduleRef, LLVMContextRef contextRef, LLVMBuilderRef builderRef, SymbolTable symbolTable, LLVMValueRef func) {
         LLVMValueRef child = getChildren().get(0).getLlvmValueRef();

@@ -50,7 +50,7 @@ public class FunctionAST {
             LLVMBasicBlockRef entry = LLVMAppendBasicBlock(func, "entry");
             LLVMPositionBuilderAtEnd(builderRef, entry);
 
-            //Alocação das variaveis na memoria
+            //Aloca��o das variaveis na memoria
             if(checkParamsCount(funcType)) {
                 System.err.println("A quantidade de parametros passados não é igual ao" +
                         "numero de parametros que a função aceita!");
@@ -66,7 +66,7 @@ public class FunctionAST {
             LLVMBasicBlockRef entry = LLVMAppendBasicBlock(func, "entry");
             LLVMPositionBuilderAtEnd(builderRef, entry);
 
-            //Alocação das variaveis na memoria
+            //Aloca��o das variaveis na memoria
             allocateSymbols(builderRef);
 
             Node.VisitCmd(getRoot(), LLVMConfiguration.getInstance().getGlobalMod(), contextRef, builderRef, symbolTable, func);
