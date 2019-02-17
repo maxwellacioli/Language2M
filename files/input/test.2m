@@ -1,9 +1,6 @@
 principal () inteiro {
-    texto a, b, c;
 
-    b = "casa";
+    inteiro a;
 
-    c = a ++ b;
-
-    imprima(c);
+    imprima(a);
 }

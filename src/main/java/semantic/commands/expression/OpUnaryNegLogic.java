@@ -19,6 +19,7 @@ public class OpUnaryNegLogic extends OpUnary{
  
     @Override
     public LLVMValueRef codeGen(LLVMModuleRef moduleRef, LLVMContextRef contextRef, LLVMBuilderRef builderRef, SymbolTable symbolTable, LLVMValueRef func) {
+
         LLVMValueRef child = getChildren().get(0).getLlvmValueRef();
         LLVMValueRef result = LLVMBuildICmp(builderRef, LLVMIntEQ, child, LLVMConstInt(LLVMInt1Type(), 0, 0),
                 SemanticAnalyzer.getInstance().tempGenerator());

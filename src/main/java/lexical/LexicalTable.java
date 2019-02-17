@@ -55,7 +55,7 @@ public class LexicalTable {
 		lexemMap.put(")", TokenCategory.PARAMEND);
 		lexemMap.put("{", TokenCategory.ESCBEGIN);
 		lexemMap.put("}", TokenCategory.ESCEND);
-		lexemMap.put("/$", TokenCategory.COMMENT);
+		lexemMap.put("//", TokenCategory.COMMENT);
 
 //		// Terminador
 //
@@ -77,9 +77,9 @@ public class LexicalTable {
 		keyWordsMap.put("senao", TokenCategory.PRELSE);
 		keyWordsMap.put("repita", TokenCategory.PRITERATOR);
 		keyWordsMap.put("enquanto", TokenCategory.PRWHILE);
-		keyWordsMap.put("verdade", TokenCategory.CONSTLOGIC);
+		keyWordsMap.put("verdadeiro", TokenCategory.CONSTLOGIC);
 		keyWordsMap.put("falso", TokenCategory.CONSTLOGIC);
-		keyWordsMap.put("no", TokenCategory.OPNEGLOGIC);
+		keyWordsMap.put("nao", TokenCategory.OPNEGLOGIC);
 		keyWordsMap.put("e", TokenCategory.OPLOGICAND);
 		keyWordsMap.put("ou", TokenCategory.OPLOGICOR);
 		keyWordsMap.put("imprima", TokenCategory.PRPRINTOUT);

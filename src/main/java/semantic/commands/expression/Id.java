@@ -72,6 +72,11 @@ public class Id extends Exp {
                 LLVMConfiguration.getInstance().addPrintArg(strValue);
                 LLVMConfiguration.getInstance().addStrCode("%s");
             }
+            else if(getType().equals(VarType.LOGICO)) {
+                LLVMValueRef str = LLVMBuildGlobalString(builderRef, getToken().getLexValue(), getToken().getLexValue());
+                LLVMConfiguration.getInstance().addPrintArg(value);
+                LLVMConfiguration.getInstance().addStrCode("%d");
+            }
         }
 
         //caso o tipo seja texto é retornado o próprimo array, caso não, é retornado o ponteiro para o id, que é feito pelo

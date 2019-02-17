@@ -182,20 +182,10 @@ public class LexicalAnalyzer {
 				tkValue += currentChar;
 				currentChar = nextChar();
 
-				if (currentChar == '$') {
+				if (currentChar == '/') {
 					tkValue += currentChar;
 					currentLine++;
 					currentColumn = 0;
-				}
-				break;
-
-			// TODO AJEITAR -> Verificar se tem abre comentario antes;
-			case '$':
-				tkValue += currentChar;
-				currentChar = nextChar();
-				if (currentChar == '/') {
-					tkValue += currentChar;
-					currentChar = nextChar();
 				}
 				break;
 

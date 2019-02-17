@@ -1,5 +1,6 @@
 package semantic.commands.expression;
 
+import analyzer.LLVMConfiguration;
 import lexical.Token;
 import org.bytedeco.javacpp.LLVM;
 import semantic.LiteralTable;
@@ -7,11 +8,13 @@ import semantic.SymbolTable;
 import semantic.VarType;
 
 import org.bytedeco.javacpp.*;
+import semantic.commands.Printout;
+
 import static org.bytedeco.javacpp.LLVM.*;
 
 public class LogicConstant extends  Exp {
 
-    private final String TRUE = "verdade";
+    private final String TRUE = "verdadeiro";
     private final String FALSE = "falso";
 
     private final int TRUE_VALUE = 1;
@@ -31,6 +34,12 @@ public class LogicConstant extends  Exp {
         } else if(getToken().getLexValue().equals(FALSE)) {
             value = LLVMConstInt(LLVMInt1Type(), FALSE_VALUE, 1);
             LiteralTable.getInstance().insertLiteral(getToken().getLexValue(), value);
+        }
+
+        if(LLVMConfiguration.getStrCodeFlag()){
+            LLVMValueRef str = LLVMBuildGlobalString(builderRef, getToken().getLexValue(), getToken().getLexValue());
+            LLVMConfiguration.getInstance().addPrintArg(str);
+            LLVMConfiguration.getInstance().addStrCode("%s");
         }
 
         return value;
