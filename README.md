@@ -12,7 +12,7 @@ As linguagens de programação são um dos alicerces do estudo da Ciência da Co
 
 ## Download<br/>
 Para executar o projeto é necessário apenas fazer o download do mesmo, e em seguida importá-lo como projeto maven utilizando a IDE de sua preferência.<br/>
-Mas se a intenção é apenas executar o projeto a fim de utilizar suas funções, existe um arquivo Language2M.jar no diretório /files que poderá ser executado para este fim.
+Mas se a intenção é apenas executar o projeto a fim de utilizar suas funções, existe um arquivo Language2M.zip no diretório /files que contém o arquivo .jar do projeto e suas respectivas bibliotecas, que poderá ser executado para este objetivo.
 
 
 
