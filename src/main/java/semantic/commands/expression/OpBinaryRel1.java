@@ -42,9 +42,9 @@ public class OpBinaryRel1 extends OpBinary {
             } else if (operator.equals("<")) {
                 result = LLVMBuildFCmp(builderRef, LLVMRealOLT, left, right, SemanticAnalyzer.getInstance().tempGenerator());
             } else if (operator.equals(">=")) {
-                result = LLVMBuildICmp(builderRef, LLVMRealOGE, left, right, SemanticAnalyzer.getInstance().tempGenerator());
+                result = LLVMBuildFCmp(builderRef, LLVMRealOGE, left, right, SemanticAnalyzer.getInstance().tempGenerator());
             } else if (operator.equals("<=")) {
-                result = LLVMBuildICmp(builderRef, LLVMRealOLE, left, right, SemanticAnalyzer.getInstance().tempGenerator());
+                result = LLVMBuildFCmp(builderRef, LLVMRealOLE, left, right, SemanticAnalyzer.getInstance().tempGenerator());
             }
         }
 
