@@ -2,7 +2,7 @@
 
 Trabalho de Conclusão de Curso - Instituto de Computação - UFAL
 
-Este repositório contém o código da Linguagem 2M, que foi desenvolvida por Maxwell Acioli, para obtenção do grau de Bacharel emCiência de Computação do Instituto de Computação da Universidade Federal de Alagoas.
+Este repositório contém o código da Linguagem 2M, que foi desenvolvida por Maxwell Acioli, para obtenção do grau de Bacharel em Ciência de Computação do Instituto de Computação da Universidade Federal de Alagoas.
 
 ## Tema<br/>
 **Projeto e Implementação de uma Linguagem deProgramação com Analisador Sintático Misto, comum Estudo de Caso sobre o Framework LLVM**
